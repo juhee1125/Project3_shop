@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.travel.seoul.mapper.ProductOptionMapper">
+ 	<insert id="optioninsert" parameterType="com.travel.seoul.vo.ProductOptionVO">
+ 		insert into prouctoptiondb(po_name, po_option, po_optiondetail) values
+ 		(#{po_name}, #{po_option}, #{po_optiondetail})
+ 	</insert>
+ 	<select id="optionlist" resultType="com.travel.seoul.vo.ProductOptionVO">
+ 		select * from prouctoptiondb	
+ 	</select>
+ 	<select id="findByoptionName" resultType="com.travel.seoul.vo.ProductOptionVO">
+ 		select * from prouctoptiondb where po_name = #{po_name}
+ 	</select>
+ 	<update id="optionupdate" parameterType="com.travel.seoul.vo.ProductOptionVO">
+	    update prouctoptiondb set 
+	    po_name=#{po_name}, po_option=#{po_option}, po_optiondetail=#{po_optiondetail}
+	    where po_num=#{po_num}
+	</update>
+ 	<delete id="optionnameDelete" parameterType="com.travel.seoul.vo.ProductOptionVO">
+	    delete from prouctoptiondb where po_name = #{po_name}
+	</delete>
+	<delete id="optionnumDelete" parameterType="com.travel.seoul.vo.ProductOptionVO">
+	    delete from prouctoptiondb where po_num = #{po_num}
+	</delete>
+</mapper>

@@ -1,0 +1,9 @@
+.label {
+	font-family: 'noto';
+	font-size: 25px;
+	color: #171717;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    top: 5em;
+}
