@@ -92,7 +92,7 @@ public class ShopController {
     	
     	return "user/Sun";
     }
-  //베이스메이크업 상품
+    //베이스메이크업 상품
     @GetMapping("/base")
     public String base(Model model, HttpSession session) {
     	List<ProductVO> basecategorylist = ProductMapper.findByCategory("base");
@@ -118,7 +118,7 @@ public class ShopController {
     	
     	return "user/Base";
     }
-  //아이메이크업 상품
+    //아이메이크업 상품
     @GetMapping("/eye")
     public String eye(Model model, HttpSession session) {
     	List<ProductVO> eyecategorylist = ProductMapper.findByCategory("eye");
@@ -144,7 +144,7 @@ public class ShopController {
     	
     	return "user/Eye";
     }
-  //베이스메이크업 상품
+    //베이스메이크업 상품
     @GetMapping("/lip")
     public String lip(Model model, HttpSession session) {
     	List<ProductVO> lipcategorylist = ProductMapper.findByCategory("lip");

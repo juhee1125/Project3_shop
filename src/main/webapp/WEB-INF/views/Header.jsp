@@ -26,8 +26,8 @@
 	    <img src="/resources/img/icon/마이.png" class="my">
     </nav>
     <nav class="nav2">
-	    <img src="/resources/img/로고1.png" class="logo-mobile" onclick="location.href='/'">
-	    <a href="/" class="logo">Brillux</a>
+	    <img src="/resources/img/로고1.png" class="logo-mobile" onclick="location.href='/main'">
+	    <a href="/main" class="logo">Brillux</a>
 	    <a href="/shop/skin" id="skin">스킨케어</a>
 	    <a href="/shop/sun" id="sun">선케어</a>
 	    <a href="/shop/base" id="base">베이스 메이크업</a>

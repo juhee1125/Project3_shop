@@ -45,7 +45,6 @@ function IDremember() {
     var userID = $('.userID').val();
 
     if (rememberCheck) {
-        // 쿠키 만료 기간
         var expireDays = 30;
         var date = new Date();
         date.setTime(date.getTime() + expireDays * 24 * 60 * 60 * 1000);
@@ -57,7 +56,6 @@ function setUserIDFromCookie() {
     for (var i = 0; i < cookies.length; i++) {
         var cookie = cookies[i].trim();
         if (cookie.startsWith("userID=")) {
-			//"userID=" 부분을 제외한 문자열을 추출
             var userID = cookie.substring("userID=".length);
             $('.userID').val(userID);
             break;

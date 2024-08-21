@@ -10,7 +10,7 @@
 		width: 100%;
 	}
 	.shopbutton {
-	    top: 17em;
+	    top: 18em;
 	}
 }
 body{
@@ -40,10 +40,11 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10px;
 }
 
 #img1{
-    height: 100%;
+    width: 100%;
 }
 .shopbutton {
 	position: absolute;
@@ -55,11 +56,125 @@ body{
     background-color: transparent;
     width: 18em;
     height: 50px;
-    bottom: 6em;
+    bottom: 7em;
     /* z-index: 999; */
 }
 .shopbutton:hover {
 	background-color: rgba(255, 255, 255, 0.4);
+}
+
+.recommendtitle {
+	font-family: 'noto';
+	font-size: 25px;
+}
+#slideShow {
+  width: 1050px;
+  height: 600px;
+  position: relative;
+  margin: 100px auto; 
+  overflow: hidden;
+}
+.slides {
+  display: flex; /* 슬라이드들을 옆으로 정렬하기 위해 플렉스박스를 사용합니다 */
+} 
+.slides div {
+  float: left;
+  text-align: center;
+  font-family: 'noto';
+  margin: 0 15px;
+}
+.mainimg{
+	width: 20em;
+    height: 20em;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 10px;
+}
+.product-set {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    flex: 0 0 calc(25% - 20px);
+}
+.productlabel {
+	font-size: 17px;
+	margin: 10px 0 25px 0;
+	line-height: 25px;
+	cursor: pointer;
+}
+.namediv {
+	font-family: 'noto';
+	line-height: 25px;
+    text-align: center;
+    font-size: 17px;
+    margin: 10px 0 25px 0;
+}
+.pricediv {
+    margin-bottom: 26px;
+}
+.discounted-price {
+    font-size: 15px;
+    font-family: 'noto-reg';
+    color: gray;
+    text-decoration: line-through;
+}
+.discountdiv{
+	margin-top: 10px;
+}
+.discount{
+	font-size: 19px;
+    font-family: 'noto';
+    color: #e13232;
+    padding-right: 15px;
+}
+.price {
+	font-size: 20px;
+    font-family: 'noto';
+}
+
+.pathdiv {
+    margin: 10px 0;
+}
+
+.imgdiv {
+	margin-top: 2em;
+}
+.heartimg {
+	width: 30px;
+	margin-right: 120px;
+}
+.cartimg {
+	width: 30px;
+	margin-left: 120px;
+}
+.icon-container {
+    margin-top: 2em;
+}
+.price-container {
+    margin-top: 10px;
+}
+.controller span {
+  position: absolute;
+  background-color: transparent;
+  color: black;
+  text-align: center;
+  border-radius: 50%;
+  padding: 10px 20px;
+  top: 100px;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.controller{
+  z-index:1;
+  width: 1400px;
+  position: absolute;
+  left:50%;
+  top: 1130px;
+  transform:translate(-50%, -50%);
+}
+.next {
+  right: 10px;
 }
 
 @keyframes scrlDwnIndc {
