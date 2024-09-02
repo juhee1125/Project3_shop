@@ -4,7 +4,7 @@ function updateImageSrc() {
 	var width = window.innerWidth;
 	
 	if (width <= 600) {
-	  img.src = "resources/img/메인이미지2모바일.jpg";
+		img.src = "resources/img/메인이미지2모바일.jpg";
 	}
 	else {
 		img.src = "resources/img/메인이미지2.jpg";
@@ -47,3 +47,4 @@ $(document).ready(function () {
     }
   });
 });
+

@@ -19,6 +19,8 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/resources/css/user/Main.css" /> 
 <script src="/resources/js/user/Main.js"></script>
+<script src="/resources/js/user/Pagemove.js"></script>
+<script src="/resources/js/user/Skin.js"></script>
 <body>
 <form action="/shop/skin" method="get">
     <div class="wrap">
@@ -49,7 +51,9 @@
 	                    <label class="productlabel">${product.key}</label>
 		                <c:choose>
 		                    <c:when test="${listdiscount[status.index] != null}">
-		                        <label class="discounted-price">${listprice[status.index]}원</label>
+			                    <label class="discounted-price">
+								    <fmt:formatNumber value="${listprice[status.index]}" type="number" groupingUsed="true"/>원
+								</label>
 		                        <span class="price-container">
 			                        <label class="discount">${listdiscount[status.index]}%</label>
 			                        <label class="price">

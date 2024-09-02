@@ -10,7 +10,37 @@
 		width: 100%;
 	}
 	.shopbutton {
-	    top: 18em;
+	    top: 18.5em;
+        height: 40px !important;
+	}
+	.recommendtitle {
+		font-size: 20px !important;
+		top: 25px;
+        position: relative;
+	}
+	#slideShow {
+		width: 100% !important;
+	}
+	.slides {
+		/*이미지들이 담겨있는 슬라이드 컨테이너*/
+		position: absolute;
+		left: 0 !important;
+		top: 0;	
+		width: 1200px !important; /* 슬라이드할 사진과 마진 총 넓이 */
+	} 
+	.slides div{
+		width:1000px;
+		height:525px;
+	}
+	/* 첫 번째 슬라이드 가운데에 정렬하기위해 첫번째 슬라이드만 margin-left조정 */
+	.slides div:first-child {
+	  margin-left: 85px;
+	} /* 슬라이드들 옆으로 정렬 */
+	.slides div:not(:last-child) {
+	  margin-right: 100px;
+	}
+	.controller {
+		display: none;
 	}
 }
 body{
@@ -68,20 +98,20 @@ body{
 	font-size: 25px;
 }
 #slideShow {
-  width: 1050px;
-  height: 600px;
-  position: relative;
-  margin: 100px auto; 
-  overflow: hidden;
+	width: 1050px;
+	height: 600px;
+	position: relative;
+	margin: 100px auto; 
+	overflow: hidden;
 }
 .slides {
-  display: flex; /* 슬라이드들을 옆으로 정렬하기 위해 플렉스박스를 사용합니다 */
+	display: flex;
 } 
 .slides div {
-  float: left;
-  text-align: center;
-  font-family: 'noto';
-  margin: 0 15px;
+	float: left;
+	text-align: center;
+	font-family: 'noto';
+	margin: 0 15px;
 }
 .mainimg{
 	width: 20em;

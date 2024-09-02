@@ -203,9 +203,9 @@ public class ShopController {
     		}
     		else {
     			System.out.println("좋아요 해제");
-				System.out.println("좋아요 삭제");
+    			System.out.println("productName:"+productName);
 				LikeMapper.likenameDelete(productName);
-				
+				System.out.println("좋아요 삭제");
     			return ResponseEntity.ok("좋아요 삭제");
     		}	
     	}

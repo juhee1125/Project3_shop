@@ -3,6 +3,7 @@ package com.travel.seoul.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -55,7 +56,8 @@ public class RecommendController {
 		
 		UserVO user = (UserVO) session.getAttribute("loginMember");
 		String loginuser = "";
-		if (user == null || user.equals("")) {
+		
+		if (user == null || user.equals("") || likemapper.findByID(user.getM_id()) == null || likemapper.findByID("tester3").isEmpty()) {
 			loginuser = "notlogin";
 		}
 		else {
@@ -64,14 +66,14 @@ public class RecommendController {
 			model.addAttribute("likeloginlist", likemapper.findByID(loginuser));
 		}
 		String likeAPI = recommendservice.recommendAPI("http://localhost:5000/recommend", "like", jsonList, loginuser, "500", "json", "20240804");
-		System.out.println(likeAPI);
+		System.out.println("likeAPI: "+likeAPI);
 		//json list로 변환
 		Type listType = new TypeToken<List<String>>(){}.getType();
         List<String> stringList = gson.fromJson(likeAPI, listType);
         System.out.println(stringList);
         
         List<ProductPathVO> pathlist = ProductPathMapper.pathlist();
-        Map<String, String> productPathMap = new HashMap<>();
+        Map<String, String> productPathMap = new LinkedHashMap<>();;
 
 	    // pathlist를 순회하며 첫 번째 경로만 저장
 	    for (ProductPathVO path : pathlist) {

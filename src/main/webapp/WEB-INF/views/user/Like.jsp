@@ -19,7 +19,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <link rel="stylesheet" type="text/css" href="/resources/css/user/Like.css" /> 
-<script src="/resources/js/user/Like.js"></script>
+<script src="/resources/js/user/Main.js"></script>
+<script src="/resources/js/user/Pagemove.js"></script>
 <body>
     <div class="wrap">
     	<select id="job" name="job" size="1">
@@ -39,7 +40,7 @@
 			                    <img src="/admin/${like_categorypathList[status.index]}" class="mainimg">
 			                </div>
 			                <div class="namediv">
-			                    <label>${productselect.p_name}</label>
+			                    <label class="productlabel">${productselect.p_name}</label>
 			                </div>
 			                <div>
 				                <c:choose>
@@ -73,7 +74,7 @@
 			                    <img src="/admin/${likepathlist[status.index]}" class="mainimg">
 			                </div>
 			                <div class="namediv">
-			                    <label>${product.p_name}</label>
+			                    <label class="productlabel">${product.p_name}</label>
 			                </div>
 			                <div>
 				                <c:choose>
@@ -108,6 +109,7 @@
         <img src="resources/img/icon/up-arrow-angle.png" id="up">
     </a> -->
 </body>
+<script src="/resources/js/user/Like.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </html>

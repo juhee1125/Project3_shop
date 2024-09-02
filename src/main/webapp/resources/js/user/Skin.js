@@ -14,7 +14,6 @@ $(document).ready(function() {
 			$(this).attr('src', '/resources/img/icon/채운찜.png');
 			likeaction="liked";
         }
-		
 		var data={
 			"likeaction": likeaction,
 			"productName": productName

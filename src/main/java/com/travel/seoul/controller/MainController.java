@@ -35,7 +35,7 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String main() {		
-		return "user/Main";
+		return "forward:/recommend";
 	}	
 	@GetMapping("/main")
 	public String mainprocess(HttpSession session, UserVO vo) {
@@ -43,6 +43,9 @@ public class MainController {
 		List<AdminVO> Adminlist = adminMapper.adminlist();
 		String AdminID = null;
 		String Adminname = null;
+		if (user == null || user.equals("")) {
+			return "redirect:/";
+		}
 		for (AdminVO admin : Adminlist) {
 			if (user.getM_id().equals(admin.getA_id())) {
 				AdminID = admin.getA_id();
@@ -64,27 +67,27 @@ public class MainController {
 		}
 	}
 	
-	private static final String UPLOAD_DIR = "C://upload//";
-    @GetMapping("/display/{fileName:.+}")
-    @ResponseBody
-    public ResponseEntity<Resource> displayImage(@PathVariable String fileName) {
-        System.out.println("Requested file name: " + fileName);
-        File file = new File(UPLOAD_DIR + fileName);
-
-        if (!file.exists()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-
-        try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.add("Content-Type", Files.probeContentType(file.toPath()));
-
-            Resource resource = new FileSystemResource(file);
-
-            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }	
+//	private static final String UPLOAD_DIR = "C://upload//";
+//    @GetMapping("/display/{fileName:.+}")
+//    @ResponseBody
+//    public ResponseEntity<Resource> displayImage(@PathVariable String fileName) {
+//        System.out.println("Requested file name: " + fileName);
+//        File file = new File(UPLOAD_DIR + fileName);
+//
+//        if (!file.exists()) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
+//
+//        try {
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.add("Content-Type", Files.probeContentType(file.toPath()));
+//
+//            Resource resource = new FileSystemResource(file);
+//
+//            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+//        }
+//    }	
 }

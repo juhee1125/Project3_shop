@@ -60,6 +60,7 @@ body{
     text-align: center;
     font-size: 17px;
     margin: 10px 0 25px 0;
+    cursor: pointer;
 }
 .pricediv {
     margin-bottom: 26px;
@@ -97,8 +98,11 @@ body{
 }
 .cartimg {
 	width: 30px;
-	margin-left: 100px;
-	
+	margin-left: 100px;	
+}
+
+.productlabel {
+	cursor: pointer;
 }
 
 @keyframes scrlDwnIndc {

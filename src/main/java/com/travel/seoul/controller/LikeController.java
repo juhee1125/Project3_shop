@@ -45,7 +45,7 @@ public class LikeController {
     @GetMapping("/like")
     public String like(Model model, HttpSession session) {
     	System.out.println("좋아요 controller");
-    	
+
     	UserVO user = (UserVO) session.getAttribute("loginMember");
     	if(user==null) {
     		return "/user/loginfirst";

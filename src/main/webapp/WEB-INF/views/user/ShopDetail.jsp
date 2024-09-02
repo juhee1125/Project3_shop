@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/Header.jsp" %>
+<!-- 할인율 적용한 가격 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
@@ -13,15 +15,59 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<link rel="stylesheet" type="text/css" href="/resources/css/user/Main.css" /> 
+<link rel="stylesheet" type="text/css" href="/resources/css/user/ShopDetail.css" /> 
 <script src="/resources/js/user/Main.js"></script>
 <body>
-    <div class="wrap">
-        <div class="container">
-            <img id="img1">
-            <button class="shopbutton">Shop</button>
-        </div>  
-    </div>   
+	<div class="container">
+		<div>
+			<c:forEach var="pathimage" items="${productpathlist}" varStatus="status">
+		    	<c:if test="${status.index == 0}">
+		    		<img src="/admin/${pathimage}" class="mainimage">
+		    	</c:if>
+		    	<c:if test="${status.index > 0}">
+		    		<img src="/admin/${pathimage}" class="subimage">
+		    	</c:if>
+	    	</c:forEach>
+		</div>
+	    <div class="infodiv">
+	    	<c:forEach var="product" items="${productlist}" varStatus="status">
+                <label class="infodivlabel">${product.p_name}</label>
+            	<div class="infodivprice">
+	                <c:choose>
+	                    <c:when test="${product.p_discount != null}">
+                        	<label class="discounted-price">
+							    <fmt:formatNumber value="${product.p_price}" type="number" groupingUsed="true"/>원
+							</label>
+<%-- 	                        <label class="discount">${product.p_discount}%</label> --%>
+	                        <label class="price">
+	                        	<fmt:formatNumber value="${product.p_price-(product.p_price * (product.p_discount / 100))}" type="number" maxFractionDigits="0"/>원
+							</label>
+	                    </c:when>
+	                    <c:otherwise>
+	                    	<div class="pricediv">
+	                    		<label class="price">${product.p_price}원</label>
+	                    	</div>
+	                    </c:otherwise>
+	                </c:choose>
+                </div>
+	        </c:forEach> 
+	        <c:choose>
+		    	<c:when test="${productoptionlist.size() > 0}">
+			        <select class="infodivselect">
+			        	<option>상품을 선택해주세요</option>
+				        <c:forEach var="option" items="${productoptionlist}" varStatus="status"> 	
+			        		<option>${option.po_option}${option.po_optiondetail}</option>
+				        </c:forEach>
+				    </select>
+				</c:when>
+			</c:choose>
+			<div class="imgdiv">
+				<button class="imgdivbutton">장바구니</button>
+				<button class="imgdivbutton">바로구매</button>
+                <img src="${heartImgSrc}" class="heartimg liked">
+            </div>
+	    </div>
+	</div>
     <!-- 맨위로 버튼 -->
     <a id="btn_gotop" href="#">
         <img src="resources/img/icon/up-arrow-angle.png" id="up">
