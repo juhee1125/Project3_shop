@@ -17,6 +17,8 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/resources/css/user/ShopDetail.css" /> 
 <script src="/resources/js/user/Main.js"></script>
+<script src="/resources/js/user/Skin.js"></script>
+<script src="/resources/js/user/ShopDetail.js"></script>
 <body>
 	<div class="container">
 		<div>
@@ -38,14 +40,15 @@
                         	<label class="discounted-price">
 							    <fmt:formatNumber value="${product.p_price}" type="number" groupingUsed="true"/>원
 							</label>
-<%-- 	                        <label class="discount">${product.p_discount}%</label> --%>
 	                        <label class="price">
 	                        	<fmt:formatNumber value="${product.p_price-(product.p_price * (product.p_discount / 100))}" type="number" maxFractionDigits="0"/>원
 							</label>
 	                    </c:when>
 	                    <c:otherwise>
 	                    	<div class="pricediv">
-	                    		<label class="price">${product.p_price}원</label>
+	                    		<label class="price">
+	                    			<fmt:formatNumber value="${product.p_price}" type="number" maxFractionDigits="0"/>원
+	                    		</label>
 	                    	</div>
 	                    </c:otherwise>
 	                </c:choose>
@@ -53,14 +56,54 @@
 	        </c:forEach> 
 	        <c:choose>
 		    	<c:when test="${productoptionlist.size() > 0}">
-			        <select class="infodivselect">
+			        <select class="infodivselect" onchange="clickoption(this)">
 			        	<option>상품을 선택해주세요</option>
 				        <c:forEach var="option" items="${productoptionlist}" varStatus="status"> 	
 			        		<option>${option.po_option}${option.po_optiondetail}</option>
 				        </c:forEach>
 				    </select>
 				</c:when>
-			</c:choose>
+				<c:otherwise>
+					<div class="totalquantity">
+						<label>구매수량</label>
+						<div class="buttonDiv">
+							<button class="minusBtn"></button>
+							<input class="quantityinput" value="1"></input>
+							<button class="plusBtn"></button>
+						</div>
+            		</div>
+				</c:otherwise>
+			</c:choose>		
+            <div id="options-container"></div>	
+            <c:choose>
+		    	<c:when test="${productoptionlist.size() > 0}">
+		    		<div class="totalprice">
+	                	<label class="totallabel">총액</label>
+	                	<label class="totalpricelabel">
+                   			<fmt:formatNumber value="0" type="number" maxFractionDigits="0"/>원
+                   		</label>
+		            </div> 
+		    	</c:when>
+		    	<c:otherwise>
+		    		<div class="totalprice">
+		                <c:forEach var="product" items="${productlist}" varStatus="status">
+		                	<label class="totallabel">총액</label>
+			                <c:choose>
+			                    <c:when test="${product.p_discount != null}">
+			                        <label class="totalpricelabel">
+			                        	<fmt:formatNumber value="${product.p_price-(product.p_price * (product.p_discount / 100))}" type="number" maxFractionDigits="0"/>원
+									</label>
+			                    </c:when>
+			                    <c:otherwise>
+		                    		<label class="totalpricelabel">
+		                    			<fmt:formatNumber value="${product.p_price}" type="number" maxFractionDigits="0"/>원
+		                    		</label>
+			                    </c:otherwise>
+			                </c:choose>
+				        </c:forEach> 
+		            </div> 
+		    	</c:otherwise>
+		    </c:choose>  
 			<div class="imgdiv">
 				<button class="imgdivbutton">장바구니</button>
 				<button class="imgdivbutton">바로구매</button>

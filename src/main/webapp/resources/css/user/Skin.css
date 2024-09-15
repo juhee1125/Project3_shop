@@ -59,6 +59,9 @@ body{
     font-size: 17px;
     margin: 10px 0 25px 0;
 }
+.productlabel {
+	cursor: pointer;
+}
 .pricediv {
     margin-bottom: 26px;
 }

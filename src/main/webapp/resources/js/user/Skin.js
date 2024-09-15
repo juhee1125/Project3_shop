@@ -1,6 +1,13 @@
 $(document).ready(function() {
     $('.heartimg').click(function() {
-		var productName = $(this).closest('.product-set').find('.namediv label').text();
+		var productName = $(this).closest('.product-set').find('.namediv .productlabel').text();
+		console.log("productName",productName)
+		if (!productName) {
+            var productName = $(this).closest('.product-set').find('.productlabel').text() 
+                  || $(this).closest('.infodiv').find('.infodivlabel').text();
+			console.log(productName)
+        }
+		
 		var likeaction="";
 		
 		if ($(this).hasClass('liked')) {
@@ -60,11 +67,11 @@ function gotodetail(productname) {
     });
 }
 $('.mainimg').unbind().click(function() {
-    var productname = $(this).data('productname'); // 예를 들어, data 속성을 이용하여 상품명을 가져올 수 있음
+    var productname = $(this).data('productname'); 
     gotodetail(productname);
 });
 
 $('.namediv label').unbind().click(function() {
-    var productname = $(this).text(); // label의 텍스트를 상품명으로 사용할 경우
+    var productname = $(this).text();
     gotodetail(productname);
 });

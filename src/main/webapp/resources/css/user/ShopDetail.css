@@ -56,6 +56,7 @@ body{
 	width: 100%;
 	display: flex;
     flex-direction: column;
+    color: #171717;
 }
 .infodivlabel{
 	font-size: 22px;
@@ -96,7 +97,73 @@ body{
     border: none;
     color: #757575;
     width: 100%;
+    margin-top: 40px;
+}
+
+.option-group{
+	width: 100%;
+    background-color: #F7F8F7;
     margin-top: 20px;
+    font-family: 'noto';
+    font-size: 17px;
+}
+
+.totalquantity {
+	width: 100%;
+    background-color: #F7F8F7;
+    margin-top: 40px;
+    font-family: 'noto';
+    font-size: 17px;
+}
+.buttonDiv {
+	margin-top: 20px;
+    max-width: 138px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    display: flex;
+}
+.minusBtn, .plusBtn{
+	width: 29px;
+    height: 35px;
+    border: 0;
+    background-size: 80%;
+    background-position: center;
+    cursor: pointer;
+}
+.minusBtn{
+	background-image: url(/resources/img/icon/마이너스2.png);
+}
+.plusBtn{
+	background-image: url(/resources/img/icon/플러스.png);
+}
+.quantityinput{
+	width: 60px;
+    height: 35px;
+    padding: 0 10px;
+    border: 0;
+    text-align: center;
+    color: #171717;
+    font-size: 17px;
+    font-family: noto;
+}
+
+.totalprice{
+	margin-top: auto;	
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #e12121;
+    padding-bottom: 10px;
+}
+.totallabel{
+	font-size: 20px;
+    font-family: 'noto';
+    color: #e12121;
+}
+.totalpricelabel{
+	font-size: 24px;
+    font-family: 'noto';
+    color: #e12121;
 }
 
 .imgdiv{

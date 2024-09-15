@@ -20,6 +20,7 @@
 </head>
 <link rel="stylesheet" type="text/css" href="/resources/css/user/Skin.css" /> 
 <script src="/resources/js/user/Skin.js"></script>
+<script src="/resources/js/user/Pagemove.js"></script>
 <body>
     <div class="wrap">
         <div class="container">
@@ -32,7 +33,7 @@
 	                    <img src="/admin/${lippathlist[status.index]}" class="mainimg">
 	                </div>
 	                <div class="namediv">
-	                    <label>${product.p_name}</label>
+	                    <label class="productlabel">${product.p_name}</label>
 	                </div>
 	                <div>
 		                <c:choose>
