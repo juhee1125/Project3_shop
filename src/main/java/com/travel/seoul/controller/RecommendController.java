@@ -57,7 +57,7 @@ public class RecommendController {
 		UserVO user = (UserVO) session.getAttribute("loginMember");
 		String loginuser = "";
 		
-		if (user == null || user.equals("") || likemapper.findByID(user.getM_id()) == null || likemapper.findByID("tester3").isEmpty()) {
+		if (user == null || user.equals("") || likemapper.findByID(user.getM_id()) == null || likemapper.findByID(user.getM_id()).isEmpty()) {
 			loginuser = "notlogin";
 		}
 		else {

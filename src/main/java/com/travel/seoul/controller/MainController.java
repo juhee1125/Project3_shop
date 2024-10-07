@@ -66,28 +66,4 @@ public class MainController {
 			return "forward:/recommend";
 		}
 	}
-	
-//	private static final String UPLOAD_DIR = "C://upload//";
-//    @GetMapping("/display/{fileName:.+}")
-//    @ResponseBody
-//    public ResponseEntity<Resource> displayImage(@PathVariable String fileName) {
-//        System.out.println("Requested file name: " + fileName);
-//        File file = new File(UPLOAD_DIR + fileName);
-//
-//        if (!file.exists()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//
-//        try {
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.add("Content-Type", Files.probeContentType(file.toPath()));
-//
-//            Resource resource = new FileSystemResource(file);
-//
-//            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }	
 }

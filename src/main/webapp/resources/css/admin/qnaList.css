@@ -1,0 +1,233 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+body{
+	font-family:noto-reg;
+	background-color:#F0F0F0;
+	color: #171717;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.memberlist {
+    width: 85em;
+    margin: 100px 25px 25px 355px;
+}
+
+.memberlist h2 {
+    margin-bottom: 30px;
+    background-image: url('/resources/img/member_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px;
+    opacity: 0;
+    border-radius: 5px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+#searchForm{
+	margin-bottom:1em;
+	margin-left: 62em;
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.searchFormselect {
+	font-family: 'noto-reg';
+    padding: 9px;
+    border: none;
+}
+.searchForminput {
+	font-family: 'noto-reg';
+    padding: 10px;
+    border: none;
+    margin: 5px 15px 5px 5px;
+}
+.searchFormB {
+	font-family: 'noto';
+    background-color: #F8CFBD;
+    border: none;
+    padding: 10px 20px;
+}
+
+.mlist {
+	border-top: 2px solid #000000;
+	background-color: white;
+}
+ 
+.mlist > div.top {
+    border-color: #999;
+}
+
+.mlist > div:first-child{
+	border-bottom: 1px solid #999;
+}
+.mlist > div:last-child {
+    border-bottom: 1px solid #000;
+}
+.mlist > div:last-child:after {
+    border-bottom: 1px solid #000;
+}
+
+.mlist > div > div {
+    display: inline-block;
+    padding: 15px 0;
+    text-align: center;
+}
+
+.mlist > div.top > div {
+    font-weight: 600;
+}
+.memberlistlabel {
+	font-family: 'noto';
+    font-size: 30px;
+    position: absolute;
+}
+.actiondiv {
+	display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    top: 11.5em;
+    right: 40em;
+}
+.adminAction {
+    font-family: 'noto-reg';
+    padding: 9px;
+    border: none;
+    margin-right: 1em;
+}
+.AdminActionB {
+	font-family: 'noto';
+    background-color: #F8CFBD;
+    border: none;
+    padding: 10px 20px;
+}
+.mlist .listcheckbox {
+	width: 5%;
+}
+.mlist .num {
+    width: 10%;
+}
+.mlist .name {
+    width: 15%;
+}
+.mlist .id {
+    width: 20%;
+}
+
+.mlist .top .title {
+    text-align: center;
+}
+
+.mlist .top:hover {
+    background-color: initial;
+}
+
+.mlist .top .num {
+    background-color: initial;
+}
+
+.mlist .title {
+    width: 40%;
+    cursor: pointer;
+}
+.mlist .content {
+    width: 40%;
+}
+.mlist .date {
+    width: 20%;
+}
+.mlist .status {
+    width: 10%;
+}
+
+.mtitle {
+	font-family:noto;
+	display: flex;
+    align-items: center; /* Align items vertically */
+}
+.mtitle > div {
+    width: 100%; /* Each child div takes up 100% width of its parent */
+}
+.mpage {
+	display: flex;
+    align-items: center; /* Align items vertically */
+}
+
+@media (max-width: 1000px) {
+    .memberlist {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .mlist .num,
+    .mlist .id,
+    .mlist .pw,
+    .mlist .name,
+    .mlist .sex,
+    .mlist .age,
+    .mlist .area1,
+    .mlist .area2,
+    .mlist .area3,
+    .mlist .role
+    .mlist .kang {
+        display: none;
+    }
+
+    .mlist .mtitle {
+        text-indent: 10px;
+        font-family:noto;
+    }
+
+    .mpage div {
+        text-indent: 0;
+    }
+
+    .mpage button {
+        width: 26px;
+        height: 26px;
+        padding-top: 7px;
+    }
+
+    .mpage button.num {
+        padding-top: 6px;
+    }
+
+    .mlist form {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .mlist form input[type="hidden"] {
+        width: 100%;
+    }
+}

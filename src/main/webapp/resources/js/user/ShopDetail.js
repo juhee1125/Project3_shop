@@ -4,7 +4,8 @@ function clickoption(select) {
     var selectoption = select.value;
 	const totalprice = document.querySelector('.totalpricelabel');
 	productlabel = $('.options-container').closest('.option-group').find('.option-detailgroup').text();
-	console.log(productlabel);
+	console.log(productlabel)
+	const basicprice = document.querySelector('.price');
 	
     // 기본 옵션(상품을 선택해주세요)이 선택된 경우 아무 작업도 하지 않음
     if (!selectoption || selectoption === '상품을 선택해주세요') {
@@ -16,10 +17,14 @@ function clickoption(select) {
         // 이미 존재하면 수량만 증가
         var existingInput = optionQuantities[selectoption].querySelector('input');
         existingInput.value = parseInt(existingInput.value) + 1;
-		var parentdetailDiv = this.closest('.option-detailgroup');
-		var pricelabel = parentdetailDiv.querySelector('label');
-		var currentprice = parseInt(pricelabel.value);
-		console.log(currentprice)
+
+		var existingLabel = optionQuantities[selectoption].querySelector('label');
+		let pricelabelplus = parseInt(existingLabel.textContent.replace(/[^0-9]/g, ''));
+		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
+		existingLabelupdate = (pricelabelplus + basicpricelabelplus);
+		existingLabel.textContent = existingLabelupdate.toLocaleString() + '원';
+		console.log(existingLabel.textContent)
+		
     } else {
         // 새로운 옵션 div 생성
         var newDiv = document.createElement('div');
@@ -61,6 +66,7 @@ function clickoption(select) {
     	cancelbutton.style.marginTop = '20px';
 		newDiv2.appendChild(cancelbutton);
 		
+		
 		cancelbutton.onclick = function() {
 	        var parentDiv = this.closest('.option-group');
 		    document.getElementById('options-container').removeChild(parentDiv);
@@ -86,7 +92,8 @@ function clickoption(select) {
 		// 총액
 		let pricelabeloption = parseInt(pricelabel.textContent.replace(/[^0-9]/g, ''));
 		let totalpriceoption = parseInt(totalprice.textContent.replace(/[^0-9]/g, ''));
-		totalpriceoption += pricelabeloption;
+		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
+		totalpriceoption += (pricelabeloption);
 		totalprice.textContent = totalpriceoption.toLocaleString() + '원';
     }
     select.selectedIndex = 0;
@@ -136,19 +143,20 @@ function quantityoption(newDiv, selectoption) {
     minusBtn.onclick = function() {
         quantityinput.value--;
         if (quantityinput.value == 0) {
-            document.getElementById('options-container').removeChild(newDiv);
-            delete optionQuantities[selectoption];
+			quantityinput.value=1;
         }
     };
     return buttonDiv;
 }
 
+//옵션이 없을때
 document.addEventListener('DOMContentLoaded', function() {
     const minusBtn = document.querySelector('.minusBtn');
     const plusBtn = document.querySelector('.plusBtn');
     const quantityInput = document.querySelector('.quantityinput');
 	const totalprice = document.querySelector('.totalpricelabel');
 	const originalprice = document.querySelector('.price');
+	const basicprice = document.querySelector('.price');
 
 	minusBtn.addEventListener('click', function() {
         quantityInput.value--;
@@ -165,7 +173,136 @@ document.addEventListener('DOMContentLoaded', function() {
     plusBtn.addEventListener('click', function() {
         quantityInput.value++;
 		let totalpriceplus = parseInt(totalprice.textContent.replace(/[^0-9]/g, ''));
-		totalpriceplus += totalpriceplus;
+		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
+		totalpriceplus += basicpricelabelplus;
 		totalprice.textContent = totalpriceplus.toLocaleString() + '원';
     });
 });
+
+//상세정보 탭
+$(document).ready(function(){
+	$('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	})
+});
+
+//상품문의
+$(document).ready(function() {
+    $('.tabbutton').click(function() {
+		const currentUrl = window.location.href;
+		$.ajax({
+	        type: 'POST',
+	        url: "/detail/ProductQnA",
+			contentType: "application/json",
+	        data: JSON.stringify({"redirectUrl":currentUrl}),
+	        success: function (data) {
+				if (data.message==="로그인페이지로 이동"){
+					window.location.href = "/login/login";
+				}
+				else if (data.message==="정보입력"){
+					QnApopupopen();
+				}
+	        }
+	    });
+    });
+});
+
+//상품문의 클릭 시
+function QnApopupopen(){
+	//상품명
+	const infodivlabel = document.querySelector('.infodivlabel').textContent;
+
+	var QnApopupdetail = document.createElement('div');
+	QnApopupdetail.style.display = 'block';
+	QnApopupdetail.style.top = '400px';
+	QnApopupdetail.style.width = '600px';
+	QnApopupdetail.style.height = '480px';
+	QnApopupdetail.style.zIndex = '999';
+	QnApopupdetail.style.left = '50%';
+	QnApopupdetail.style.margin = '-258px 0px 0px -325px';
+	QnApopupdetail.style.position = 'absolute';
+	QnApopupdetail.style.backgroundColor = 'white';
+	QnApopupdetail.style.padding = '20px';
+	//타이틀 div
+	var QnApopupdetaildiv = document.createElement('div');
+	QnApopupdetaildiv.style.borderBottom = '2px solid #171717';
+	QnApopupdetaildiv.style.paddingBottom = '20px';
+	//O&A작성
+	var QnApopuplabel = document.createElement('label');
+	QnApopuplabel.textContent = "상품 QnA";
+	QnApopuplabel.style.fontFamily = "noto";
+	QnApopuplabel.style.fontSize = "25px";
+	QnApopupdetaildiv.appendChild(QnApopuplabel);
+	//엑스버튼
+	var QnApopupimg = document.createElement('img');
+	QnApopupimg.src = "/resources/img/icon/엑스버튼.png";
+	QnApopupimg.style.width = '50px';
+	QnApopupimg.style.position = 'absolute';
+	QnApopupimg.style.top = '10px';
+	QnApopupimg.style.right = '10px';
+	QnApopupimg.style.cursor = 'pointer';
+	QnApopupdetaildiv.appendChild(QnApopupimg);
+	QnApopupimg.onclick = function() {
+        var QnApopup = document.querySelector('.QnApopup');
+        if (QnApopup) {
+            QnApopup.style.display = 'none';
+        }
+    };
+	QnApopupdetail.appendChild(QnApopupdetaildiv);
+	//상품명
+	var QnApopupproductlabel = document.createElement('label');
+	QnApopupproductlabel.textContent = infodivlabel;
+	QnApopupproductlabel.style.fontFamily = 'noto';
+	QnApopupproductlabel.style.color = '#787878';
+	QnApopupproductlabel.style.position = 'absolute';
+	QnApopupproductlabel.style.top = '100px';
+	QnApopupdetail.appendChild(QnApopupproductlabel);
+	//문의내용
+	var QnAcontentBox = document.createElement('textarea');
+	QnAcontentBox.style.width = '595px';
+	QnAcontentBox.style.height = '200px';
+	QnAcontentBox.style.marginTop = '75px';
+	QnAcontentBox.style.fontFamily = 'noto-reg';
+	QnAcontentBox.style.fontSize = '14px';
+	QnAcontentBox.style.resize = 'none';
+	QnAcontentBox.style.color = '#171717';
+	QnAcontentBox.placeholder = '여기에 문의 내용을 적어주세요';
+	QnAcontentBox.setAttribute('required', 'required');
+	QnApopupdetail.appendChild(QnAcontentBox);
+	//등록버튼
+	var QnApopupbutton = document.createElement('button');
+	QnApopupbutton.textContent = "등록";
+	QnApopupbutton.style.backgroundColor = '#f8cfbd';
+	QnApopupbutton.style.border = 'none';
+	QnApopupbutton.style.fontFamily = 'noto';
+	QnApopupbutton.style.fontSize = '16px';
+	QnApopupbutton.style.padding = '8px 55px';
+	QnApopupbutton.style.position = 'absolute';
+	QnApopupbutton.style.left = '15em';
+	QnApopupbutton.style.bottom = '6em';
+	QnApopupbutton.style.cursor = 'pointer';
+	QnApopupbutton.onclick = function() {
+		console.log("상품명: ",infodivlabel);
+		console.log("문의내용: ",QnAcontentBox.value);
+        $.ajax({
+	        type: 'POST',
+	        url: "/detail/ProductQnAprocess",
+			contentType: "application/json",
+	        data: JSON.stringify({"infodivlabel":infodivlabel, "QnAcontentBox":QnAcontentBox.value}),
+	        success: function (data) {
+				location.reload();
+	        }
+	    });
+    };
+	QnApopupdetail.appendChild(QnApopupbutton);
+	
+	//팝업창
+	var QnApopup = document.querySelector('.QnApopup');
+	QnApopup.style.display = 'block';
+
+	QnApopup.appendChild(QnApopupdetail);
+}

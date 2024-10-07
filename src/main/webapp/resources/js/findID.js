@@ -18,12 +18,6 @@ $(document).ready(function() {
 	            console.log(data);
                 $("#findIDLabel").html("회원님의 아이디는 <span id='dataText'>" + data + "</span> 입니다");
 				$("#dataText").css("font-family", "noto");
-				/*else if (data === "이름이 일치하지 않습니다") {
-					findPWerroralert(data);
-				}
-				else if (data === "핸드폰번호가 일치하지 않습니다") {
-					findPWerroralert(data);
-				}*/
 	        },
 	        error: function () {
 				findPWerroralert("일치하는 회원정보가 없습니다");

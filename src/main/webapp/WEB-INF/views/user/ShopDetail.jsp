@@ -111,6 +111,42 @@
             </div>
 	    </div>
 	</div>
+	<div class="tabcontainer">
+		<ul class="tabs">
+		  <li class="tab-link current" data-tab="tab-1">상품설명</li>
+		  <li class="tab-link" data-tab="tab-2">리뷰</li>
+		  <li class="tab-link" data-tab="tab-3">Q&A</li>
+		</ul>
+		
+		<div id="tab-1" class="tab-content current">
+			<img src="/admin/${productdetailpath}" class="tab-content-img">
+		</div>
+		<div id="tab-2" class="tab-content">tab content2</div>
+		<div id="tab-3" class="tab-content">
+			<div class="firsttabdiv">
+				<label class="tablabel">교환/반품 등 자세한 문의는 1:1 문의를 이용해주세요</label>
+				<button class="tabbutton">상품문의</button>
+			</div>
+			<div class="QnApopup" ></div>
+			<div>
+				<c:choose>
+				    <c:when test="${empty QnAlist}">
+				        <label class="qnalistlabel">등록된 상품문의가 없습니다</label>
+				    </c:when>
+				    <c:otherwise>
+				        <c:forEach var="qna" items="${QnAlist}" varStatus="status">
+				        	<div class="qnalistdiv">
+					        	<label class="qnastatus">${qna.q_answerstatus}</label>
+					        	<label class="qnaq_content">${qna.q_content}</label>
+				                <label>${qna.q_id}</label>
+				                <label>${qna.q_date}</label>
+				        	</div>
+				        </c:forEach>
+				    </c:otherwise>
+				</c:choose>
+	        </div>
+		</div>
+	</div>
     <!-- 맨위로 버튼 -->
     <a id="btn_gotop" href="#">
         <img src="resources/img/icon/up-arrow-angle.png" id="up">

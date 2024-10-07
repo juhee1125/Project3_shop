@@ -31,7 +31,7 @@
 		<li><a href="/admin/productupload" class="productupload">상품등록</a></li>
 		<li><a href="#">쿠폰</a></li>
 		<li><a href="#">배송정보</a></li>
-		<li><a href="#">문의</a></li>
+		<li><a href="/admin/QnA">문의</a></li>
 	</ul>
 </body>
 </html>

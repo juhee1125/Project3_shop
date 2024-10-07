@@ -22,8 +22,6 @@ $(document).ready(function() {
 	            }
 	        },
 	        error: function (xhr, textStatus, errorThrown) {
-				console.log(textStatus)
-				console.log(errorThrown);
 				console.log("로그인 실패");
                 loginerror("아이디 또는 비번이 일치하지 않습니다");
 	        }
