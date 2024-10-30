@@ -15,25 +15,31 @@ public class AdminServiceImpl implements AdminService {
 	 
 	 @Setter(onMethod_ = @Autowired)
 	 AdminMapper amapper;
-	 
+
 	@Override
 	public List<AdminVO> adminlist() {
 		return amapper.adminlist();
 	}
-	 @Override public void adminInsert(AdminVO admin) {
-		 amapper.adminInsert(admin);
-	 }
-	 @Override public int adminUpdate(AdminVO admin) {
-		 return amapper.adminUpdate(admin); 
-	 }
-	 @Override public AdminVO getAdminByNum(long admin_num) {
-		 return amapper.getAdminByNum(admin_num);
-	 }
-	 @Override public void adminIDDelete(String admin_id) {
-		 amapper.adminIDDelete(admin_id);
-	 }
+
 	@Override
-	public AdminVO getAdminID(String admin_id) {
-		return amapper.getAdminID(admin_id);
+	public void adminInsert(AdminVO admin) {
+		amapper.adminInsert(admin);
 	}
+
+	@Override
+	public void adminUpdate(AdminVO admin) {
+		amapper.adminUpdate(admin);
+	}
+
+	@Override
+	public void adminDelete(long a_num) {
+		amapper.adminDelete(a_num);
+	}
+
+	@Override
+	public AdminVO getAdminByNum(long a_num) {
+		return amapper.getAdminByNum(a_num);
+	}
+	 
+
  }

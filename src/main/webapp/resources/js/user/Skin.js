@@ -1,12 +1,14 @@
 $(document).ready(function() {
     $('.heartimg').click(function() {
 		var productName = $(this).closest('.product-set').find('.namediv .productlabel').text();
-		console.log("productName",productName)
 		if (!productName) {
             var productName = $(this).closest('.product-set').find('.productlabel').text() 
                   || $(this).closest('.infodiv').find('.infodivlabel').text();
 			console.log(productName)
         }
+
+		var productNum = $(this).closest('.product-set').data('product-num');
+		console.log("productNum",productNum)
 		
 		var likeaction="";
 		
@@ -23,9 +25,9 @@ $(document).ready(function() {
         }
 		var data={
 			"likeaction": likeaction,
-			"productName": productName
+			"productName": productName,
+			"productNum": productNum
 		}
-		console.log(likeaction)
 		$.ajax({
 	        type: 'POST',
 	        url: '/shop/likes',

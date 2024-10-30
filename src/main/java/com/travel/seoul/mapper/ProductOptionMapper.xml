@@ -3,25 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.travel.seoul.mapper.ProductOptionMapper">
- 	<insert id="optioninsert" parameterType="com.travel.seoul.vo.ProductOptionVO">
- 		insert into prouctoptiondb(po_name, po_option, po_optiondetail) values
- 		(#{po_name}, #{po_option}, #{po_optiondetail})
- 	</insert>
- 	<select id="optionlist" resultType="com.travel.seoul.vo.ProductOptionVO">
+  	<select id="optionlist" resultType="com.travel.seoul.vo.ProductOptionVO">
  		select * from prouctoptiondb	
  	</select>
- 	<select id="findByoptionName" resultType="com.travel.seoul.vo.ProductOptionVO">
- 		select * from prouctoptiondb where po_name = #{po_name}
- 	</select>
- 	<update id="optionupdate" parameterType="com.travel.seoul.vo.ProductOptionVO">
+ 	<insert id="optionInsert" parameterType="com.travel.seoul.vo.ProductOptionVO">
+ 		insert into prouctoptiondb(p_num, po_option, po_optiondetail) values
+ 		(#{p_num}, #{po_option}, #{po_optiondetail})
+ 	</insert>
+ 	<update id="optionUpdate" parameterType="com.travel.seoul.vo.ProductOptionVO">
 	    update prouctoptiondb set 
-	    po_name=#{po_name}, po_option=#{po_option}, po_optiondetail=#{po_optiondetail}
-	    where po_num=#{po_num}
+	    p_num=#{p_num}, po_option=#{po_option}, po_optiondetail=#{po_optiondetail} where po_num=#{po_num}
 	</update>
- 	<delete id="optionnameDelete" parameterType="com.travel.seoul.vo.ProductOptionVO">
-	    delete from prouctoptiondb where po_name = #{po_name}
-	</delete>
-	<delete id="optionnumDelete" parameterType="com.travel.seoul.vo.ProductOptionVO">
+	<delete id="optionDelete" parameterType="com.travel.seoul.vo.ProductOptionVO">
 	    delete from prouctoptiondb where po_num = #{po_num}
 	</delete>
+	<select id="getOptionByNum" resultType="com.travel.seoul.vo.ProductOptionVO">
+   		select * from prouctoptiondb where po_num = #{po_num}
+    </select>
+    <select id="findOptionByPONum" resultType="long">
+		select po_num from prouctoptiondb where p_num = #{p_num}
+	</select>
 </mapper>

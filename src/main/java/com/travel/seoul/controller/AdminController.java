@@ -41,16 +41,24 @@ public class AdminController {
 		// 덮어씌워지는 것을 방지하기 위해 list에 값 저장
 		List<String> roles = new ArrayList<>();
 		for (UserVO user : list) {
-			System.out.println("UserID: "+user.getM_id());
-			AdminVO role = adminMapper.getAdminID(user.getM_id());
-			System.out.println("role: "+role);
+			System.out.println("UserID: "+user.m_num);
+			
+			Long a_num = adminMapper.findAdminByANum(user.m_num);
+			AdminVO role = null;
+    
+			if (a_num != null) {
+			    role = adminMapper.getAdminByNum(a_num);
+			}
 			
 			// 관리자 DB에 userID가 없을 경우 일반회원, 있을 경우 관리자
-			if (role==null){
-				roles.add("일반회원");
+			if (role != null && role.m_num == user.m_num) {
+				System.out.println("role.m_num: "+role.m_num+ "user.m_num: "+user.m_num);
+				roles.add("관리자");
+				System.out.println("roles관리자: "+roles);
 			}
 			else {
-				roles.add("관리자");
+				roles.add("일반회원");
+				System.out.println("roles일반회원: "+roles);
 			}
 		}
 		model.addAttribute("roles", roles);
@@ -62,22 +70,15 @@ public class AdminController {
 	@PostMapping(value = "/adminupdate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> adminupdate(@RequestBody List<Map<String, String>> userData) {
 		for (Map<String, String> userlist : userData) {
-            String username = userlist.get("username");
-            String userID = userlist.get("userID");
-            String userPW = userlist.get("userPW");
-            String userphone = userlist.get("userphone");
-            
+			long num = Long.parseLong(userlist.get("num"));
 			//객체 생성 후 값 저장
-		    AdminVO admin = new AdminVO();
-		    admin.setA_id(userID);
-		    admin.setA_name(username);
-		    admin.setA_phone(userphone);
-		    admin.setA_pw(userPW);
+            AdminVO admin = new AdminVO();
+		    admin.setM_num(num);
 		    
 		    //관리자 DB에 값 추가
 		    adminMapper.adminInsert(admin);
 		    
-		    System.out.println(userID + " 가 관리자로 승급하였습니다");
+		    System.out.println("관리자로 승급하였습니다");
 		}
 	    return ResponseEntity.ok("관리자로 승급하였습니다");
 	}
@@ -86,11 +87,11 @@ public class AdminController {
 	@PostMapping(value = "/admindelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> admindelete(@RequestBody List<Map<String, String>> userData) {
 		for (Map<String, String> userlist : userData) {
-			String userID = userlist.get("userID");
-		    //관리자 DB에 값 삭제
-		    adminMapper.adminIDDelete(userID);
-		    
-		    System.out.println(userID + " 가 일반회원이 되었습니다");
+			long num = Long.parseLong(userlist.get("num"));
+			
+			//관리자 DB에 값 삭제 
+			adminMapper.adminDelete(adminMapper.findAdminByANum(num));
+		    System.out.println("일반회원이 되었습니다");
 		}
 	    return ResponseEntity.ok("일반회원이 되었습니다");
 	}
@@ -99,12 +100,16 @@ public class AdminController {
 	@PostMapping(value = "/userdelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> userdelete(@RequestBody List<Map<String, String>> userData) {
 		for (Map<String, String> userlist : userData) {
-			String userID = userlist.get("userID");
+			long num = Long.parseLong(userlist.get("num"));
+			
 			// 회원 DB와 연결된 데이터 모두 삭제
-			adminMapper.adminIDDelete(userID);
-			System.out.println("commentMapper 삭제 후");
-			service.IDDelete(userID);
-			System.out.println("userMapper 삭제 후");
+			if (adminMapper.findAdminByANum(num)!=null) {
+				adminMapper.adminDelete(adminMapper.findAdminByANum(num));
+				service.Delete(num);
+			}
+			else{
+				service.Delete(num);
+			}
 			
 		    System.out.println("회원탈퇴완료");
 		}

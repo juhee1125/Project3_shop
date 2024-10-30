@@ -256,15 +256,20 @@ ul.tabs li.current{
 .qnalistdiv {
 	color: #171717;
     display: grid;
-    grid-template-columns: 0.4fr 2fr 0.5fr auto;
+    grid-template-columns: 0.4fr 2fr 0.4fr auto;
     align-items: center;
     padding: 20px 0px;
-    border-top: 1px solid;
     border-top: 2px solid #ededed;
 }
 .qnaq_content{
 	cursor: pointer;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+ .contentclick {
+	display:none;
+} 
 .qnastatus{
 	border-radius: 20px;
     border: 1px solid transparent;
@@ -274,6 +279,22 @@ ul.tabs li.current{
     font-size: 14px;
     font-family: 'noto';
     margin-right: 25px;
+}
+.qnastatus_answered {
+	border-radius: 20px;
+    border: 1px solid transparent;
+    background-color: #F8CFBD;;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-family: 'noto';
+    margin-right: 25px;
+}
+
+.answerlistdiv {
+	color: #171717;
+    padding: 20px 0px;
+    border-top: 2px solid #ededed;
 }
 
 

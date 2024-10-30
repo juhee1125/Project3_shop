@@ -129,25 +129,28 @@ public class AdminProductController {
             Files.copy(detailImageFile.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
             product.setP_detailpath("/display/"+uniqueFileName);
             
-            ProductMapper.productinsert(product);
-
+            ProductMapper.productInsert(product);
+            
+            
+            long p_num = ProductMapper.findByName(nameinput);
+            
             ProductOptionVO productoption = new ProductOptionVO();
             if (optioninput != null && optiondetailinput != null) {
             	List<String> optioninputList = new ObjectMapper().readValue(optioninput, new TypeReference<List<String>>() {});
                 List<String> optiondetailinputList = new ObjectMapper().readValue(optiondetailinput, new TypeReference<List<String>>() {});
                 
                 for (int i = 0; i < optioninputList.size(); i++) {
-                    productoption.setPo_name(nameinput);
+                    productoption.setP_num(p_num);
                     productoption.setPo_option(optioninputList.get(i));
                     productoption.setPo_optiondetail(optiondetailinputList.get(i));
-                    ProductOptionMapper.optioninsert(productoption);
+                    ProductOptionMapper.optionInsert(productoption);
                 }
             }
             else {
-            	productoption.setPo_name(nameinput);
+            	productoption.setP_num(p_num);
             	productoption.setPo_option(null);
             	productoption.setPo_optiondetail(null);
-            	ProductOptionMapper.optioninsert(productoption);
+            	ProductOptionMapper.optionInsert(productoption);
             }
             
             ProductPathVO productpath = new ProductPathVO();
@@ -157,9 +160,9 @@ public class AdminProductController {
                 Path filesPath = uploadPaths.resolve(uniqueFilesName);
                 Files.copy(file.getInputStream(), filesPath, StandardCopyOption.REPLACE_EXISTING);
                 System.out.println("Uploaded file path: " + filesPath);
-                productpath.setPp_name(nameinput);
+                productpath.setP_num(p_num);
                 productpath.setPp_path("/display/"+uniqueFilesName);
-                ProductPathMapper.pathinsert(productpath);
+                ProductPathMapper.pathInsert(productpath);
                 System.out.println("정상처리");  
             }
             System.out.println("정상처리");
@@ -200,45 +203,54 @@ public class AdminProductController {
 	@PostMapping(value = "/productdelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> productdelete(@RequestBody List<Map<String, String>> userData) {
 		for (Map<String, String> userlist : userData) {
-			String productname = userlist.get("productname");
+			long productnum = Long.parseLong(userlist.get("productnum"));
+
 		    //관리자 DB에 값 삭제
-			ProductOptionMapper.optionnameDelete(productname);
-			ProductPathMapper.pathnameDelete(productname);
-			ProductMapper.productnameDelete(productname);
-		    
-		    System.out.println(productname + " 이 삭제되었습니다");
+			ProductOptionMapper.optionDelete(productnum);
+			ProductPathMapper.pathDelete(productnum);
+			ProductMapper.productDelete(productnum);
 		}
 	    return ResponseEntity.ok("상품이 삭제되었습니다");
 	}
 	
 	//상품수정
 	@GetMapping("/productupdate")
-	public String productupdate(@RequestParam("name") String name, Model model, HttpSession session) {    
+	public String productupdate(@RequestParam("num") String numStr, Model model, HttpSession session) {    
 		System.out.println("수정 controller");
-		ProductMapper.findByName(name);
-		for (ProductVO productupdatelist : ProductMapper.findByName(name)) {
-			model.addAttribute("productupdatelist", productupdatelist);
-			session.setAttribute("clickproductlistnum", productupdatelist.getP_num());
-			String path = productupdatelist.getP_detailpath();
-			model.addAttribute("productdetailpath", path);
-		}
-		ProductOptionMapper.findByoptionName(name);
-		session.setAttribute("clickproductoption", ProductOptionMapper.findByoptionName(name));
+		
+		long num = Long.parseLong(numStr);
+
+		model.addAttribute("productupdatelist", ProductMapper.getProductByNum(num));
+		session.setAttribute("clickproductlistnum", num);
+		String path = ProductMapper.getProductByNum(num).getP_detailpath();
+		model.addAttribute("productdetailpath", path);
+		
+		List<Long> po_num_list = ProductOptionMapper.findOptionByPONum(num);
+		System.out.println("num: "+num);
+		System.out.println("po_num_list: "+po_num_list);
 		List<String> optionlist = new ArrayList<>();
 		List<String> optiondetaillist = new ArrayList<>();
-		for (ProductOptionVO optionupdatelist : ProductOptionMapper.findByoptionName(name)) {
-		    optionlist.add(optionupdatelist.getPo_option());
-		    optiondetaillist.add(optionupdatelist.getPo_optiondetail());
+		List<ProductOptionVO> clickproductoption = new ArrayList<>();
+		for (Long po_num : po_num_list ) {
+			System.out.println("po_num: "+po_num);
+			clickproductoption.add(ProductOptionMapper.getOptionByNum(po_num));
+		    optionlist.add(ProductOptionMapper.getOptionByNum(po_num).getPo_option());
+		    optiondetaillist.add(ProductOptionMapper.getOptionByNum(po_num).getPo_optiondetail());
 		}
+		session.setAttribute("clickproductoption", clickproductoption);
 		model.addAttribute("optionlist", optionlist);
 		model.addAttribute("optiondetaillist", optiondetaillist);
-		ProductPathMapper.findBypathName(name);
-		session.setAttribute("clickproductpath", ProductPathMapper.findBypathName(name));
+		
+		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(num);
 		List<String> pathlist = new ArrayList<>();
-		for (ProductPathVO pathupdatelist : ProductPathMapper.findBypathName(name)) {
-			pathlist.add(pathupdatelist.getPp_path());
+		List<ProductPathVO> clickproductpath = new ArrayList<>();
+		for (Long pp_num : pp_num_list) {
+			clickproductpath.add(ProductPathMapper.getPathByNum(pp_num));
+			pathlist.add(ProductPathMapper.getPathByNum(pp_num).getPp_path());
+			model.addAttribute("pathlist", pathlist);
 		}
-		model.addAttribute("pathlist", pathlist);
+		session.setAttribute("clickproductpath", clickproductpath);
+		
 		return "/admin/productupdate";
 	}
 	@PostMapping(value = "/productupdateprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -254,7 +266,7 @@ public class AdminProductController {
 	    List<ProductVO> productList = ProductMapper.productlist();
 	    Long clickproductlistnum = (Long) session.getAttribute("clickproductlistnum");
 	    //수정할 상품 리스트
-    	ProductVO product = ProductMapper.getProductBynum(clickproductlistnum);
+    	ProductVO product = ProductMapper.getProductByNum(clickproductlistnum);
 	    
 		Map<String, String> response = new HashMap<>();
 		
@@ -273,7 +285,8 @@ public class AdminProductController {
 
 		    List<String> optioninputList = new ObjectMapper().readValue(optioninput, new TypeReference<List<String>>() {});
 		    List<String> optiondetailinputList = new ObjectMapper().readValue(optiondetailinput, new TypeReference<List<String>>() {});
-
+		    System.out.println("optiondetailinputList: "+optiondetailinputList);
+		    
 		    if(!clickproductoption.isEmpty()) {
 		    	if(clickproductoption.size()==optioninputList.size()) {
 		    		for (int i = 0; i < clickproductoption.size(); i++) {
@@ -281,10 +294,10 @@ public class AdminProductController {
 			            String option = optioninputList.get(i);
 			            String optiondetail = optiondetailinputList.get(i);
 			            
-			            productOption.setPo_name(nameinput);
+			            productOption.setP_num(clickproductlistnum);
 			            productOption.setPo_option(option);
 			            productOption.setPo_optiondetail(optiondetail);
-			            ProductOptionMapper.optionupdate(productOption);
+			            ProductOptionMapper.optionUpdate(productOption);
 				    }
 		    	}
 	    		//옵션 추가했을때
@@ -294,21 +307,23 @@ public class AdminProductController {
 	    			
 	    			for (int i = clickProductOptionSize; i < optionInputListSize; i++) {
 	    				ProductOptionVO productoption = new ProductOptionVO();
-	                	productoption.setPo_name(nameinput);
+	    				productoption.setP_num(clickproductlistnum);
 	                	productoption.setPo_option(optioninputList.get(i));
 	                	productoption.setPo_optiondetail(optiondetailinputList.get(i));
-	                	ProductOptionMapper.optioninsert(productoption);
+	                	ProductOptionMapper.optionInsert(productoption);
 	    			}
 		    	}
 		    	//옵션 제거했을때
 		    	else if(clickproductoption.size()>optioninputList.size()) {
 	    			int clickProductOptionSize = clickproductoption.size();
-	    			
+	    			System.out.println("오류");
 		    		for (int i = 0; i < clickProductOptionSize; i++) {
 		    			ProductOptionVO productOption = clickproductoption.get(i);
+		    			System.out.println("productOption: "+productOption);
 		    			String optiondetail = productOption.getPo_optiondetail();
+		    			System.out.println("optiondetail: "+optiondetail);
 		    			if(!optiondetailinputList.contains(optiondetail)) {
-		    				ProductOptionMapper.optionnumDelete(productOption.getPo_num());
+		    				ProductOptionMapper.optionDelete(productOption.getPo_num());
 		    			}
 	    			}
 		    	}
@@ -316,10 +331,10 @@ public class AdminProductController {
 		    	ProductOptionVO productoption = new ProductOptionVO();
 	            if (optioninput != null && optiondetailinput != null) {     
 	                for (int i = 0; i < optioninputList.size(); i++) {
-	                    productoption.setPo_name(nameinput);
+	                	productoption.setP_num(clickproductlistnum);
 	                    productoption.setPo_option(optioninputList.get(i));
 	                    productoption.setPo_optiondetail(optiondetailinputList.get(i));
-	                    ProductOptionMapper.optioninsert(productoption);
+	                    ProductOptionMapper.optionInsert(productoption);
 	                }
 	            }
 		    }
@@ -330,7 +345,7 @@ public class AdminProductController {
 			
 			if(!imageFiles.isEmpty()) {
 		    	for (ProductPathVO productpath : clickproductpath) {
-			    	ProductPathMapper.pathnameDelete(productpath.getPp_name());
+			    	ProductPathMapper.pathDelete(productpath.getPp_num());
 			    }
 				for (MultipartFile file : imageFiles) {
 	    			ProductPathVO productpath = new ProductPathVO();
@@ -338,31 +353,31 @@ public class AdminProductController {
 	                Path uploadPaths = Paths.get(UPLOAD_DIR);
 	                Path filesPath = uploadPaths.resolve(uniqueFilesName);
 	                Files.copy(file.getInputStream(), filesPath, StandardCopyOption.REPLACE_EXISTING);
-	                System.out.println("Uploaded file path: " + filesPath);
-	                productpath.setPp_name(nameinput);
+
+	                productpath.setP_num(clickproductlistnum);
 	                productpath.setPp_path("/display/"+uniqueFilesName);
-	                ProductPathMapper.pathinsert(productpath);
+	                ProductPathMapper.pathInsert(productpath);
 	            }
 			}
 			else if(stringImageFiles!=null) {
 				if (clickproductpath.size() != stringImageFiles.size()) {
 			    	for (ProductPathVO productpath : clickproductpath) {
-				    	ProductPathMapper.pathnameDelete(productpath.getPp_name());
+			    		ProductPathMapper.pathDelete(productpath.getPp_num());
 				    }
 					for (String file : stringImageFiles) {
 		    			ProductPathVO productpath = new ProductPathVO();
-		    			productpath.setPp_name(nameinput);
+		    			productpath.setP_num(clickproductlistnum);
 			    		productpath.setPp_path(file);
-			    		ProductPathMapper.pathinsert(productpath);
+			    		ProductPathMapper.pathInsert(productpath);
 		    		}
 				}
 				else {
 					for (int i = 0; i < clickproductpath.size(); i++) {
 	            		ProductPathVO productPath = clickproductpath.get(i);
-	            		productPath.setPp_name(nameinput);
+	            		productPath.setP_num(clickproductlistnum);
 	            		productPath.setPp_path(productPath.getPp_path());
 	            		
-	            		ProductPathMapper.pathupdate(productPath);
+	            		ProductPathMapper.pathUpdate(productPath);
 	            	}
 				}
 			}
@@ -405,7 +420,7 @@ public class AdminProductController {
             	System.out.println("stringdetailImageFile: "+stringdetailImageFile);
             	product.setP_detailpath(stringdetailImageFile);
             }   
-            ProductMapper.productupdate(product);
+            ProductMapper.productUpdate(product);
             System.out.println("ProductMapper 수정");
         } catch (Exception e) {
         	response.put("message", "상품 수정 실패: " + e.getMessage());

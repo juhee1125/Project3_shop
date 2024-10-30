@@ -98,18 +98,22 @@ function AdminAction() {
 			const userPWElement = mpage.querySelector('.pw');
 			const userphoneElement = mpage.querySelector('.phone');
 			const roleElement =mpage.querySelector('.role');
+			const numElement =mpage.querySelector('.num');
+			console.log(numElement)
 			if (usernameElement && userIDElement && userPWElement && userphoneElement && roleElement) {
 				const username = usernameElement.innerText;
 				const userID = userIDElement.innerText;
 				const userPW = userPWElement.innerText;
 				const userphone = userphoneElement.innerText;
 				const role =roleElement.innerText;
+				const num =numElement.innerText;
 				users.push({
 		            username: username,
 		            userID: userID,
 		            userPW: userPW,
 		            userphone: userphone,
-					role: role
+					role: role,
+					num: num
 		        });
 			} else {
                 console.error('productname 또는 productemail 요소를 찾을 수 없습니다.');

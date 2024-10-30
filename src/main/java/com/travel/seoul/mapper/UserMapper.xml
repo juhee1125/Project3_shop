@@ -20,7 +20,10 @@
 	    SET m_pw = #{m_pw}
 	    WHERE m_id = #{m_id}
 	</update>
-	<delete id="IDDelete" parameterType="com.travel.seoul.vo.UserVO">
-      delete from memberdb where m_id = #{m_id}
+	<delete id="Delete" parameterType="com.travel.seoul.vo.UserVO">
+      delete from memberdb where m_num = #{m_num}
    </delete>
+   	<select id="getByNum" resultType="com.travel.seoul.vo.UserVO">
+    	select * from memberdb	where m_num = #{m_num}
+    </select>
 </mapper>

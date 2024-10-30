@@ -7,10 +7,10 @@ import com.travel.seoul.vo.AdminVO;
 public interface AdminMapper {
 	public List<AdminVO> adminlist(); 
 	public void adminInsert(AdminVO admin);
-	public int adminUpdate(AdminVO admin);
-	public void adminIDDelete(String admin_id);
-	public AdminVO getAdminByNum(long admin_num);
-	public AdminVO getAdminID(String admin_id);
+	public void adminUpdate(AdminVO admin);
+	public void adminDelete(long a_num);
+	public AdminVO getAdminByNum(long a_num);
+	public Long findAdminByANum(long m_num);
 	}
 
 

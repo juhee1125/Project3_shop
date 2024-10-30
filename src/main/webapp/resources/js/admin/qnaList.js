@@ -116,17 +116,16 @@ function actionwarningalert(message) {
 
 
 //상품명 클릭 시 수정페이지
-function clickname(title, id) {
+function clickname(num) {
     $.ajax({
         type: 'GET',
         url: "/admin/QnAUpdate",
         data: { 
-			'title': title,
-			'id' : id
+			'num': num
 		},
         success: function (data) {
 			console.log("상품명 클릭");
-			window.location.href = "/admin/QnAUpdate?title=" + encodeURIComponent(name) + "&id=" + encodeURIComponent(id);
+			window.location.href = "/admin/QnAUpdate?num=" + encodeURIComponent(num);
         },
         error: function (error) {
             console.error("오류발생");

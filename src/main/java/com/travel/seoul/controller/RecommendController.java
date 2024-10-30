@@ -50,21 +50,38 @@ public class RecommendController {
     public String recommendAPI(Model model, HttpServletRequest request, HttpSession session) {	
 		System.out.println("recommend 실행");
 		List<LikeVO> list = likemapper.likelist();
+		
+		List<Map<String, String>> formattedList = new ArrayList<>();
+	    for (LikeVO like : list) {
+	        Map<String, String> likeMap = new HashMap<>();
+	        likeMap.put("l_name", ProductMapper.getProductByNum(like.getP_num()).getP_name());
+	        likeMap.put("l_id", service.getByNum(like.getM_num()).getM_id());
+	        formattedList.add(likeMap);
+	    }
+
 		Gson gson = new GsonBuilder().create();
 		//리스트 json으로 변환
-		String jsonList = gson.toJson(list);
+		String jsonList = gson.toJson(formattedList);
 		
 		UserVO user = (UserVO) session.getAttribute("loginMember");
 		String loginuser = "";
-		
-		if (user == null || user.equals("") || likemapper.findByID(user.getM_id()) == null || likemapper.findByID(user.getM_id()).isEmpty()) {
-			loginuser = "notlogin";
+
+		if (user == null || user.equals("") || likemapper.findLikeByLNum(user.getM_num()) == null) {
+		    loginuser = "notlogin";
+		} else if (likemapper.likelist() == null || likemapper.likelist().isEmpty()) {
+		    loginuser = "notlogin";
+		} else {
+		    List<Long> l_num_list = likemapper.findLikeByLNum(user.getM_num());
+		    for (Long l_num : l_num_list) {
+		    	if (likemapper.getLikeByNum(l_num) == null) {
+			        loginuser = "notlogin";
+			    } else {
+			        loginuser = user.getM_id();
+			        model.addAttribute("likeloginlist", likemapper.getLikeByNum(l_num));
+			    }	
+		    }
 		}
-		else {
-			loginuser = user.getM_id();
-			System.out.println(likemapper.findByID(loginuser));
-			model.addAttribute("likeloginlist", likemapper.findByID(loginuser));
-		}
+
 		String likeAPI = recommendservice.recommendAPI("http://localhost:5000/recommend", "like", jsonList, loginuser, "500", "json", "20240804");
 		System.out.println("likeAPI: "+likeAPI);
 		//json list로 변환
@@ -73,11 +90,12 @@ public class RecommendController {
         System.out.println(stringList);
         
         List<ProductPathVO> pathlist = ProductPathMapper.pathlist();
-        Map<String, String> productPathMap = new LinkedHashMap<>();;
+        Map<String, String> productPathMap = new LinkedHashMap<>();
 
 	    // pathlist를 순회하며 첫 번째 경로만 저장
 	    for (ProductPathVO path : pathlist) {
-	        String productName = path.getPp_name();
+	    	ProductVO productlist = ProductMapper.getProductByNum(path.getP_num());
+	        String productName = productlist.getP_name();
 	        if (stringList.contains(productName) && !productPathMap.containsKey(productName)) {
 	            productPathMap.put(productName, path.getPp_path());
 	            System.out.println("path: " + productName + ", first image path: " + path.getPp_path());

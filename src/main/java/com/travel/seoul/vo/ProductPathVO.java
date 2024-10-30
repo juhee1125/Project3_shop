@@ -5,7 +5,7 @@ import lombok.Data;
 @Data 
 public class ProductPathVO { 
 	private long pp_num; 
-	public String pp_name; 
+	public long p_num; 
 	private String pp_path;  
 }
 

@@ -64,13 +64,16 @@ function AdminAction() {
 		if (mpage) {
             const productnameElement = mpage.querySelector('.name');
             const productemailElement = mpage.querySelector('.email');
+            const productnumElement = mpage.querySelector('.num');
             if (productnameElement && productemailElement) {
                 const productname = productnameElement.innerText;
                 const productemail = productemailElement.innerText;
+                const productnum = productemailElement.innerText;
 
                 products.push({
                     productname: productname,
-                    productemail: productemail
+                    productemail: productemail,
+					productnum: productnum
                 });
             } else {
                 console.error('productname 또는 productemail 요소를 찾을 수 없습니다.');
@@ -104,16 +107,17 @@ function actionwarningalert(message) {
 };
 
 //상품명 클릭 시 수정페이지
-function clickname(name) {
+function clickname(num) {
+	console.log(num)
     $.ajax({
         type: 'GET',
         url: "/admin/productupdate",
         data: { 
-			'name': name
+			'num': num
 		},
         success: function (data) {
 			console.log("상품명 클릭");
-			window.location.href = "/admin/productupdate?name=" + encodeURIComponent(name);
+			window.location.href = "/admin/productupdate?num=" + encodeURIComponent(num);
         },
         error: function (error) {
             console.error("오류발생");

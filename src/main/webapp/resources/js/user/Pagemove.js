@@ -12,7 +12,6 @@ $(document).ready(function() {
 		}
 		var heartImgSrc = $('.icon-container').find('.heartimg').attr('src');
 		if(!heartImgSrc){
-			console.log("1번")
 			heartImgSrc = $(this).closest('.product-set').find('.imgdiv .heartimg').attr('src');
 		}
 		console.log(productlabel)

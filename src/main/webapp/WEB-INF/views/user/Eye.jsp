@@ -28,7 +28,7 @@
         </div>
         <div class="frame">
 	        <c:forEach var="product" items="${eyecategorylist}" varStatus="status">
-	            <div class="product-set">
+	            <div class="product-set" data-product-num="${product.p_num}">
 	                <div class="pathdiv">
 	                    <img src="/admin/${eyepathlist[status.index]}" class="mainimg">
 	                </div>

@@ -55,9 +55,9 @@ public class LikeController {
         	List<ProductVO> productlist = new ArrayList<>();
         	List<String> likepathlist = new ArrayList<>();
         	for (LikeVO like : likelist) {
-        		if (like.getL_id().equals(user.getM_id())) {
-        			likepathlist.add(ProductPathMapper.findBypathName(like.getL_name()).get(0).getPp_path());
-        			productlist.addAll(ProductMapper.findByName(like.getL_name()));
+        		if (like.getM_num()==user.getM_num()) {
+        			likepathlist.add(ProductPathMapper.getPathByNum(like.getP_num()).getPp_path());
+        			productlist.add(ProductMapper.getProductByNum(like.getP_num()));
         		}
         	}
         	model.addAttribute("productlist", productlist);
@@ -71,8 +71,13 @@ public class LikeController {
 	public ResponseEntity<String> likeprocess(@RequestBody Map<String, String> userData) {
     	System.out.println("좋아요 해제");
 		String productname = userData.get("productName");
-		System.out.println(productname);
-		LikeMapper.likenameDelete(productname);
+		
+		long p_num = ProductMapper.findByName(productname);
+		List<Long> l_num_list = LikeMapper.findLikeByPNum(p_num);
+		for (Long l_num : l_num_list) {
+			LikeMapper.likeDelete(l_num);
+		}
+
     	return ResponseEntity.ok("좋아요 삭제");
     }
     
@@ -85,46 +90,60 @@ public class LikeController {
 		List<String> likecategorypathlist = new ArrayList<>();
 		
 		List<ProductVO> productlist = (List<ProductVO>) session.getAttribute("productlist");
-		
 		//키워드가 해당 주제에 포함되어있으면 List에 추가
 		switch (job) {
 			case "skin":				
-				for (ProductVO product : productlist) {
+				for (ProductVO product : productlist) {	
+					List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(ProductMapper.findByName(product.getP_name()));
                     if ("skin".equals(product.getP_category())) {
                         selectList.add(product);
-                        likecategorypathlist.add(ProductPathMapper.findBypathName(product.getP_name()).get(0).getPp_path());
+                        for (Long pp_num : pp_num_list) {
+                        	likecategorypathlist.add(ProductPathMapper.getPathByNum(pp_num).getPp_path());
+                        }
                     }
                 }
 				break;		
 			 case "sun":
-				for (ProductVO product : productlist) {
+				 for (ProductVO product : productlist) {	
+					List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(ProductMapper.findByName(product.getP_name()));
                     if ("sun".equals(product.getP_category())) {
                         selectList.add(product);
-                        likecategorypathlist.add(ProductPathMapper.findBypathName(product.getP_name()).get(0).getPp_path());
+                        for (Long pp_num : pp_num_list) {
+                        	likecategorypathlist.add(ProductPathMapper.getPathByNum(pp_num).getPp_path());
+                        }
                     }
                 }
 				break;
 			 case "base":
-				for (ProductVO product : productlist) {
+				 for (ProductVO product : productlist) {	
+					List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(ProductMapper.findByName(product.getP_name()));
                     if ("base".equals(product.getP_category())) {
                         selectList.add(product);
-                        likecategorypathlist.add(ProductPathMapper.findBypathName(product.getP_name()).get(0).getPp_path());
+                        for (Long pp_num : pp_num_list) {
+                        	likecategorypathlist.add(ProductPathMapper.getPathByNum(pp_num).getPp_path());
+                        }
                     }
                 }
 				break;
 			 case "eye":
-				for (ProductVO product : productlist) {
+				 for (ProductVO product : productlist) {	
+					List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(ProductMapper.findByName(product.getP_name()));
                     if ("eye".equals(product.getP_category())) {
                         selectList.add(product);
-                        likecategorypathlist.add(ProductPathMapper.findBypathName(product.getP_name()).get(0).getPp_path());
+                        for (Long pp_num : pp_num_list) {
+                        	likecategorypathlist.add(ProductPathMapper.getPathByNum(pp_num).getPp_path());
+                        }
                     }
                 }
 				break;
 			 case "lip":
-				for (ProductVO product : productlist) {
+				 for (ProductVO product : productlist) {	
+					List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(ProductMapper.findByName(product.getP_name()));
                     if ("lip".equals(product.getP_category())) {
                         selectList.add(product);
-                        likecategorypathlist.add(ProductPathMapper.findBypathName(product.getP_name()).get(0).getPp_path());
+                        for (Long pp_num : pp_num_list) {
+                        	likecategorypathlist.add(ProductPathMapper.getPathByNum(pp_num).getPp_path());
+                        }
                     }
                 }
 				break;

@@ -1,6 +1,7 @@
 package com.travel.seoul.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,23 +47,45 @@ public class AdminQnAController {
 		model.addAttribute("qnalist", qnalist);
 		return "/admin/qnaList";
 	}
+	
+	//문의 답변작성
 	@GetMapping("/QnAUpdate")
-	public String QnAUpdate(@RequestParam("id") String id, @RequestParam("title") String title, Model model) {
-		List<QnAVO> qnalist = QnAMapper.qnalist();
-		System.out.println(id+title);
+	public String QnAUpdate(@RequestParam("num") String num, Model model, HttpSession session) {
+		List<QnAVO> qnaclicklist = QnAMapper.findByNum(num);
+		model.addAttribute("qnaclicklist", qnaclicklist);
 		
-		System.out.println("상품검색: "+QnAMapper.findByID(id, title));
 
-		model.addAttribute("qnalist", qnalist);
+		//답변일, 답변내용 불러옴
+        for (QnAVO complete : qnaclicklist) {
+        	model.addAttribute("qnarevisiondate", complete.getQ_revisiondate());
+        	model.addAttribute("qnaanswer", complete.getQ_answer());
+        }
+
 		return "/admin/qnaupdate";
+	}
+	@PostMapping(value = "/QnAUpdateprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<Map<String, String>> adminupdate(@RequestBody Map<String, String> userData, HttpSession session, Model model) {
+        String qtitle = userData.get("qtitle");
+        String qid = userData.get("qid");
+        String qcontent = userData.get("qcontent");
+        String textbox = userData.get("textbox");
+        
+        UserVO user = (UserVO) session.getAttribute("loginMember");
+        
+        QnAVO qnaupdate = new QnAVO();
+        qnaupdate.q_adminid = user.m_id;
+        qnaupdate.q_answer = textbox;
+        QnAMapper.QnAupdate(qnaupdate);
+        
+
+		Map<String, String> response = new HashMap<>();
+	    response.put("message", "답변완료하였습니다");
+	    return ResponseEntity.ok(response);
 	}
 	
 	//검색
 	@GetMapping("/qnasearch")
 	public String search(@RequestParam("topic") String topic, @RequestParam("keyword") String keyword, HttpSession session) {
-		System.out.println(topic);
-		System.out.println(keyword);
-		
 		List<QnAVO> qnalist = QnAMapper.qnalist();
 		List<QnAVO> searchList = new ArrayList<>();
 		

@@ -43,9 +43,11 @@ public class ShopDetailController {
 	@Autowired
 	private QnAMapper QnAMapper;
 	
+	
     @GetMapping("/detail")
     public String detail(Model model, HttpSession session) {
     	String productlabel = (String) session.getAttribute("productlabel");
+    	System.out.println("productlabel:"+productlabel);
     	
     	List<ProductVO> productlist = ProductMapper.findByName(productlabel);
     	model.addAttribute("productlist", productlist);
@@ -59,6 +61,19 @@ public class ShopDetailController {
     	List<QnAVO> QnAlist = QnAMapper.qnalist();
     	model.addAttribute("QnAlist", QnAlist);
     	
+//    	List<QnAVO> QnAlistdetail = QnAMapper.findByNum(num);
+    	boolean inquiryExists = false;
+//    	for (QnAVO QnA : QnAlist) {
+//    	    if (!QnAlistdetail.isEmpty() && QnA.getQ_title().equals(productlabel)) {
+//    	        inquiryExists = true;
+//    	        model.addAttribute("QnAlistdetail", QnAlistdetail);
+//    	        break;
+//    	    }
+//    	}
+    	if (!inquiryExists) {
+    	    model.addAttribute("qnalistlabel", "등록된 상품문의가 없습니다");
+    	}
+
         return "/user/ShopDetail";
     }
     @PostMapping(value = "/detailprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)

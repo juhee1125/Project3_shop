@@ -5,9 +5,10 @@ import java.util.List;
 import com.travel.seoul.vo.UserVO;
 
 public interface UserMapper {
-	public void insert(UserVO vo);
 	public List<UserVO> list();
-	public UserVO selectID(String id);
-	public void PWupdate(UserVO vo);
-	public void IDDelete(String id);
+	public void Insert(UserVO user);
+	public UserVO selectID(String m_id);
+	public void PWupdate(UserVO user);
+	public void Delete(long m_num);
+	public UserVO getByNum(long m_num);
 }

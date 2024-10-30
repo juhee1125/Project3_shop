@@ -5,8 +5,10 @@ import java.util.List;
 import com.travel.seoul.vo.LikeVO;
 
 public interface LikeMapper {
-	public void likeinsert(LikeVO vo);
 	public List<LikeVO> likelist();
-	public List<LikeVO> findByID(String like_id);
-	public void likenameDelete(String like_name);
+	public void likeInsert(LikeVO like);
+	public void likeDelete(long l_num);
+	public LikeVO getLikeByNum(long l_num);
+	public List<Long> findLikeByLNum(long m_num);
+	public List<Long> findLikeByPNum(long p_num);
 }

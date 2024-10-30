@@ -70,7 +70,7 @@ public class LoginController {
 	            user.setM_email(userEmail+ "@" +emailinput);
 	        }
 	        user.setM_Rating(null);
-	        service.insert(user);
+	        service.Insert(user);
 	    	System.out.println("회원가입 성공");
 	        return ResponseEntity.ok("회원가입을 완료했습니다");
 	    }

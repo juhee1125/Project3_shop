@@ -46,20 +46,31 @@ public class ShopController {
     	List<ProductVO> skincategorylist = ProductMapper.findByCategory("skin");
     	System.out.println("skincategorylist: "+skincategorylist);
     	List<String> skinpathlist = new ArrayList<>();
+    	List<ProductPathVO> paths_list= new ArrayList<>();
     	for (ProductVO list : skincategorylist) {
-    		List<ProductPathVO> paths = ProductPathMapper.findBypathName(list.getP_name());
-    		skinpathlist.add(paths.get(0).getPp_path());
+    		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
+    		for (Long pp_num : pp_num_list) {
+    			paths_list.add(ProductPathMapper.getPathByNum(pp_num));
+    			List<ProductPathVO> paths = (List<ProductPathVO>) paths_list;
+    			skinpathlist.add(paths.get(0).getPp_path());
+    		}
     	}
     	System.out.println("skinpathlist: "+skinpathlist);
     	model.addAttribute("skincategorylist", skincategorylist);
     	model.addAttribute("skinpathlist", skinpathlist);
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
-    	if(user!=null) {
-    		List<LikeVO> likelist = LikeMapper.findByID(user.getM_id());
+    	
+    	if (user!=null && LikeMapper.findLikeByLNum(user.getM_num())!=null) {
+    		List<Long> l_num_list = LikeMapper.findLikeByLNum(user.getM_num());
+    		List<LikeVO> likenumlist = new ArrayList<>();
+    		for (Long l_num : l_num_list) {
+    			likenumlist.add(LikeMapper.getLikeByNum(l_num));
+    		}
+    		List<LikeVO> likelist = (List<LikeVO>) likenumlist;
     		List<String> likeproductlist = new ArrayList<>();
     		for (LikeVO likeproduct : likelist) {
-    			likeproductlist.add(likeproduct.getL_name());
+    			likeproductlist.add(ProductMapper.getProductByNum(likeproduct.getP_num()).p_name);
     		}
     		model.addAttribute("likeproductlist", likeproductlist);
     	}
@@ -72,20 +83,31 @@ public class ShopController {
     	List<ProductVO> suncategorylist = ProductMapper.findByCategory("sun");
     	System.out.println("suncategorylist: "+suncategorylist);
     	List<String> sunpathlist = new ArrayList<>();
+    	List<ProductPathVO> paths_list= new ArrayList<>();
     	for (ProductVO list : suncategorylist) {
-    		List<ProductPathVO> paths = ProductPathMapper.findBypathName(list.getP_name());
-    		sunpathlist.add(paths.get(0).getPp_path());
+    		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
+    		for (Long pp_num : pp_num_list) {
+    			paths_list.add(ProductPathMapper.getPathByNum(pp_num));
+    			List<ProductPathVO> paths = (List<ProductPathVO>) paths_list;
+    			sunpathlist.add(paths.get(0).getPp_path());
+    		}
     	}
     	System.out.println("sunpathlist: "+sunpathlist);
     	model.addAttribute("suncategorylist", suncategorylist);
     	model.addAttribute("sunpathlist", sunpathlist);
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
-    	if(user!=null) {
-    		List<LikeVO> likelist = LikeMapper.findByID(user.getM_id());
+    	
+    	if (user!=null && LikeMapper.findLikeByLNum(user.getM_num())!=null) {
+    		List<Long> l_num_list = LikeMapper.findLikeByLNum(user.getM_num());
+    		List<LikeVO> likenumlist = new ArrayList<>();
+    		for (Long l_num : l_num_list) {
+    			likenumlist.add(LikeMapper.getLikeByNum(l_num));
+    		}
+    		List<LikeVO> likelist = (List<LikeVO>) likenumlist;
     		List<String> likeproductlist = new ArrayList<>();
     		for (LikeVO likeproduct : likelist) {
-    			likeproductlist.add(likeproduct.getL_name());
+    			likeproductlist.add(ProductMapper.getProductByNum(likeproduct.getP_num()).p_name);
     		}
     		model.addAttribute("likeproductlist", likeproductlist);
     	}
@@ -98,20 +120,31 @@ public class ShopController {
     	List<ProductVO> basecategorylist = ProductMapper.findByCategory("base");
     	System.out.println("basecategorylist: "+basecategorylist);
     	List<String> basepathlist = new ArrayList<>();
+    	List<ProductPathVO> paths_list= new ArrayList<>();
     	for (ProductVO list : basecategorylist) {
-    		List<ProductPathVO> paths = ProductPathMapper.findBypathName(list.getP_name());
-    		basepathlist.add(paths.get(0).getPp_path());
+    		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
+    		for (Long pp_num : pp_num_list) {
+    			paths_list.add(ProductPathMapper.getPathByNum(pp_num));
+    			List<ProductPathVO> paths = (List<ProductPathVO>) paths_list;
+    			basepathlist.add(paths.get(0).getPp_path());
+    		}
     	}
     	System.out.println("basepathlist: "+basepathlist);
     	model.addAttribute("basecategorylist", basecategorylist);
     	model.addAttribute("basepathlist", basepathlist);
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
-    	if(user!=null) {
-    		List<LikeVO> likelist = LikeMapper.findByID(user.getM_id());
+    	
+    	if (user!=null && LikeMapper.findLikeByLNum(user.getM_num())!=null) {
+    		List<Long> l_num_list = LikeMapper.findLikeByLNum(user.getM_num());
+    		List<LikeVO> likenumlist = new ArrayList<>();
+    		for (Long l_num : l_num_list) {
+    			likenumlist.add(LikeMapper.getLikeByNum(l_num));
+    		}
+    		List<LikeVO> likelist = (List<LikeVO>) likenumlist;
     		List<String> likeproductlist = new ArrayList<>();
     		for (LikeVO likeproduct : likelist) {
-    			likeproductlist.add(likeproduct.getL_name());
+    			likeproductlist.add(ProductMapper.getProductByNum(likeproduct.getP_num()).p_name);
     		}
     		model.addAttribute("likeproductlist", likeproductlist);
     	}
@@ -124,20 +157,31 @@ public class ShopController {
     	List<ProductVO> eyecategorylist = ProductMapper.findByCategory("eye");
     	System.out.println("eyecategorylist: "+eyecategorylist);
     	List<String> eyepathlist = new ArrayList<>();
+    	List<ProductPathVO> paths_list= new ArrayList<>();
     	for (ProductVO list : eyecategorylist) {
-    		List<ProductPathVO> paths = ProductPathMapper.findBypathName(list.getP_name());
-    		eyepathlist.add(paths.get(0).getPp_path());
+    		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
+    		for (Long pp_num : pp_num_list) {
+    			paths_list.add(ProductPathMapper.getPathByNum(pp_num));
+    			List<ProductPathVO> paths = (List<ProductPathVO>) paths_list;
+    			eyepathlist.add(paths.get(0).getPp_path());
+    		}
     	}
     	System.out.println("eyepathlist: "+eyepathlist);
     	model.addAttribute("eyecategorylist", eyecategorylist);
     	model.addAttribute("eyepathlist", eyepathlist);
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
-    	if(user!=null) {
-    		List<LikeVO> likelist = LikeMapper.findByID(user.getM_id());
+    	
+    	if (user!=null && LikeMapper.findLikeByLNum(user.getM_num())!=null) {
+    		List<Long> l_num_list = LikeMapper.findLikeByLNum(user.getM_num());
+    		List<LikeVO> likenumlist = new ArrayList<>();
+    		for (Long l_num : l_num_list) {
+    			likenumlist.add(LikeMapper.getLikeByNum(l_num));
+    		}
+    		List<LikeVO> likelist = (List<LikeVO>) likenumlist;
     		List<String> likeproductlist = new ArrayList<>();
     		for (LikeVO likeproduct : likelist) {
-    			likeproductlist.add(likeproduct.getL_name());
+    			likeproductlist.add(ProductMapper.getProductByNum(likeproduct.getP_num()).p_name);
     		}
     		model.addAttribute("likeproductlist", likeproductlist);
     	}
@@ -150,20 +194,31 @@ public class ShopController {
     	List<ProductVO> lipcategorylist = ProductMapper.findByCategory("lip");
     	System.out.println("lipcategorylist: "+lipcategorylist);
     	List<String> lippathlist = new ArrayList<>();
+    	List<ProductPathVO> paths_list= new ArrayList<>();
     	for (ProductVO list : lipcategorylist) {
-    		List<ProductPathVO> paths = ProductPathMapper.findBypathName(list.getP_name());
-    		lippathlist.add(paths.get(0).getPp_path());
+    		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
+    		for (Long pp_num : pp_num_list) {
+    			paths_list.add(ProductPathMapper.getPathByNum(pp_num));
+    			List<ProductPathVO> paths = (List<ProductPathVO>) paths_list;
+    			lippathlist.add(paths.get(0).getPp_path());
+    		}
     	}
     	System.out.println("lippathlist: "+lippathlist);
     	model.addAttribute("lipcategorylist", lipcategorylist);
     	model.addAttribute("lippathlist", lippathlist);
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
-    	if(user!=null) {
-    		List<LikeVO> likelist = LikeMapper.findByID(user.getM_id());
+    	
+    	if (user!=null && LikeMapper.findLikeByLNum(user.getM_num())!=null) {
+    		List<Long> l_num_list = LikeMapper.findLikeByLNum(user.getM_num());
+    		List<LikeVO> likenumlist = new ArrayList<>();
+    		for (Long l_num : l_num_list) {
+    			likenumlist.add(LikeMapper.getLikeByNum(l_num));
+    		}
+    		List<LikeVO> likelist = (List<LikeVO>) likenumlist;
     		List<String> likeproductlist = new ArrayList<>();
     		for (LikeVO likeproduct : likelist) {
-    			likeproductlist.add(likeproduct.getL_name());
+    			likeproductlist.add(ProductMapper.getProductByNum(likeproduct.getP_num()).p_name);
     		}
     		model.addAttribute("likeproductlist", likeproductlist);
     	}
@@ -191,20 +246,20 @@ public class ShopController {
     	else {
     		String likeaction = userData.get("likeaction");
     		String productName = userData.get("productName");
+    		long productNum = Long.parseLong(userData.get("productNum"));
 
     		if(likeaction.equals("liked")) {
     			System.out.println("좋아요");
 				LikeVO likeplus = new LikeVO();
-    			likeplus.setL_name(productName);
-    			likeplus.setL_id(user.getM_id());
-    			LikeMapper.likeinsert(likeplus);
+    			likeplus.setP_num(productNum);
+    			likeplus.setM_num(user.getM_num());
+    			LikeMapper.likeInsert(likeplus);
     			
     			return ResponseEntity.ok("좋아요");
     		}
     		else {
     			System.out.println("좋아요 해제");
-    			System.out.println("productName:"+productName);
-				LikeMapper.likenameDelete(productName);
+				LikeMapper.likeDelete(productNum);
 				System.out.println("좋아요 삭제");
     			return ResponseEntity.ok("좋아요 삭제");
     		}	

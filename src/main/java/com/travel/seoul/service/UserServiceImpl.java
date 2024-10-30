@@ -15,32 +15,36 @@ public class UserServiceImpl implements UserService{
 	
 	@Setter(onMethod_ = @Autowired)
 	private UserMapper mapper;
-	
-	@Override
-	public void insert(UserVO vo) {
-		System.out.println("서비스에서 로그인 : " + vo);
-		mapper.insert(vo);
-	}
 
 	@Override
 	public List<UserVO> list() {
-		System.out.println("서비스에서 회원가입");
 		return mapper.list();
-	}
-	@Override
-	public UserVO selectID(String id) {
-		System.out.println("서비스 아이디 중복 확인 : "+id);
-		return mapper.selectID(id);
-	}
-	@Override
-	public void PWupdate(UserVO vo) {
-		System.out.println("비번 변경");
-		mapper.PWupdate(vo);
 	}
 
 	@Override
-	public void IDDelete(String id) {
-		System.out.println("회원탈퇴");
-		mapper.IDDelete(id);
+	public void Insert(UserVO user) {
+		mapper.Insert(user);
 	}
+
+	@Override
+	public UserVO selectID(String m_id) {
+		return mapper.selectID(m_id);
+	}
+
+	@Override
+	public void PWupdate(UserVO user) {
+		mapper.PWupdate(user);
+	}
+
+	@Override
+	public void Delete(long m_num) {
+		mapper.Delete(m_num);
+	}
+
+	@Override
+	public UserVO getByNum(long m_num) {
+		return mapper.getByNum(m_num);
+	}
+	
+
 }

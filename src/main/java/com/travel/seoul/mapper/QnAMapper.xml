@@ -3,14 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.travel.seoul.mapper.QnAMapper">
- 	<insert id="qnainsert" parameterType="com.travel.seoul.vo.QnAVO">
- 		insert into qnadb(q_id, q_title, q_content,q_date, q_answerstatus) values
- 		(#{q_id}, #{q_title}, #{q_content},now(), "답변대기")
- 	</insert>
- 	<select id="qnalist" resultType="com.travel.seoul.vo.QnAVO">
+  	<select id="qnalist" resultType="com.travel.seoul.vo.QnAVO">
  		select * from qnadb	
  	</select>
- 	<select id="findByID" resultType="com.travel.seoul.vo.QnAVO">
- 		select * from qnadb	where q_id = #{q_id} and q_title = #{q_title}
+ 	<insert id="qnaInsert" parameterType="com.travel.seoul.vo.QnAVO">
+ 		insert into qnadb(m_num, q_title, q_content,q_date, q_answerstatus, a_num, q_answer, q_revisiondate) values
+ 		(#{m_num}, #{q_title}, #{q_content} ,now(), '답변대기', #{a_num}, #{q_answer}, #{q_revisiondate})
+ 	</insert>
+ 	<update id="QnAUpdate" parameterType="com.travel.seoul.vo.QnAVO">
+	    update qnadb set 
+	    q_answerstatus='답변완료', q_adminid = #{q_adminid}, q_answer = #{q_answer}, q_revisiondate = now()
+	    where q_num = #{q_num}
+	</update>
+ 	<select id="getQnaByNum" resultType="com.travel.seoul.vo.QnAVO">
+		select * from qnadb	where q_num = #{q_num}
  	</select>
 </mapper>

@@ -53,7 +53,7 @@
 					<div class="mpage">
 						<input type='checkbox' name='listcheckbox' value='selecteach' class="listcheckbox"/>
 						<div class="num">${vo.p_num}</div>
-						<div class="name" onclick="clickname('${vo.p_name}')">${vo.p_name}</div>
+						<div class="name" onclick="clickname('${vo.p_num}')">${vo.p_name}</div>
 						<div class="id">${vo.p_price}</div>
 						<div class="pw">${vo.p_quantity}</div>
 						<div class="phone">${vo.p_discount}%</div>
@@ -67,7 +67,7 @@
 					<div class="mpage">
 						<input type='checkbox' name='listcheckbox' value='selecteach' class="listcheckbox"/>
  						<div class="num">${vo.p_num}</div>
-						<div class="name" onclick="clickname('${vo.p_name}')">${vo.p_name}</div>
+						<div class="name" onclick="clickname('${vo.p_num}')">${vo.p_name}</div>
 						<div class="id">${vo.p_price}</div>
 						<div class="pw">${vo.p_quantity}</div>
 						<div class="phone">${vo.p_discount}%</div>

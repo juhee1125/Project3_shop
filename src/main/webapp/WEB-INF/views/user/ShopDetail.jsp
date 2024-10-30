@@ -130,16 +130,30 @@
 			<div class="QnApopup" ></div>
 			<div>
 				<c:choose>
-				    <c:when test="${empty QnAlist}">
-				        <label class="qnalistlabel">등록된 상품문의가 없습니다</label>
+				    <c:when test="${not empty qnalistlabel}">
+				        <label class="qnalistlabel">${qnalistlabel}</label>
 				    </c:when>
 				    <c:otherwise>
-				        <c:forEach var="qna" items="${QnAlist}" varStatus="status">
+				        <c:forEach var="qna" items="${QnAlistdetail}" varStatus="status">
 				        	<div class="qnalistdiv">
-					        	<label class="qnastatus">${qna.q_answerstatus}</label>
-					        	<label class="qnaq_content">${qna.q_content}</label>
+					        	<c:choose>
+									<c:when test="${qna.q_answerstatus == '답변완료'}">
+										<label class="qnastatus_answered">${qna.q_answerstatus}</label>
+										<label class="qnaq_content" onclick="clickqnacontent(this, ${status.index})">${qna.q_content}</label>
+									</c:when>
+									<c:otherwise>
+										<label class="qnastatus">${qna.q_answerstatus}</label>
+										<label class="qnaq_content">${qna.q_content}</label>
+									</c:otherwise>
+								</c:choose>
 				                <label>${qna.q_id}</label>
 				                <label>${qna.q_date}</label>
+				                <div class="qnaDetail" id="detail-${status.index}" style="display: none;"></div>
+				        	</div>
+				        	<div class="answerlistdiv">
+				        		<c:forEach var="answer" items="${qnaanswer}" varStatus="status">
+			        				<label class="">${answer.qa_answer}</label>
+				        		</c:forEach>
 				        	</div>
 				        </c:forEach>
 				    </c:otherwise>

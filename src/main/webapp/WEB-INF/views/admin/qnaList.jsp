@@ -67,7 +67,7 @@
 					<div class="mpage">
 						<input type='checkbox' name='listcheckbox' value='selecteach' class="listcheckbox"/>
   						<div class="num">${vo.q_num}</div>
-						<div class="title" onclick="clickname('${vo.q_title}', '${vo.q_id}')">${vo.q_title}</div>
+						<div class="title" onclick="clickname('${vo.q_num}')">${vo.q_title}</div>
 						<div class="content">${vo.q_content}</div>
 						<div class="id">${vo.q_id}</div>
 						<div class="date">${vo.q_date}</div>

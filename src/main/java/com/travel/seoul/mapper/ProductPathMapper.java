@@ -3,11 +3,13 @@ package com.travel.seoul.mapper;
 import java.util.List;
 
 import com.travel.seoul.vo.ProductPathVO;
+import com.travel.seoul.vo.ProductVO;
 
 public interface ProductPathMapper {
-	public void pathinsert(ProductPathVO vo);
 	public List<ProductPathVO> pathlist();
-	public List<ProductPathVO> findBypathName(String path_name);
-	public void pathupdate(ProductPathVO vo);
-	public void pathnameDelete(String path_name);
+	public void pathInsert(ProductPathVO path);
+	public void pathUpdate(ProductPathVO path);
+	public void pathDelete(long pp_num);
+	public ProductPathVO getPathByNum(long pp_num);
+	public List<Long> findPathByPPNum(long p_num);
 }

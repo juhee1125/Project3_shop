@@ -5,10 +5,7 @@ package com.travel.seoul.vo;
 @Data 
 public class AdminVO { 
 	private long a_num; 
-	public String a_name; 
-	private String a_id; 
-	public String a_pw; 
-	private String a_phone; 
+	public long m_num; 
 }
  
   

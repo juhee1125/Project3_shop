@@ -17,36 +17,34 @@ public class ProductServiceImpl implements ProductService{
 	private ProductMapper pmapper;
 
 	@Override
-	public void productinsert(ProductVO vo) {
-		System.out.println("상품등록 : " + vo);
-		pmapper.productinsert(vo);
-	}
-	@Override
 	public List<ProductVO> productlist() {
-		System.out.println("상품목록");
 		return pmapper.productlist();
 	}
+
 	@Override
-	public List<ProductVO> findByName(String product_name) {
-		System.out.println("수정할 상품"+product_name);
-		return pmapper.findByName(product_name);
+	public void productInsert(ProductVO product) {
+		pmapper.productInsert(product);
 	}
+
 	@Override
-	public void productnameDelete(String product_name) {
-		System.out.println("상품삭제");
-		pmapper.productnameDelete(product_name);
+	public void productUpdate(ProductVO product) {
+		pmapper.productUpdate(product);
 	}
+
 	@Override
-	public List<ProductVO> findByCategory(String product_category) {
-		return pmapper.findByCategory(product_category);
+	public void productDelete(long p_num) {
+		pmapper.productDelete(p_num);
 	}
+
 	@Override
-	public ProductVO getProductBynum(Long product_num) {
-		return pmapper.getProductBynum(product_num);
+	public ProductVO getProductByNum(long p_num) {
+		return pmapper.getProductByNum(p_num);
 	}
+
 	@Override
-	public void productupdate(ProductVO vo) {
-		pmapper.productupdate(vo);
-		
+	public List<ProductVO> findByCategory(String p_category) {
+		return pmapper.findByCategory(p_category);
 	}
+
+	
 }

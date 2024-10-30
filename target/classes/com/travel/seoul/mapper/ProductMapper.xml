@@ -3,29 +3,29 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  <mapper namespace="com.travel.seoul.mapper.ProductMapper">
- 	<insert id="productinsert" parameterType="com.travel.seoul.vo.ProductVO">
+  	<select id="productlist" resultType="com.travel.seoul.vo.ProductVO">
+ 		select * from prouctdb	
+ 	</select>
+ 	<insert id="productInsert" parameterType="com.travel.seoul.vo.ProductVO">
  		insert into prouctdb(p_name, p_price, p_quantity, p_detailpath, p_discount, p_discount_start, p_discount_end, p_category) values
  		(#{p_name}, #{p_price}, #{p_quantity}, #{p_detailpath}, #{p_discount}, #{p_discount_start}, #{p_discount_end}, #{p_category})
  	</insert>
- 	<select id="productlist" resultType="com.travel.seoul.vo.ProductVO">
- 		select * from prouctdb	
- 	</select>
- 	<select id="findByName" resultType="com.travel.seoul.vo.ProductVO">
- 		select * from prouctdb	where p_name = #{p_name}
- 	</select>
- 	<select id="getProductBynum" resultType="com.travel.seoul.vo.ProductVO">
-        select * from prouctdb	where p_num = #{p_num}
-    </select>
-    <select id="findByCategory" resultType="com.travel.seoul.vo.ProductVO">
-        select * from prouctdb	where p_category = #{p_category}
-    </select>
- 	<update id="productupdate" parameterType="com.travel.seoul.vo.ProductVO">
+ 	<update id="productUpdate" parameterType="com.travel.seoul.vo.ProductVO">
 	    update prouctdb set 
 	    p_name=#{p_name}, p_price=#{p_price}, p_quantity=#{p_quantity}, p_detailpath=#{p_detailpath},
 	    p_discount=#{p_discount}, p_discount_start=#{p_discount_start}, p_discount_end=#{p_discount_end}, p_category=#{p_category} 
 	    where p_num=#{p_num}
 	</update>
- 	<delete id="productnameDelete" parameterType="com.travel.seoul.vo.ProductVO">
-	    delete from prouctdb where p_name = #{p_name}
+ 	<delete id="productDelete" parameterType="com.travel.seoul.vo.ProductVO">
+	    delete from prouctdb where p_num = #{p_num}
 	</delete>
+ 	<select id="getProductByNum" resultType="com.travel.seoul.vo.ProductVO">
+    	select * from prouctdb	where p_num = #{p_num}
+    </select>
+    <select id="findByCategory" resultType="com.travel.seoul.vo.ProductVO">
+    	select * from prouctdb	where p_category = #{p_category}
+    </select>
+    <select id="findByName" resultType="Long">
+    	select p_num from prouctdb	where p_name = #{p_name}
+    </select>
 </mapper>

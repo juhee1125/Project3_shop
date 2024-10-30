@@ -6,6 +6,7 @@ function clickoption(select) {
 	productlabel = $('.options-container').closest('.option-group').find('.option-detailgroup').text();
 	console.log(productlabel)
 	const basicprice = document.querySelector('.price');
+	var pricelabel = document.getElementsByClassName('price')[0];
 	
     // 기본 옵션(상품을 선택해주세요)이 선택된 경우 아무 작업도 하지 않음
     if (!selectoption || selectoption === '상품을 선택해주세요') {
@@ -21,9 +22,8 @@ function clickoption(select) {
 		var existingLabel = optionQuantities[selectoption].querySelector('label');
 		let pricelabelplus = parseInt(existingLabel.textContent.replace(/[^0-9]/g, ''));
 		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
-		existingLabelupdate = (pricelabelplus + basicpricelabelplus);
+		let existingLabelupdate = (pricelabelplus + basicpricelabelplus);
 		existingLabel.textContent = existingLabelupdate.toLocaleString() + '원';
-		console.log(existingLabel.textContent)
 		
     } else {
         // 새로운 옵션 div 생성
@@ -47,7 +47,6 @@ function clickoption(select) {
 		
 		// 옵션가격
 		var optionpricelabel = document.createElement('label');
-		var pricelabel = document.getElementsByClassName('price')[0];
         optionpricelabel.textContent = pricelabel.textContent;
 		optionpricelabel.style.marginTop = '20px';
 		optionpricelabel.style.marginLeft = 'auto';
@@ -89,13 +88,13 @@ function clickoption(select) {
 
         optionQuantities[selectoption] = newDiv2;
 
-		// 총액
-		let pricelabeloption = parseInt(pricelabel.textContent.replace(/[^0-9]/g, ''));
-		let totalpriceoption = parseInt(totalprice.textContent.replace(/[^0-9]/g, ''));
-		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
-		totalpriceoption += (pricelabeloption);
-		totalprice.textContent = totalpriceoption.toLocaleString() + '원';
     }
+
+	// 총액
+	let pricelabeloption = parseInt(pricelabel.textContent.replace(/[^0-9]/g, ''));
+	let totalpriceoption = parseInt(totalprice.textContent.replace(/[^0-9]/g, ''));
+	totalpriceoption += (pricelabeloption);
+	totalprice.textContent = totalpriceoption.toLocaleString() + '원';
     select.selectedIndex = 0;
 }
 
@@ -136,15 +135,60 @@ function quantityoption(newDiv, selectoption) {
     
     var plusBtn = createButton('/resources/img/icon/플러스.png');
     buttonDiv.appendChild(plusBtn);
+
+	quantityinput.onchange = function() {
+		const basicprice = document.querySelector('.price');
+		var existingLabel = optionQuantities[selectoption].querySelector('label');
+		let pricelabelplus = parseInt(existingLabel.textContent.replace(/[^0-9]/g, ''));
+		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
+		let existingLabelupdate = (quantityinput.value*basicpricelabelplus);
+		existingLabel.textContent = existingLabelupdate.toLocaleString() + '원';
+		// 총액
+		const totalprice = document.querySelector('.totalpricelabel');
+		let totalpriceoption = parseInt(totalprice.textContent.replace(/[^0-9]/g, ''));
+		totalpriceoption += (basicpricelabelplus*quantityinput.value)-pricelabelplus;
+		totalprice.textContent = totalpriceoption.toLocaleString() + '원';
+    	select.selectedIndex = 0;
+	}
     
     plusBtn.onclick = function() {
         quantityinput.value++;
+
+		const basicprice = document.querySelector('.price');
+		var existingLabel = optionQuantities[selectoption].querySelector('label');
+		let pricelabelplus = parseInt(existingLabel.textContent.replace(/[^0-9]/g, ''));
+		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
+		let existingLabelupdate = (pricelabelplus + basicpricelabelplus);
+		existingLabel.textContent = existingLabelupdate.toLocaleString() + '원';
+		// 총액
+		const totalprice = document.querySelector('.totalpricelabel');
+		var pricelabel = document.getElementsByClassName('price')[0];
+		let pricelabeloption = parseInt(pricelabel.textContent.replace(/[^0-9]/g, ''));
+		let totalpriceoption = parseInt(totalprice.textContent.replace(/[^0-9]/g, ''));
+		totalpriceoption += (pricelabeloption);
+		totalprice.textContent = totalpriceoption.toLocaleString() + '원';
+    	select.selectedIndex = 0;
     };
     minusBtn.onclick = function() {
         quantityinput.value--;
         if (quantityinput.value == 0) {
 			quantityinput.value=1;
         }
+
+		const basicprice = document.querySelector('.price');
+		var existingLabel = optionQuantities[selectoption].querySelector('label');
+		let pricelabelplus = parseInt(existingLabel.textContent.replace(/[^0-9]/g, ''));
+		let basicpricelabelplus = parseInt(basicprice.textContent.replace(/[^0-9]/g, ''));
+		let existingLabelupdate = (pricelabelplus - basicpricelabelplus);
+		existingLabel.textContent = existingLabelupdate.toLocaleString() + '원';
+		// 총액
+		const totalprice = document.querySelector('.totalpricelabel');
+		var pricelabel = document.getElementsByClassName('price')[0];
+		let pricelabeloption = parseInt(pricelabel.textContent.replace(/[^0-9]/g, ''));
+		let totalpriceoption = parseInt(totalprice.textContent.replace(/[^0-9]/g, ''));
+		totalpriceoption -= (pricelabeloption);
+		totalprice.textContent = totalpriceoption.toLocaleString() + '원';
+    	select.selectedIndex = 0;
     };
     return buttonDiv;
 }
@@ -305,4 +349,9 @@ function QnApopupopen(){
 	QnApopup.style.display = 'block';
 
 	QnApopup.appendChild(QnApopupdetail);
+}
+
+//문의 내용 클릭 시
+function clickqnacontent(clickedLabel, index) {
+
 }

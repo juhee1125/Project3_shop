@@ -5,7 +5,7 @@ import lombok.Data;
 @Data 
 public class ProductOptionVO { 
 	private long po_num; 
-	public String po_name; 
+	public long p_num; 
 	private String po_option;  
 	private String po_optiondetail; 
 }
