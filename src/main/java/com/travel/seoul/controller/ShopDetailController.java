@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.travel.seoul.mapper.ProductMapper;
 import com.travel.seoul.mapper.ProductPathMapper;
 import com.travel.seoul.mapper.ProductOptionMapper;
 import com.travel.seoul.mapper.QnAMapper;
+import com.travel.seoul.mapper.UserMapper;
 import com.travel.seoul.vo.ProductOptionVO;
 import com.travel.seoul.vo.ProductPathVO;
 import com.travel.seoul.vo.ProductVO;
@@ -42,61 +44,66 @@ public class ShopDetailController {
 	private ProductOptionMapper ProductOptionMapper;
 	@Autowired
 	private QnAMapper QnAMapper;
+	@Autowired
+	private UserMapper Mapper;
 	
-	
+	@PostMapping("/saveHeartImg")
+	public ResponseEntity<?> saveHeartImg(HttpSession session, @RequestParam("heartImgSrc") String heartImgSrc) {
+	    session.setAttribute("heartImgSrc", heartImgSrc);
+	    return ResponseEntity.ok().build();
+	}
     @GetMapping("/detail")
-    public String detail(Model model, HttpSession session) {
-    	String productlabel = (String) session.getAttribute("productlabel");
-    	System.out.println("productlabel:"+productlabel);
+    public String detail(Model model, HttpSession session, @RequestParam("num") String numStr) {
+    	long num = Long.parseLong(numStr);
+    	String heartImgSrc = (String) session.getAttribute("heartImgSrc");
+    	session.setAttribute("heartImgSrc", heartImgSrc);
     	
-    	List<ProductVO> productlist = ProductMapper.findByName(productlabel);
+    	ProductVO productlist = ProductMapper.getProductByNum(num);
     	model.addAttribute("productlist", productlist);
     	
-    	for (ProductVO product : productlist) {
-    		model.addAttribute("productdetailpath", product.getP_detailpath());
+    	model.addAttribute("productdetailpath", productlist.getP_detailpath());
+
+    	List<Long> po_num_list = ProductOptionMapper.findOptionByPONum(num);
+    	List<ProductOptionVO> productoptionlist = new ArrayList<>();
+    	for (Long po_num : po_num_list) {
+    		productoptionlist.add(ProductOptionMapper.getOptionByNum(po_num));
     	}
-    	List<ProductOptionVO> productoptionlist = ProductOptionMapper.findByoptionName(productlabel);
     	model.addAttribute("productoptionlist", productoptionlist);
     	
     	List<QnAVO> QnAlist = QnAMapper.qnalist();
     	model.addAttribute("QnAlist", QnAlist);
     	
-//    	List<QnAVO> QnAlistdetail = QnAMapper.findByNum(num);
-    	boolean inquiryExists = false;
-//    	for (QnAVO QnA : QnAlist) {
-//    	    if (!QnAlistdetail.isEmpty() && QnA.getQ_title().equals(productlabel)) {
-//    	        inquiryExists = true;
-//    	        model.addAttribute("QnAlistdetail", QnAlistdetail);
-//    	        break;
-//    	    }
-//    	}
-    	if (!inquiryExists) {
-    	    model.addAttribute("qnalistlabel", "등록된 상품문의가 없습니다");
+    	String p_name = ProductMapper.getProductByNum(num).getP_name();
+    	List<Long> q_num_list = QnAMapper.findQnAByQNum(p_name);
+    	List<QnAVO> QnAlistdetail = new ArrayList<>();
+    	List<UserVO> QnAUser = new ArrayList<>();
+    	for (Long q_num : q_num_list) {
+    		QnAlistdetail.add(QnAMapper.getQnaByNum(q_num));
+    		QnAUser.add(Mapper.getByNum(QnAMapper.getQnaByNum(q_num).getM_num()));
     	}
+    	model.addAttribute("QnAlistdetail", QnAlistdetail);
+    	model.addAttribute("QnAUser", QnAUser);
 
-        return "/user/ShopDetail";
-    }
-    @PostMapping(value = "/detailprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public String detailprocess(@RequestBody Map<String, String> userData, HttpSession session) {
-    	String productlabel = userData.get("productlabel");
-    	String heartImgSrc = userData.get("heartImgSrc");
-    	session.setAttribute("productlabel", productlabel);
-    	session.setAttribute("heartImgSrc", heartImgSrc);
-    	List<ProductPathVO> pathlist = ProductPathMapper.findBypathName(productlabel);
+    	List<Long> p_num_list = ProductPathMapper.findPathByPPNum(num);
+    	List<ProductPathVO> pathlist = new ArrayList<>();
+    	for(Long p_num : p_num_list) {
+    		pathlist.add(ProductPathMapper.getPathByNum(p_num));
+    	}
+    	
     	List<String> productpathlist = new ArrayList<>();
     	for (ProductPathVO path : pathlist) {
     		productpathlist.add(path.getPp_path());
     	}
     	session.setAttribute("productpathlist", productpathlist);
-
+    	
         return "/user/ShopDetail";
     }
+
     
     //상품문의 로그인 여부
     @PostMapping(value = "/ProductQnA", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Map<String, String>> ProductQnA(@RequestBody Map<String, String> userData, HttpSession session) {
     	String redirectUrl = userData.get("redirectUrl");
-    	System.out.println("redirectUrl: "+redirectUrl);
     	Map<String, String> response = new HashMap<>();
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
@@ -109,18 +116,18 @@ public class ShopDetailController {
     }
   //상품문의
     @PostMapping(value = "/ProductQnAprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String ProductQnAprocess(@RequestBody Map<String, String> userData, HttpSession session) {
+    public String ProductQnAprocess(@RequestBody Map<String, String> userData, HttpSession session, Model model) {
     	String infodivlabel = userData.get("infodivlabel");
     	String QnAcontentBox = userData.get("QnAcontentBox");
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
-    	
-    	QnAVO qna = new QnAVO();
-    	qna.q_id = user.m_id;
-    	qna.q_title = infodivlabel;
-    	qna.q_content = QnAcontentBox;
-    	QnAMapper.qnainsert(qna);
 
+    	QnAVO qna = new QnAVO();
+    	qna.setM_num(user.getM_num());
+    	qna.setQ_title(infodivlabel);
+    	qna.setQ_content(QnAcontentBox);
+    	QnAMapper.qnaInsert(qna);
+    	
     	return "/user/ShopDetail";
     }
 }

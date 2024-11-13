@@ -35,51 +35,56 @@ public class AdminQnAController {
 	private UserService service;
 
 	@Autowired
-    private AdminMapper adminMapper;
-	@Autowired
     private QnAMapper QnAMapper;
 
 	
 	@GetMapping("/QnA")
 	public String QnA(Model model) {
 		List<QnAVO> qnalist = QnAMapper.qnalist();
-
+		
+		List<UserVO> qnauser = new ArrayList<>();
+		for (QnAVO mnum : qnalist) {
+			qnauser.add(service.getByNum(mnum.getM_num()));
+		}
+		model.addAttribute("qnauser", qnauser);
 		model.addAttribute("qnalist", qnalist);
 		return "/admin/qnaList";
 	}
 	
 	//문의 답변작성
 	@GetMapping("/QnAUpdate")
-	public String QnAUpdate(@RequestParam("num") String num, Model model, HttpSession session) {
-		List<QnAVO> qnaclicklist = QnAMapper.findByNum(num);
+	public String QnAUpdate(@RequestParam("num") String numStr, Model model, HttpSession session) {
+		long num = Long.parseLong(numStr);
+		session.setAttribute("q_num", num);
+		QnAVO qnaclicklist = QnAMapper.getQnaByNum(num);
 		model.addAttribute("qnaclicklist", qnaclicklist);
-		
-
+	
+		model.addAttribute("qnauser",service.getByNum(qnaclicklist.getM_num()).getM_id());
 		//답변일, 답변내용 불러옴
-        for (QnAVO complete : qnaclicklist) {
-        	model.addAttribute("qnarevisiondate", complete.getQ_revisiondate());
-        	model.addAttribute("qnaanswer", complete.getQ_answer());
-        }
+		model.addAttribute("qnarevisiondate", qnaclicklist.getQ_revisiondate());
+		model.addAttribute("qnaanswer", qnaclicklist.getQ_answer());
+//        for (QnAVO complete : qnaclicklist) {
+//        	model.addAttribute("qnarevisiondate", complete.getQ_revisiondate());
+//        	model.addAttribute("qnaanswer", complete.getQ_answer());
+//        }
 
 		return "/admin/qnaupdate";
 	}
 	@PostMapping(value = "/QnAUpdateprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<Map<String, String>> adminupdate(@RequestBody Map<String, String> userData, HttpSession session, Model model) {
-        String qtitle = userData.get("qtitle");
-        String qid = userData.get("qid");
-        String qcontent = userData.get("qcontent");
         String textbox = userData.get("textbox");
+        Long q_num = (Long) session.getAttribute("q_num");
         
         UserVO user = (UserVO) session.getAttribute("loginMember");
         
-        QnAVO qnaupdate = new QnAVO();
-        qnaupdate.q_adminid = user.m_id;
-        qnaupdate.q_answer = textbox;
-        QnAMapper.QnAupdate(qnaupdate);
+        QnAVO qnaupdate = QnAMapper.getQnaByNum(q_num);
+        qnaupdate.setA_num(user.m_num);
+        qnaupdate.setQ_answer(textbox);
+        QnAMapper.QnAUpdate(qnaupdate);
         
-
 		Map<String, String> response = new HashMap<>();
-	    response.put("message", "답변완료하였습니다");
+	    response.put("message", "답변 완료하였습니다");
+	    System.out.println("관리자 답변완료");
 	    return ResponseEntity.ok(response);
 	}
 	
@@ -98,7 +103,7 @@ public class AdminQnAController {
 	                }
 	                break;
 				case "id":
-					if (keyword.equals(qna.getQ_id())) {
+					if (keyword.equals(service.getByNum(qna.getM_num()).getM_id())) {
 						searchList.add(qna);
 					}
 					break;

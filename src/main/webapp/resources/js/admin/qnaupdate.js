@@ -18,8 +18,8 @@ $(document).ready(function() {
 			}),
 	        success: function (data) {
 				console.log("업데이트 성공")
-				if (data.message==="답변완료하였습니다"){
-					uploadsuccessalert("답변완료하였습니다")
+				if (data.message==="답변 완료하였습니다"){
+					uploadsuccessalert("답변 완료하였습니다")
 				}
 
 	        },

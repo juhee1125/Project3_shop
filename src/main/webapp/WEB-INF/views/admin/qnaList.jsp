@@ -69,7 +69,7 @@
   						<div class="num">${vo.q_num}</div>
 						<div class="title" onclick="clickname('${vo.q_num}')">${vo.q_title}</div>
 						<div class="content">${vo.q_content}</div>
-						<div class="id">${vo.q_id}</div>
+ 						<div class="id">${qnauser[status.index].m_id}</div>
 						<div class="date">${vo.q_date}</div>
 						<div class="status">${vo.q_answerstatus}</div>
 					</div>

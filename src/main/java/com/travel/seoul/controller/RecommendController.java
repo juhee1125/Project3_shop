@@ -87,18 +87,18 @@ public class RecommendController {
 		//json list로 변환
 		Type listType = new TypeToken<List<String>>(){}.getType();
         List<String> stringList = gson.fromJson(likeAPI, listType);
-        System.out.println(stringList);
         
         List<ProductPathVO> pathlist = ProductPathMapper.pathlist();
         Map<String, String> productPathMap = new LinkedHashMap<>();
 
 	    // pathlist를 순회하며 첫 번째 경로만 저장
 	    for (ProductPathVO path : pathlist) {
+	    	model.addAttribute("productp_num", path.getP_num());
+	    	
 	    	ProductVO productlist = ProductMapper.getProductByNum(path.getP_num());
 	        String productName = productlist.getP_name();
 	        if (stringList.contains(productName) && !productPathMap.containsKey(productName)) {
 	            productPathMap.put(productName, path.getPp_path());
-	            System.out.println("path: " + productName + ", first image path: " + path.getPp_path());
 	        }
 	    }
 	    System.out.println("productPathMap: "+productPathMap);

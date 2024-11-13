@@ -159,7 +159,7 @@ public class AdminProductController {
                 Path uploadPaths = Paths.get(UPLOAD_DIR);
                 Path filesPath = uploadPaths.resolve(uniqueFilesName);
                 Files.copy(file.getInputStream(), filesPath, StandardCopyOption.REPLACE_EXISTING);
-                System.out.println("Uploaded file path: " + filesPath);
+
                 productpath.setP_num(p_num);
                 productpath.setPp_path("/display/"+uniqueFilesName);
                 ProductPathMapper.pathInsert(productpath);
@@ -190,7 +190,6 @@ public class AdminProductController {
             headers.add("Content-Type", Files.probeContentType(file.toPath()));
 
             Resource resource = new FileSystemResource(file);
-            System.out.println(resource);
 
             return new ResponseEntity<>(resource, headers, HttpStatus.OK);
         } catch (IOException e) {

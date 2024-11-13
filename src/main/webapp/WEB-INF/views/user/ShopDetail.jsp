@@ -32,28 +32,26 @@
 	    	</c:forEach>
 		</div>
 	    <div class="infodiv">
-	    	<c:forEach var="product" items="${productlist}" varStatus="status">
-                <label class="infodivlabel">${product.p_name}</label>
-            	<div class="infodivprice">
-	                <c:choose>
-	                    <c:when test="${product.p_discount != null}">
-                        	<label class="discounted-price">
-							    <fmt:formatNumber value="${product.p_price}" type="number" groupingUsed="true"/>원
-							</label>
-	                        <label class="price">
-	                        	<fmt:formatNumber value="${product.p_price-(product.p_price * (product.p_discount / 100))}" type="number" maxFractionDigits="0"/>원
-							</label>
-	                    </c:when>
-	                    <c:otherwise>
-	                    	<div class="pricediv">
-	                    		<label class="price">
-	                    			<fmt:formatNumber value="${product.p_price}" type="number" maxFractionDigits="0"/>원
-	                    		</label>
-	                    	</div>
-	                    </c:otherwise>
-	                </c:choose>
-                </div>
-	        </c:forEach> 
+        	<label class="infodivlabel">${productlist.p_name}</label>
+			<div class="infodivprice">
+				<c:choose>
+					<c:when test="${productlist.p_discount != null}">
+						<label class="discounted-price">
+							<fmt:formatNumber value="${productlist.p_price}" type="number" groupingUsed="true"/>원
+						</label>
+						<label class="price">
+							<fmt:formatNumber value="${productlist.p_price-(productlist.p_price * (productlist.p_discount / 100))}" type="number" maxFractionDigits="0"/>원
+						</label>
+					</c:when>
+					<c:otherwise>
+						<div class="pricediv">
+							<label class="price">
+							<fmt:formatNumber value="${productlist.p_price}" type="number" maxFractionDigits="0"/>원
+						</label>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
 	        <c:choose>
 		    	<c:when test="${productoptionlist.size() > 0}">
 			        <select class="infodivselect" onchange="clickoption(this)">
@@ -86,21 +84,19 @@
 		    	</c:when>
 		    	<c:otherwise>
 		    		<div class="totalprice">
-		                <c:forEach var="product" items="${productlist}" varStatus="status">
-		                	<label class="totallabel">총액</label>
-			                <c:choose>
-			                    <c:when test="${product.p_discount != null}">
-			                        <label class="totalpricelabel">
-			                        	<fmt:formatNumber value="${product.p_price-(product.p_price * (product.p_discount / 100))}" type="number" maxFractionDigits="0"/>원
-									</label>
-			                    </c:when>
-			                    <c:otherwise>
-		                    		<label class="totalpricelabel">
-		                    			<fmt:formatNumber value="${product.p_price}" type="number" maxFractionDigits="0"/>원
-		                    		</label>
-			                    </c:otherwise>
-			                </c:choose>
-				        </c:forEach> 
+	                	<label class="totallabel">총액</label>
+		                <c:choose>
+		                    <c:when test="${productlist.p_discount != null}">
+		                        <label class="totalpricelabel">
+		                        	<fmt:formatNumber value="${productlist.p_price-(productlist.p_price * (productlist.p_discount / 100))}" type="number" maxFractionDigits="0"/>원
+								</label>
+		                    </c:when>
+		                    <c:otherwise>
+	                    		<label class="totalpricelabel">
+	                    			<fmt:formatNumber value="${productlist.p_price}" type="number" maxFractionDigits="0"/>원
+	                    		</label>
+		                    </c:otherwise>
+		                </c:choose>
 		            </div> 
 		    	</c:otherwise>
 		    </c:choose>  
@@ -146,7 +142,7 @@
 										<label class="qnaq_content">${qna.q_content}</label>
 									</c:otherwise>
 								</c:choose>
-				                <label>${qna.q_id}</label>
+ 				                <label>${QnAUser[status.index].m_id}</label>
 				                <label>${qna.q_date}</label>
 				                <div class="qnaDetail" id="detail-${status.index}" style="display: none;"></div>
 				        	</div>

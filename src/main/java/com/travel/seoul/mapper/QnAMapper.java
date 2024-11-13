@@ -11,4 +11,5 @@ public interface QnAMapper {
 	public void qnaInsert(QnAVO qna);
 	public void QnAUpdate(QnAVO qna);
 	public QnAVO getQnaByNum(long q_num);
+	public List<Long> findQnAByQNum(String q_title);
 }

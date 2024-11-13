@@ -46,7 +46,7 @@
         <div id="slideShow">
     		<div class="slides">
 		        <c:forEach var="product" items="${productPathMap}" varStatus="status">
-		            <div class="product-set">
+		            <div class="product-set" data-product-num="${productp_num}">
 	                    <img src="/admin/${product.value}" class="mainimg">
 	                    <label class="productlabel">${product.key}</label>
 		                <c:choose>

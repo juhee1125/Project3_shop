@@ -16,52 +16,50 @@
 <div class="memberlist">
 	<div class="productuploadlabel">상품문의</div>
 	<div class="frame">
-		<c:forEach items="${qnaclicklist}" var="vo" varStatus="status">
-			<div class="namediv">
-				<div>
-					<label class="productname">상품명</label>
-					<label class="qtitle">${vo.q_title}</label>
-				</div>
-				<div>
-					<label class="productname">작성자</label>
-					<label class="qid">${vo.q_id}</label>
-				</div>
-				<div>
-					<label class="productname">작성일</label>
-					<label class="qdate">${vo.q_date}</label>
-				</div>
+		<div class="namediv">
+			<div>
+				<label class="productname">상품명</label>
+				<label class="qtitle">${qnaclicklist.q_title}</label>
 			</div>
-			
-			<div class="contentdiv">
-				<div>
-					<label class="productname">문의내용</label>
-					<label class="qcontent">${vo.q_content}</label>
-				</div>
-				<c:choose>
-	    			<c:when test="${not empty qnaanswer}">
-						<div>
-							<label class="productname">답변일</label>
-							<label class="qdate">${qnarevisiondate}</label>
-						</div>
-					</c:when>
-				</c:choose>
+			<div>
+				<label class="productname">작성자</label>
+				<label class="qid">${qnauser}</label>
 			</div>
-			
+			<div>
+				<label class="productname">작성일</label>
+				<label class="qdate">${qnaclicklist.q_date}</label>
+			</div>
+		</div>
+		
+		<div class="contentdiv">
+			<div>
+				<label class="productname">문의내용</label>
+				<label class="qcontent">${qnaclicklist.q_content}</label>
+			</div>
 			<c:choose>
-	    		<c:when test="${empty qnaanswer}">
-					<div class="answerdiv">
-						<label class="productname">답변작성</label>
-						<textarea class="textbox" required="required" placeholder="답변을 작성해주세요"></textarea>
+    			<c:when test="${not empty qnaanswer}">
+					<div>
+						<label class="productname">답변일</label>
+						<label class="qdate">${qnarevisiondate}</label>
 					</div>
 				</c:when>
-				<c:otherwise>
-					<div class="answerdiv">
-						<label class="productname">답변작성</label>
-						<textarea class="textbox" required="required">${qnaanswer}</textarea>
-					</div>
-				</c:otherwise>
 			</c:choose>
-		</c:forEach>
+		</div>
+		
+		<c:choose>
+    		<c:when test="${empty qnaanswer}">
+				<div class="answerdiv">
+					<label class="productname">답변작성</label>
+					<textarea class="textbox" required="required" placeholder="답변을 작성해주세요"></textarea>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="answerdiv">
+					<label class="productname">답변작성</label>
+					<textarea class="textbox" required="required">${qnaanswer}</textarea>
+				</div>
+			</c:otherwise>
+		</c:choose>
 	</div>
 	<button class="productbutton">등록</button>
 </div>
