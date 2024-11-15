@@ -35,7 +35,7 @@ c<%@ page language="java" contentType="text/html; charset=UTF-8"
         	<c:choose>
         		<c:when test="${not empty like_selectList}">
 			        <c:forEach var="productselect" items="${like_selectList}" varStatus="status">
-			            <div class="product-set">
+			            <div class="product-set" data-product-num="${productselect.p_num}">
 			                <div class="pathdiv">
 			                    <img src="/admin/${like_categorypathList[status.index]}" class="mainimg">
 			                </div>
@@ -69,7 +69,7 @@ c<%@ page language="java" contentType="text/html; charset=UTF-8"
 		        </c:when>
 		        <c:otherwise>
 		        	<c:forEach var="product" items="${productlist}" varStatus="status">
-			            <div class="product-set">
+			            <div class="product-set" data-product-num="${product.p_num}">
 			                <div class="pathdiv">
 			                    <img src="/admin/${likepathlist[status.index]}" class="mainimg">
 			                </div>

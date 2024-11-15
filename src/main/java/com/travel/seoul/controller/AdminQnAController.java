@@ -63,10 +63,6 @@ public class AdminQnAController {
 		//답변일, 답변내용 불러옴
 		model.addAttribute("qnarevisiondate", qnaclicklist.getQ_revisiondate());
 		model.addAttribute("qnaanswer", qnaclicklist.getQ_answer());
-//        for (QnAVO complete : qnaclicklist) {
-//        	model.addAttribute("qnarevisiondate", complete.getQ_revisiondate());
-//        	model.addAttribute("qnaanswer", complete.getQ_answer());
-//        }
 
 		return "/admin/qnaupdate";
 	}

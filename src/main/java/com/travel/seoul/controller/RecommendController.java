@@ -72,12 +72,15 @@ public class RecommendController {
 		    loginuser = "notlogin";
 		} else {
 		    List<Long> l_num_list = likemapper.findLikeByLNum(user.getM_num());
+		    List<LikeVO> likeloginlist =new ArrayList<>();
 		    for (Long l_num : l_num_list) {
 		    	if (likemapper.getLikeByNum(l_num) == null) {
 			        loginuser = "notlogin";
 			    } else {
 			        loginuser = user.getM_id();
-			        model.addAttribute("likeloginlist", likemapper.getLikeByNum(l_num));
+			        likeloginlist.add(likemapper.getLikeByNum(l_num));
+			        model.addAttribute("likeloginlist", likeloginlist);
+			        System.out.println("likeloginlist: "+likeloginlist);
 			    }	
 		    }
 		}
@@ -89,20 +92,21 @@ public class RecommendController {
         List<String> stringList = gson.fromJson(likeAPI, listType);
         
         List<ProductPathVO> pathlist = ProductPathMapper.pathlist();
+        List<Long> pnumlist = new ArrayList<>();
         Map<String, String> productPathMap = new LinkedHashMap<>();
-
 	    // pathlist를 순회하며 첫 번째 경로만 저장
 	    for (ProductPathVO path : pathlist) {
-	    	model.addAttribute("productp_num", path.getP_num());
-	    	
 	    	ProductVO productlist = ProductMapper.getProductByNum(path.getP_num());
 	        String productName = productlist.getP_name();
 	        if (stringList.contains(productName) && !productPathMap.containsKey(productName)) {
 	            productPathMap.put(productName, path.getPp_path());
+	            model.addAttribute("productp_num", path.getP_num());
+	            pnumlist.add(productlist.getP_num());
 	        }
 	    }
 	    System.out.println("productPathMap: "+productPathMap);
 	    model.addAttribute("productPathMap", productPathMap);
+	    model.addAttribute("pnumlist", pnumlist);
 	    
 	    List<ProductVO> productlist = ProductMapper.productlist();
 	    Set<String> setprice = new HashSet<>();

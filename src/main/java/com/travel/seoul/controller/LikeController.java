@@ -52,17 +52,26 @@ public class LikeController {
     	}
     	else {
     		List<LikeVO> likelist = LikeMapper.likelist();
+    		
+    		boolean hasNoLikes = likelist.stream()
+    			    .noneMatch(like -> like.getM_num() == user.getM_num());
+
+			if (hasNoLikes) {
+			    System.out.println("좋아요한 상품이 없습니다");
+			}
+			
         	List<ProductVO> productlist = new ArrayList<>();
         	List<String> likepathlist = new ArrayList<>();
         	for (LikeVO like : likelist) {
         		if (like.getM_num()==user.getM_num()) {
-        			likepathlist.add(ProductPathMapper.getPathByNum(like.getP_num()).getPp_path());
+        			likepathlist.add(ProductPathMapper.getPathByPath(like.getP_num()).get(0));
         			productlist.add(ProductMapper.getProductByNum(like.getP_num()));
         		}
         	}
         	model.addAttribute("productlist", productlist);
         	session.setAttribute("productlist", productlist);
         	model.addAttribute("likepathlist", likepathlist);
+			System.out.println("likepathlist: "+likepathlist);
         	
         	return "/user/Like";
     	}

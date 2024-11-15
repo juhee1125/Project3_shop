@@ -4,6 +4,7 @@
 <!-- 할인율 적용한 가격 -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <html>
@@ -135,7 +136,7 @@
 					        	<c:choose>
 									<c:when test="${qna.q_answerstatus == '답변완료'}">
 										<label class="qnastatus_answered">${qna.q_answerstatus}</label>
-										<label class="qnaq_content" onclick="clickqnacontent(this, ${status.index})">${qna.q_content}</label>
+										<label class="qnaq_content" onclick="clickqnacontent(${status.index})">${qna.q_content}</label>
 									</c:when>
 									<c:otherwise>
 										<label class="qnastatus">${qna.q_answerstatus}</label>
@@ -146,10 +147,7 @@
 				                <label>${qna.q_date}</label>
 				                <div class="qnaDetail" id="detail-${status.index}" style="display: none;"></div>
 				        	</div>
-				        	<div class="answerlistdiv">
-				        		<c:forEach var="answer" items="${qnaanswer}" varStatus="status">
-			        				<label class="">${answer.qa_answer}</label>
-				        		</c:forEach>
+				        	<div class="answerlistdiv" id="answer-${status.index}">
 				        	</div>
 				        </c:forEach>
 				    </c:otherwise>
@@ -162,6 +160,11 @@
         <img src="resources/img/icon/up-arrow-angle.png" id="up">
     </a>
 </body>
+<script>
+    // JSON.parse로 전달된 값을 안전하게 파싱
+    const QnAAnswer = JSON.parse('${QnAAnswer}');
+    console.log(QnAAnswer);  // 값이 제대로 전달되었는지 확인
+</script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </html>

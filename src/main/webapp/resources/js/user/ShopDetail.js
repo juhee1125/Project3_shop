@@ -352,6 +352,18 @@ function QnApopupopen(){
 }
 
 //문의 내용 클릭 시
-function clickqnacontent(clickedLabel, index) {
+function clickqnacontent(index) {
+	const decodedAnswer = QnAAnswer[index].replace(/\\n/g, '\n');
+	const answerDiv = document.getElementById(`answer-${index}`);
+	if (answerDiv.style.display == 'none') {
+        answerDiv.style.display = 'block'; 
+		const newLabel = document.createElement('label');
+        newLabel.textContent = decodedAnswer;
 
+        answerDiv.appendChild(newLabel);
+    }
+	else {
+        answerDiv.style.display = 'none';
+        answerDiv.innerHTML = '';
+        }
 }

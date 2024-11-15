@@ -38,6 +38,7 @@
 	    		</c:otherwise>
 	    	</c:choose>
         </div>
+        ${productp_num}
         <div class="controller">
 			<!-- &lang: 왼쪽 방향 화살표 &rang: 오른쪽 방향 화살표 --> 
 			<span class="prev">&lang;</span> 
@@ -46,7 +47,7 @@
         <div id="slideShow">
     		<div class="slides">
 		        <c:forEach var="product" items="${productPathMap}" varStatus="status">
-		            <div class="product-set" data-product-num="${productp_num}">
+		            <div class="product-set" data-product-num="${pnumlist[status.index]}">
 	                    <img src="/admin/${product.value}" class="mainimg">
 	                    <label class="productlabel">${product.key}</label>
 		                <c:choose>
@@ -67,7 +68,7 @@
 		                </c:choose>
 		                <span class="icon-container">
 		                	<c:choose>
-				                <c:when test="${fn:contains(likeloginlist, product.key)}">
+				                <c:when test="${fn:contains(likeloginlist, pnumlist[status.index])}">
 				                    <img src="/resources/img/icon/채운찜.png" class="heartimg liked">
 				                </c:when>
 				                <c:otherwise>

@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.seoul.mapper.ProductMapper;
 import com.travel.seoul.mapper.ProductPathMapper;
 import com.travel.seoul.mapper.ProductOptionMapper;
@@ -55,6 +57,7 @@ public class ShopDetailController {
     @GetMapping("/detail")
     public String detail(Model model, HttpSession session, @RequestParam("num") String numStr) {
     	long num = Long.parseLong(numStr);
+    	
     	String heartImgSrc = (String) session.getAttribute("heartImgSrc");
     	session.setAttribute("heartImgSrc", heartImgSrc);
     	
@@ -77,16 +80,29 @@ public class ShopDetailController {
     	List<Long> q_num_list = QnAMapper.findQnAByQNum(p_name);
     	List<QnAVO> QnAlistdetail = new ArrayList<>();
     	List<UserVO> QnAUser = new ArrayList<>();
+    	List<String> QnAAnswer = new ArrayList<>();
     	for (Long q_num : q_num_list) {
     		QnAlistdetail.add(QnAMapper.getQnaByNum(q_num));
     		QnAUser.add(Mapper.getByNum(QnAMapper.getQnaByNum(q_num).getM_num()));
+    		if (QnAMapper.getQnaByNum(q_num).getQ_answer()!=null) {
+    			QnAAnswer.add(QnAMapper.getQnaByNum(q_num).getQ_answer().replaceAll("\r\n|\r|\n", "\\\\n"));
+    		}
     	}
     	model.addAttribute("QnAlistdetail", QnAlistdetail);
     	model.addAttribute("QnAUser", QnAUser);
+    	ObjectMapper objectMapper = new ObjectMapper();
+    	String QnAAnswerJson = null;
+    	try {
+    	    // QnAAnswer 리스트를 JSON 문자열로 변환
+    	    QnAAnswerJson = objectMapper.writeValueAsString(QnAAnswer);
+    	} catch (JsonProcessingException e) {
+    	    e.printStackTrace();  // 예외 처리 로직, 필요 시 로그나 다른 방식으로 처리
+    	}
+    	model.addAttribute("QnAAnswer", QnAAnswerJson);
 
-    	List<Long> p_num_list = ProductPathMapper.findPathByPPNum(num);
+    	List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(num);
     	List<ProductPathVO> pathlist = new ArrayList<>();
-    	for(Long p_num : p_num_list) {
+    	for(Long p_num : pp_num_list) {
     		pathlist.add(ProductPathMapper.getPathByNum(p_num));
     	}
     	

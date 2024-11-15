@@ -295,6 +295,7 @@ ul.tabs li.current{
 	color: #171717;
     padding: 20px 0px;
     border-top: 2px solid #ededed;
+    display: none;
 }
 
 

@@ -22,4 +22,7 @@
    	<select id="findPathByPPNum" resultType="Long">
 		select pp_num from prouctpathdb where p_num = #{p_num}
 	</select>
+	<select id="getPathByPath" resultType="String">
+		select pp_path from prouctpathdb where p_num = #{p_num}
+	</select>
 </mapper>

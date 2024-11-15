@@ -12,4 +12,5 @@ public interface ProductPathMapper {
 	public void pathDelete(long pp_num);
 	public ProductPathVO getPathByNum(long pp_num);
 	public List<Long> findPathByPPNum(long p_num);
+	public List<String> getPathByPath(long p_num);
 }
