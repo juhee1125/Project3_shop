@@ -42,7 +42,7 @@
 		    </form>
     	</div>
 		<img src="/resources/img/icon/찜.png" onclick="location.href='/like/like'" class="heart">
-		<img src="/resources/img/icon/장바구니.png" class="shopping">
+		<img src="/resources/img/icon/장바구니.png" onclick="location.href='/order/shopping'" class="shopping">
 
      </nav>
      <nav class="bottomnav">

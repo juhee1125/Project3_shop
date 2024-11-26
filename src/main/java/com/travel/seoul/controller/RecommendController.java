@@ -131,6 +131,6 @@ public class RecommendController {
 	    model.addAttribute("listdiscount", listdiscount);
 
         
-    	return "user/Main";
+    	return "/user/Main";
     }
 }

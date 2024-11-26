@@ -30,7 +30,7 @@ $(document).ready(function() {
 		}
 		$.ajax({
 	        type: 'POST',
-	        url: '/shop/likes',
+	        url: window.location.pathname.includes("shop") ? '/shop/likes' : '/likes',
 			contentType: "application/json",
 	        data: JSON.stringify(data),
 			dataType: 'text',

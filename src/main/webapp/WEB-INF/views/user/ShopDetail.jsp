@@ -7,11 +7,12 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Insert title here</title>
+<!-- 팝업창 디자인 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -58,7 +59,8 @@
 			        <select class="infodivselect" onchange="clickoption(this)">
 			        	<option>상품을 선택해주세요</option>
 				        <c:forEach var="option" items="${productoptionlist}" varStatus="status"> 	
-			        		<option>${option.po_option}${option.po_optiondetail}</option>
+			        		<option data-option="${option.po_option}" data-optiondetail="${option.po_optiondetail}">
+			        		${option.po_option}${option.po_optiondetail}</option>
 				        </c:forEach>
 				    </select>
 				</c:when>
@@ -102,7 +104,7 @@
 		    	</c:otherwise>
 		    </c:choose>  
 			<div class="imgdiv">
-				<button class="imgdivbutton">장바구니</button>
+				<button class="imgdivbutton" id="shopping">장바구니</button>
 				<button class="imgdivbutton">바로구매</button>
                 <img src="${heartImgSrc}" class="heartimg liked">
             </div>

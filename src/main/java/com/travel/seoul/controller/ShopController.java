@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.travel.seoul.mapper.ProductMapper;
 import com.travel.seoul.mapper.ProductPathMapper;
 import com.travel.seoul.mapper.LikeMapper;
+import com.travel.seoul.service.ProductLikeService;
 import com.travel.seoul.vo.LikeVO;
 import com.travel.seoul.vo.ProductPathVO;
 import com.travel.seoul.vo.ProductVO;
@@ -36,9 +37,10 @@ public class ShopController {
 	
 	@Autowired
 	private ProductPathMapper ProductPathMapper;
-	
 	@Autowired
 	private LikeMapper LikeMapper;
+	@Autowired
+	private ProductLikeService ProductLikeService;
 	
 	//스킨케어 상품
     @GetMapping("/skin")
@@ -239,30 +241,6 @@ public class ShopController {
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
 
-		if (user==null) {
-    		System.out.println("로그인 먼저");
-    		return ResponseEntity.ok("로그인 후 가능합니다");
-    	}
-    	else {
-    		String likeaction = userData.get("likeaction");
-    		String productName = userData.get("productName");
-    		long productNum = Long.parseLong(userData.get("productNum"));
-
-    		if(likeaction.equals("liked")) {
-    			System.out.println("좋아요");
-				LikeVO likeplus = new LikeVO();
-    			likeplus.setP_num(productNum);
-    			likeplus.setM_num(user.getM_num());
-    			LikeMapper.likeInsert(likeplus);
-    			
-    			return ResponseEntity.ok("좋아요");
-    		}
-    		else {
-    			System.out.println("좋아요 해제");
-				LikeMapper.likeDelete(productNum);
-				System.out.println("좋아요 삭제");
-    			return ResponseEntity.ok("좋아요 삭제");
-    		}	
-    	}
+    	return ProductLikeService.ProductLike(user, userData);
     }
 }

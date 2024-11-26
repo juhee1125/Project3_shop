@@ -1,14 +1,20 @@
 package com.travel.seoul.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.travel.seoul.mapper.AdminMapper;
+import com.travel.seoul.service.ProductLikeService;
 import com.travel.seoul.service.UserService;
 import com.travel.seoul.vo.AdminVO;
 import com.travel.seoul.vo.UserVO;
@@ -22,6 +28,8 @@ public class MainController {
 	
 	@Autowired
     private AdminMapper adminMapper;
+	@Autowired
+	private ProductLikeService ProductLikeService;
 	
 	@GetMapping("/")
 	public String main() {		
@@ -56,4 +64,13 @@ public class MainController {
 			return "forward:/recommend";
 		}
 	}
+	
+	//좋아요 기능
+    @PostMapping(value = "/likes", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<String> likes(HttpSession session, @RequestBody Map<String, String> userData) {
+    	
+    	UserVO user = (UserVO) session.getAttribute("loginMember");
+
+    	return ProductLikeService.ProductLike(user, userData);
+    }
 }

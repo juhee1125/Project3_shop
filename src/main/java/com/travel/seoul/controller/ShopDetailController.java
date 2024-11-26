@@ -119,7 +119,6 @@ public class ShopDetailController {
     //상품문의 로그인 여부
     @PostMapping(value = "/ProductQnA", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<Map<String, String>> ProductQnA(@RequestBody Map<String, String> userData, HttpSession session) {
-    	String redirectUrl = userData.get("redirectUrl");
     	Map<String, String> response = new HashMap<>();
     	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
@@ -132,7 +131,7 @@ public class ShopDetailController {
     }
   //상품문의
     @PostMapping(value = "/ProductQnAprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public String ProductQnAprocess(@RequestBody Map<String, String> userData, HttpSession session, Model model) {
+    public String ProductQnAprocess(@RequestBody Map<String, String> userData, HttpSession session) {
     	String infodivlabel = userData.get("infodivlabel");
     	String QnAcontentBox = userData.get("QnAcontentBox");
     	

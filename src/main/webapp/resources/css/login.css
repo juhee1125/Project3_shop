@@ -11,6 +11,9 @@ body {
     margin: 0 auto;
     color: #171717;
 }
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+	    font-family: noto;
+}
 
 .loginP {
 	display: flex;

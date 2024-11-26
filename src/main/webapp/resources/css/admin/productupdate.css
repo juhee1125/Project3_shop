@@ -6,14 +6,18 @@
     font-family: 'noto-reg';
     src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
 }
-div:where(.swal2-container) .swal2-html-container {
-	font-family:noto;
-}
+
 body{
 	font-family:noto-reg;
 	background-color:#F0F0F0;
 	color: #171717;
 	height: 220vh;
+}
+div:where(.swal2-container) .swal2-html-container {
+	font-family:noto;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+    font-family: noto;
 }
 
 * {

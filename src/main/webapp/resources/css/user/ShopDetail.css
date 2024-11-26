@@ -16,6 +16,13 @@
 body{
     margin: 0px;
 }
+div:where(.swal2-container) .swal2-html-container {
+	font-family:noto;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm),
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
+	font-family: 'noto';
+}
 
 @font-face {
     font-family: 'noto';
@@ -182,7 +189,6 @@ body{
     background-color: #F8CFBD;
     color: #171717;
     cursor: pointer;
-	
 }
 .heartimg {
 	width: 30px;
@@ -329,7 +335,7 @@ ul.tabs li.current{
 
 
 
-html, body, div, span, applet, object, iframe,
+/* html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -348,12 +354,8 @@ time, mark, audio, video {
    font-size: 100%;
    font: inherit;
    vertical-align: baseline;
-}
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-/*    display: block; */
-}
+} */
+
 body {
    line-height: 1;
 }

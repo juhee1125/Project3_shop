@@ -1,5 +1,5 @@
 var optionQuantities = {};
-
+let option=[];
 function clickoption(select) {
     var selectoption = select.value;
 	const totalprice = document.querySelector('.totalpricelabel');
@@ -32,8 +32,14 @@ function clickoption(select) {
         
         // 옵션명
         var optionlabel = document.createElement('label');
+		optionlabel.className = "optionlabel";
         optionlabel.textContent = selectoption;
         newDiv.appendChild(optionlabel);
+		
+		const selectedOption = select.selectedOptions[0];
+		const po_option = selectedOption.dataset.option;
+		const po_optiondetail = selectedOption.dataset.optiondetail;
+		option.push({ po_option, po_optiondetail});
         
 		// 수량,가격 div 생성
 		var newDiv2 = document.createElement('div');
@@ -47,6 +53,7 @@ function clickoption(select) {
 		
 		// 옵션가격
 		var optionpricelabel = document.createElement('label');
+		optionpricelabel.className = "optionpricelabel";
         optionpricelabel.textContent = pricelabel.textContent;
 		optionpricelabel.style.marginTop = '20px';
 		optionpricelabel.style.marginLeft = 'auto';
@@ -122,6 +129,7 @@ function quantityoption(newDiv, selectoption) {
     buttonDiv.appendChild(minusBtn);
     
     var quantityinput = document.createElement('input');
+	quantityinput.className = 'quantityinput';
     quantityinput.value = 1;
     quantityinput.style.width = '60px';
     quantityinput.style.height = '35px';
@@ -367,3 +375,101 @@ function clickqnacontent(index) {
         answerDiv.innerHTML = '';
         }
 }
+
+// 장바구니 클릭 시
+$(document).ready(function() {
+	$('#shopping').click(function() {
+		const totalquantity = document.getElementsByClassName("totalquantity");
+		const optionsContainer = document.getElementById("options-container");
+        const optionGroup = optionsContainer.querySelector(".option-group");
+
+		//상품명
+		const infodivlabel = document.getElementsByClassName("infodivlabel");
+		const productname = infodivlabel[0].textContent;
+		//상품이미지
+		const mainimage = document.getElementsByClassName("mainimage");
+		const productimage = mainimage[0].getAttribute('src')
+		//상품가격
+		const price = document.getElementsByClassName("price");
+		const productprice = price[0].textContent.trim().replace(/\D/g, "");
+		//상품총액
+		const totalpricelabel = document.getElementsByClassName("totalpricelabel");
+		const producttotalprice = totalpricelabel[0].textContent.trim().replace(/\D/g, "");
+		//옵션명
+		const optionlabel = document.getElementsByClassName("optionlabel");
+		console.log(option);
+		if (optionlabel){
+			optionname = Array.from(optionlabel).map(element => element.textContent.trim());
+		}
+		//옵션수량
+		const quantityinput = document.getElementsByClassName("quantityinput");
+		const optionquantity = Array.from(quantityinput).map(element => element.value);
+		//옵션가격
+		const optionpricelabel = document.getElementsByClassName("optionpricelabel");
+		let optionnprice=[];
+		if (optionpricelabel){
+			optionnprice = Array.from(optionpricelabel).map(element => element.textContent.trim().replace(/\D/g, ""));
+			console.log(optionnprice)
+		}
+		
+		if(optionGroup || (totalquantity.length > 0)){
+  			$.ajax({
+	            type: 'POST',
+				contentType: "application/json",
+	            url: "/order/shoppingprocess",
+	            data: JSON.stringify({
+					"productname":productname,
+					"productimage":productimage,
+					"productprice":productprice,
+					"producttotalprice":producttotalprice,
+					"option":option,
+					"optionquantity":optionquantity,
+					"optionnprice":optionnprice
+				}),
+	            success: function (data) {
+					if (data.message === "로그인 후 가능합니다"){
+						loginfirst(data.message)
+					}
+					else{
+						optionselect(data.message)
+					}
+	            }
+	        });
+		}
+		else{
+			optionnotselect("옵션을 선택해주세요")
+		}
+    });
+});
+function optionselect(message) {	
+	Swal.fire({
+		text: message,
+   		icon: 'success',
+   
+   		showCancelButton: true, // cancel버튼 보이기. 기본은 원래 없음
+   		confirmButtonColor: '#7066e0', // confrim 버튼 색깔 지정
+   		cancelButtonColor: '#7d7d7d', // cancel 버튼 색깔 지정
+   		confirmButtonText: '장바구니 가기',
+   		cancelButtonText: '쇼핑 더 하기',
+	}).then(result => {
+		if (result.isConfirmed) {
+  			window.location.href = "/order/shopping";
+		}
+	});
+};
+function optionnotselect(message) {	
+    Swal.fire({
+        text: message,
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    })
+};
+function loginfirst(message) {
+    Swal.fire({
+        text: message,
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    }).then(function(){
+		location.href='/login/login';
+	})
+};
