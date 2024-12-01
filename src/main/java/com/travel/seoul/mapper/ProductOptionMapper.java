@@ -10,6 +10,7 @@ public interface ProductOptionMapper {
 	public void optionInsert(ProductOptionVO option);
 	public void optionUpdate(ProductOptionVO option);
 	public void optionDelete(long po_num);
+	public void optionpnumDelete(long p_num);
 	public ProductOptionVO getOptionByNum(long po_num);
 	public List<Long> findOptionByPONum(long p_num);
 }

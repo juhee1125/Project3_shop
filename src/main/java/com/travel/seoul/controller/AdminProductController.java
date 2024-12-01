@@ -40,6 +40,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.seoul.mapper.ProductMapper;
 import com.travel.seoul.mapper.ProductOptionMapper;
 import com.travel.seoul.mapper.ProductPathMapper;
+import com.travel.seoul.mapper.OrderMapper;
 import com.travel.seoul.vo.ProductOptionVO;
 import com.travel.seoul.vo.ProductPathVO;
 import com.travel.seoul.vo.ProductVO;
@@ -54,10 +55,11 @@ public class AdminProductController {
 	private ProductMapper ProductMapper;
 
 	@Autowired
-	private ProductOptionMapper ProductOptionMapper;
-	
+	private ProductOptionMapper ProductOptionMapper;	
 	@Autowired
 	private ProductPathMapper ProductPathMapper;
+	@Autowired
+	private OrderMapper OrderMapper;
 	
 	//상품목록	
 	@GetMapping("/productList")
@@ -203,10 +205,12 @@ public class AdminProductController {
 	public ResponseEntity<String> productdelete(@RequestBody List<Map<String, String>> userData) {
 		for (Map<String, String> userlist : userData) {
 			long productnum = Long.parseLong(userlist.get("productnum"));
-
+			
+			System.out.println("productnum: "+productnum);
 		    //관리자 DB에 값 삭제
 			ProductOptionMapper.optionDelete(productnum);
-			ProductPathMapper.pathDelete(productnum);
+			ProductPathMapper.pathpnumDelete(productnum);
+			OrderMapper.orderpnumDelete(productnum);
 			ProductMapper.productDelete(productnum);
 		}
 	    return ResponseEntity.ok("상품이 삭제되었습니다");

@@ -129,7 +129,7 @@ public class ShopDetailController {
     	response.put("message", "정보입력");
         return ResponseEntity.ok(response);
     }
-  //상품문의
+    //상품문의
     @PostMapping(value = "/ProductQnAprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String ProductQnAprocess(@RequestBody Map<String, String> userData, HttpSession session) {
     	String infodivlabel = userData.get("infodivlabel");

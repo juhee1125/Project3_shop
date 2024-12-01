@@ -68,7 +68,7 @@ function AdminAction() {
             if (productnameElement && productemailElement) {
                 const productname = productnameElement.innerText;
                 const productemail = productemailElement.innerText;
-                const productnum = productemailElement.innerText;
+                const productnum = productnumElement.innerText;
 
                 products.push({
                     productname: productname,

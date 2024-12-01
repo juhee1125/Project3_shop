@@ -4,7 +4,6 @@ function clickoption(select) {
     var selectoption = select.value;
 	const totalprice = document.querySelector('.totalpricelabel');
 	productlabel = $('.options-container').closest('.option-group').find('.option-detailgroup').text();
-	console.log(productlabel)
 	const basicprice = document.querySelector('.price');
 	var pricelabel = document.getElementsByClassName('price')[0];
 	

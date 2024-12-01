@@ -38,7 +38,9 @@
 	                <div>
 		                <c:choose>
 		                    <c:when test="${product.p_discount != null}">
-		                        <label class="discounted-price">${product.p_price}원</label>
+		                        <label class="discounted-price">
+		                        	<fmt:formatNumber value="${product.p_price}" type="number" maxFractionDigits="0"/>원
+		                        </label>
 		                        <div class="discountdiv">
 			                        <label class="discount">${product.p_discount}%</label>
 			                        <label class="price">
@@ -48,7 +50,9 @@
 		                    </c:when>
 		                    <c:otherwise>
 		                    	<div class="pricediv">
-		                    		<label class="price">${product.p_price}원</label>
+		                    		<label class="price">
+		                    			<fmt:formatNumber value="${product.p_price}" type="number" maxFractionDigits="0"/>원
+		                    		</label>
 		                    	</div>
 		                    </c:otherwise>
 		                </c:choose>
