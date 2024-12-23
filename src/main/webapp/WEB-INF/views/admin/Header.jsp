@@ -30,7 +30,7 @@
 		<li><a href="/admin/productList" class="productList">상품목록</a></li>
 		<li><a href="/admin/productupload" class="productupload">상품등록</a></li>
 		<li><a href="#">쿠폰</a></li>
-		<li><a href="#">배송정보</a></li>
+		<li><a href="/admin/delivery">배송정보</a></li>
 		<li><a href="/admin/QnA">문의</a></li>
 	</ul>
 </body>

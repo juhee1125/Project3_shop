@@ -82,6 +82,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
     font-family: 'noto-reg';
     color: gray;
     text-decoration: line-through;
+    margin-right: 20px;
 }
 .discount{
 	font-size: 19px;
@@ -92,7 +93,6 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
 .price {
 	font-size: 22px;
     font-family: 'noto';
-    margin-left: 20px;
 }
 
 .infodivselect{

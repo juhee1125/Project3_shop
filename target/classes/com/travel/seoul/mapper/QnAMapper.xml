@@ -21,4 +21,7 @@
  	<select id="findQnAByQNum" resultType="long">
 		select q_num from qnadb where q_title = #{q_title}
 	</select>
+ 	<select id="findMNumByQNum" resultType="long">
+		select q_num from qnadb where m_num = #{m_num}
+	</select>
 </mapper>

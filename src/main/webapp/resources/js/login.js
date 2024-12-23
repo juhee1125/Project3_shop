@@ -63,3 +63,12 @@ function setUserIDFromCookie() {
 $(document).ready(function() {
     setUserIDFromCookie();
 });
+
+//엔터 시 버튼클릭
+function enterkey() {
+  if (window.event.keyCode == 13) {
+
+       // 엔터키가 눌렸을 때 실행할 내용
+       $('.loginB').click();
+  }
+}

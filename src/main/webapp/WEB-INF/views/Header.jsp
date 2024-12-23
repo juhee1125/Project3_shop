@@ -23,7 +23,7 @@
 				<a href="/login/logout" id="logout">로그아웃</a>
 			</c:otherwise>
 		</c:choose>
-	    <img src="/resources/img/icon/마이.png" class="my">
+	    <img src="/resources/img/icon/마이.png" class="my" onclick="location.href='/my/my'">
     </nav>
     <nav class="nav2">
 	    <img src="/resources/img/로고1.png" class="logo-mobile" onclick="location.href='/main'">

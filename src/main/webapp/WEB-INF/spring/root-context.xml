@@ -32,5 +32,7 @@ xsi:schemaLocation="http://www.springframework.org/schema/jdbc
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 	    <property name="basePackage" value="com.travel.seoul.mapper"/>
 	</bean>
+	
+	
 </beans>
 

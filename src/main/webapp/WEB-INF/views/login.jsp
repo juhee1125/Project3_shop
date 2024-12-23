@@ -19,8 +19,8 @@
 <body>
 	<div class="loginP">
 		<div class="title">로그인</div>
-		<input type="text" class="userID" name="userID" placeholder="아이디" value="">
-		<input type="password" class="userPW" name="userPW" placeholder="비밀번호">
+		<input type="text" class="userID" name="userID" placeholder="아이디" onkeyup="enterkey()" value="">
+		<input type="password" class="userPW" name="userPW" placeholder="비밀번호" onkeyup="enterkey()">
         <label for="remember-check" style="position: absolute; top: 28em; left: 50em; font-size: 15px; font-family: 'noto-reg';">
             <input type="checkbox" id="remember-check" onclick="IDremember()">아이디 저장하기
         </label>
