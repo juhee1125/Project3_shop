@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/Header.jsp" %>
 <!-- 할인율 적용한 가격 -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -138,7 +139,7 @@
 					        	<c:choose>
 									<c:when test="${qna.q_answerstatus == '답변완료'}">
 										<label class="qnastatus_answered">${qna.q_answerstatus}</label>
-										<label class="qnaq_content" onclick="clickqnacontent(${status.index})">${qna.q_content}</label>
+										<label class="qnaq_content" onclick="clickqnacontent(${status.index}, '${qna.q_answer}')">${qna.q_content}</label>
 									</c:when>
 									<c:otherwise>
 										<label class="qnastatus">${qna.q_answerstatus}</label>
@@ -149,8 +150,7 @@
 				                <label>${qna.q_date}</label>
 				                <div class="qnaDetail" id="detail-${status.index}" style="display: none;"></div>
 				        	</div>
-				        	<div class="answerlistdiv" id="answer-${status.index}">
-				        	</div>
+				        	<div class="answerlistdiv" id="answer-${status.index}"></div>
 				        </c:forEach>
 				    </c:otherwise>
 				</c:choose>

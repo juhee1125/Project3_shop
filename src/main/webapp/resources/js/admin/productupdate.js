@@ -230,7 +230,7 @@ $(document).ready(function() {
         formData.append('categoryradio', categoryradio);
 		formData.append('optioninput', JSON.stringify(optioninputlist));
         formData.append('optiondetailinput', JSON.stringify(optiondetailinputlist));
-
+		console.log(optiondetailinput);
 		for (const [key, value] of formData.entries()) {
 		    console.log(key, value);
 		}

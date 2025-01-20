@@ -359,21 +359,24 @@ function QnApopupopen(){
 }
 
 //문의 내용 클릭 시
-function clickqnacontent(index) {
-	const decodedAnswer = QnAAnswer[index].replace(/\\n/g, '\n');
-	const answerDiv = document.getElementById(`answer-${index}`);
-	if (answerDiv.style.display == 'none') {
-        answerDiv.style.display = 'block'; 
-		const newLabel = document.createElement('label');
-        newLabel.textContent = decodedAnswer;
+function clickqnacontent(index, answer) { 
+    // 줄바꿈 문자 처리
+    const decodedAnswer = answer.replace(/\\n/g, '\n');
+    console.log("decodedAnswer: " + decodedAnswer);
 
+    const answerDiv = document.getElementById(`answer-${index}`);
+
+    if (answerDiv.style.display === 'none') {
+        answerDiv.style.display = 'block'; 
+        const newLabel = document.createElement('label');
+        newLabel.textContent = decodedAnswer;
         answerDiv.appendChild(newLabel);
-    }
-	else {
+    } else {
         answerDiv.style.display = 'none';
-        answerDiv.innerHTML = '';
-        }
+        answerDiv.innerHTML = ''; 
+    }
 }
+
 
 // 장바구니 클릭 시
 $(document).ready(function() {

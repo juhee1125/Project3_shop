@@ -24,4 +24,7 @@
  	<select id="findMNumByQNum" resultType="long">
 		select q_num from qnadb where m_num = #{m_num}
 	</select>
+   <select id="datesearch" parameterType="map" resultType="com.travel.seoul.vo.QnAVO">
+    	select * from qnadb where q_date between #{startDate} and #{endDate}
+    </select>
 </mapper>
