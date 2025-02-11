@@ -15,6 +15,9 @@
 	    q_answerstatus='답변완료', a_num = #{a_num}, q_answer = #{q_answer}, q_revisiondate = now()
 	    where q_num = #{q_num}
 	</update>
+	<delete id="QnADelete" parameterType="com.travel.seoul.vo.QnAVO">
+		delete from qnadb where q_num = #{q_num}
+	</delete>
  	<select id="getQnaByNum" resultType="com.travel.seoul.vo.QnAVO">
 		select * from qnadb	where q_num = #{q_num}
  	</select>

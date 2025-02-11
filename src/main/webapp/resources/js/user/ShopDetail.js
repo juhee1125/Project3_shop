@@ -241,6 +241,33 @@ $(document).ready(function(){
 	})
 });
 
+//리뷰 별점
+$(document).ready(function(){
+	document.querySelectorAll('.stars').forEach(star => {
+		let rating = star.getAttribute("data-rating");
+		
+		for (let i = 0; i < rating; i++) {
+		    let img = document.createElement("img");
+		    img.src =  "/resources/img/icon/채운별.png";
+		    img.style.width =  "30px";
+			img.style.marginRight =  "5px";
+		    star.appendChild(img);
+		}
+		
+		for (let i = 0; i < 5 - rating; i++) {
+		    let img = document.createElement("img");
+		    img.src = "/resources/img/icon/별.png";
+			img.style.width =  "30px";
+			img.style.marginRight =  "5px";
+		    star.appendChild(img);
+		}
+	});
+});
+$(document).ready(function(){
+	const reviewcontentlabel = document.querySelector('.reviewcontentlabel');
+	reviewcontentlabel.textContent = reviewcontentlabel.replace("\\n", "\n");
+});
+
 //상품문의
 $(document).ready(function() {
     $('.tabbutton').click(function() {

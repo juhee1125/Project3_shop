@@ -26,5 +26,8 @@
     <select id="findOptionByPONum" resultType="long">
 		select po_num from prouctoptiondb where p_num = #{p_num}
 	</select>
+    <select id="findOptionAndDetail" resultType="long">
+		select po_num from prouctoptiondb where p_num = #{p_num} and po_option = #{po_option} and po_optiondetail = #{po_optiondetail}
+	</select>
 
 </mapper>

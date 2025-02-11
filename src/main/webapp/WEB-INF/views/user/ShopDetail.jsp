@@ -121,7 +121,36 @@
 		<div id="tab-1" class="tab-content current">
 			<img src="/admin/${productdetailpath}" class="tab-content-img">
 		</div>
-		<div id="tab-2" class="tab-content">tab content2</div>
+		<div id="tab-2" class="tab-content">
+			<div class="secondtabdiv">
+				<c:choose>
+				    <c:when test="${not empty reviewlist}">
+				        <c:forEach var="review" items="${reviewlist}" varStatus="status">
+				        	<div class="reviewdiv">
+					        	<div class="userdiv">
+					        		<label>${usernamelist[status.index]}</label>
+					        	</div>
+					        	<div class="reviewdetaildiv">
+					        		<div class="stars" data-rating="${review.r_countstar}"></div>		
+					        		<div class="optioncontentdiv">	        		
+						        		<label class="optionlabel">${optionlist[status.index]}</label>
+						        		<label class="reviewcontentlabel">${review.r_reviewcontent}</label>
+						        	</div>
+						        	<div>
+							        	<c:forEach var="reviewpath" items="${newreviewpathlist[status.index]}" varStatus="status">
+							        		<img src="/admin/${reviewpath}" class="reviewimg" />
+								        </c:forEach>
+							        </div>
+					        	</div>
+					        </div>
+				        </c:forEach>
+				    </c:when>
+				    <c:otherwise>
+				        작성된 리뷰 없음
+				    </c:otherwise>
+				</c:choose>
+			</div>
+		</div>
 		<div id="tab-3" class="tab-content">
 			<div class="firsttabdiv">
 				<label class="tablabel">교환/반품 등 자세한 문의는 1:1 문의를 이용해주세요</label>

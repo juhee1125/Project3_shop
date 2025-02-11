@@ -1,3 +1,19 @@
+function deleteToProduct(users) {
+    $.ajax({
+        type: 'Post',
+        url: '/admin/qnadelete',
+		contentType: "application/json",
+        data: JSON.stringify(users),
+		dataType: 'text',
+        success: function (data) {
+            actionsuccessalert(data);
+        },
+        error: function () {
+            alert('오류가 발생했습니다.');
+        }
+    });
+}
+
 function search() {
     var topic = $("#searchTopic").val();
     var keyword = $("#searchKeyword").val();
@@ -32,68 +48,38 @@ function selectAll(selectAll)  {
 function AdminAction() {
     const action = document.querySelector('.adminAction').value;
 	if (action===""){
-		actionwarningalert('수정하고자 하는 역할을 선택해주세요');
+		actionwarningalert('수정하고자 하는 항폭을 선택해주세요');
 	}
-	 const users = [];
+	 const products = [];
 	
 	/* 체크박스 선택여부 */
 	const checkboxes = document.querySelectorAll('.listcheckbox:checked');
-        if (checkboxes.length === 0) {
-            actionwarningalert('수정하고자 하는 항목을 선택해주세요');
-    	}
+    if (checkboxes.length === 0) {
+        actionwarningalert('수정하고자 하는 상품을 선택해주세요');
+		return;
+	}
 	/* 체크박스와 제일 근접한 상위클래스에서 추출하고자 하는 클래스 확인 */
 	checkboxes.forEach(checkbox => {
         const mpage = checkbox.closest('.mpage');
 		if (mpage) {
-			const usernameElement = mpage.querySelector('.name');
-			const userIDElement = mpage.querySelector('.id');
-			const userPWElement = mpage.querySelector('.pw');
-			const userphoneElement = mpage.querySelector('.phone');
-			const roleElement =mpage.querySelector('.role');
-			if (usernameElement && userIDElement && userPWElement && userphoneElement && roleElement) {
-				const username = usernameElement.innerText;
-				const userID = userIDElement.innerText;
-				const userPW = userPWElement.innerText;
-				const userphone = userphoneElement.innerText;
-				const role =roleElement.innerText;
-				users.push({
-		            username: username,
-		            userID: userID,
-		            userPW: userPW,
-		            userphone: userphone,
-					role: role
-		        });
-			} else {
+            const productnumElement = mpage.querySelector('.num');
+            if (productnumElement) {
+                const qnanum = productnumElement.innerText;
+
+                products.push({
+					qnanum: qnanum
+                });
+            } else {
                 console.error('productname 또는 productemail 요소를 찾을 수 없습니다.');
             }
         } else {
             console.error('mpage 요소를 찾을 수 없습니다.');
         }
 	})
-	const allRoles = users.map(user => user.role);
-	const allAreAdmins = allRoles.every(role => role === "관리자");
-	const allAreMembers = allRoles.every(role => role === "일반회원");
-	/* 관리자로 승급 */
-	if (action === "grantAdmin") {
-		if (!allAreAdmins) {
-			upgradeToAdmin(users);
-		}
-		else {
-            actionwarningalert('선택된 항목 중에 이미 관리자가 있습니다.');
-        }
-	}
-	/* 일반회원으로 강등 */
-	else if (action === "revokeAdmin") {
-        if (!allAreMembers) {
-            deleteToAdmin(users);
-        } else {
-            actionwarningalert('선택된 항목 중에 이미 일반회원이 있습니다.');
-        }
+	/* 상품삭제 */
+	if (action === "productdelete") {
+        deleteToProduct(products);
     }
-	/* 회원탈퇴 */
-	else {
-		deleteToUser(users);
-	}
 };
 function actionsuccessalert(message) {
 	console.log(message);

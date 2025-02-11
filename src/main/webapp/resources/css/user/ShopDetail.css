@@ -203,6 +203,7 @@ ul.tabs{
     display: flex;
     justify-content: space-between;
     margin-top: 50px;
+    padding-left: 0px;
 }
 ul.tabs li{
 	background: none;
@@ -304,6 +305,36 @@ ul.tabs li.current{
     display: none;
 }
 
+.secondtabdiv {
+    display: flex;
+    flex-direction: column;
+}
+.reviewdiv {
+	display: flex;
+	margin-bottom: 20px;
+}
+.userdiv {
+    width: 20%;
+}
+.stars {
+	margin-bottom: 10px;
+}
+.optionlabel {
+    margin-bottom: 20px;
+    color: gray;
+}
+.reviewdetaildiv{
+	width: 100%;
+}
+.optioncontentdiv{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.reviewimg {
+	width: 100px;
+	margin-right: 10px;
+}
 
 @keyframes scrlDwnIndc {
   0%    {bottom: 50px;}

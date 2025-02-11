@@ -19,11 +19,9 @@
 	<div class="actiondiv">
 		<select class="adminAction">
 	        <option value="">선택</option>
-	        <option value="grantAdmin">관리권한</option>
-	        <option value="revokeAdmin">일반권한</option>
-	        <option value="withdrawal">회원탈퇴</option>
+	        <option value="productdelete">문의삭제</option>
 	    </select>
-	    <button type="button" onclick="AdminAction('${list}')" class="AdminActionB">변경</button>
+	    <button type="button" onclick="AdminAction()" class="AdminActionB">변경</button>
 	</div>
 	<!-- 검색 -->
     <div id="searchForm">
