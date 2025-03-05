@@ -70,8 +70,8 @@ body {
 ul {
     background-color: white;
     width: 10em;
-    position: absolute;
-    height: 220vh;
+    position: fixed;
+    height: 100%;
 }
 .productList {
 	font-family: noto-reg;

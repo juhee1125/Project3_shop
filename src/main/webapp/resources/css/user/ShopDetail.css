@@ -95,6 +95,24 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
     font-family: 'noto';
 }
 
+.coupondiv{
+    border: 2px solid #efefef;
+    padding: 12px 0px;
+    margin-top: 20px;
+    color: #757575;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px #efefef;
+    display: flex;
+    align-items: center;
+}
+.couponnamelabel {
+	font-family: 'noto';
+    font-size: 18px;
+}
+.coupondiscount {
+	margin-top: 10px;
+}
+
 .infodivselect{
     position: relative;
     font-size: 17px;
@@ -104,7 +122,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
     border: none;
     color: #757575;
     width: 100%;
-    margin-top: 40px;
+    margin-top: 30px;
     cursor: pointer;
 }
 
@@ -119,7 +137,7 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
 .totalquantity {
 	width: 100%;
     background-color: #F7F8F7;
-    margin-top: 40px;
+    margin-top: 30px;
     font-family: 'noto';
     font-size: 17px;
 }

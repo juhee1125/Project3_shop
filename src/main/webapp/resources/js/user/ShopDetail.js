@@ -263,10 +263,6 @@ $(document).ready(function(){
 		}
 	});
 });
-$(document).ready(function(){
-	const reviewcontentlabel = document.querySelector('.reviewcontentlabel');
-	reviewcontentlabel.textContent = reviewcontentlabel.replace("\\n", "\n");
-});
 
 //상품문의
 $(document).ready(function() {
@@ -500,5 +496,70 @@ function loginfirst(message) {
         confirmButtonText: 'OK'
     }).then(function(){
 		location.href='/login/login';
+	})
+};
+
+
+// 쿠폰다운
+function clickcoupon(event, cnum){
+	const coupondiv = document.querySelector(".coupondiv");
+	let couponclickstate = event.currentTarget;
+
+    if (couponclickstate.dataset.clicked === "true") {
+        console.log("이미 다운받은 쿠폰");
+        return;
+    }
+	$.ajax({
+        type: 'POST',
+		contentType: "application/json",
+        url: "/detail/coupondownload",
+        data: JSON.stringify({
+			"cnum":cnum
+		}),
+        success: function (data) {
+			console.log("✅ 성공 응답:", data);
+        	console.log("✅ data.message: " + data.message);
+
+			if (data.message === "로그인페이지로 이동"){
+				console.log(data.message)
+				location.href='/login/login';
+			}
+			else if(data.message.trim() === "이미 다운받은 쿠폰입니다"){
+				console.log(data.message);
+				couponclickstate.dataset.clicked = "true";
+				
+				couponwarning(data.message, coupondiv);
+			}
+			else{
+			    console.log("쿠폰 다운");
+			    couponclickstate.dataset.clicked = "true";
+				
+			    couponsuccess("쿠폰을 다운받았습니다", coupondiv);
+			}
+        },
+		error: function (xhr, status, error) {
+	        console.error("❌ 오류 발생!");
+	        console.error("📌 상태 코드:", xhr.status);
+	        console.error("📌 응답 텍스트:", xhr.responseText);
+	        console.error("📌 오류 메시지:", error);
+	    }
+    });
+}
+function couponsuccess(message, coupondiv) {	
+    Swal.fire({
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'OK'
+    }).then(function(){
+		coupondiv.style.backgroundColor="#efefef";
+	})
+};
+function couponwarning(message, coupondiv) {	
+    Swal.fire({
+        text: message,
+        icon: 'warning',
+        confirmButtonText: 'OK'
+    }).then(function(){
+		coupondiv.style.backgroundColor="#efefef";
 	})
 };

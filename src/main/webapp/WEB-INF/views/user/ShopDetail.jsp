@@ -21,7 +21,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/user/ShopDetail.css" /> 
 <script src="/resources/js/user/Main.js"></script>
 <script src="/resources/js/user/Skin.js"></script>
-<script src="/resources/js/user/ShopDetail.js"></script>
 <body>
 	<div class="container">
 		<div>
@@ -55,6 +54,19 @@
 					</c:otherwise>
 				</c:choose>
 			</div>
+			<c:if test="${not empty productcoupon}">
+				<div class="coupondiv" onclick="clickcoupon(event, ${productcoupon.c_num})">
+					<div style="width: 100%;">
+						<label class="couponnamelabel">${productcoupon.c_name}</label>
+						<fmt:formatNumber value="${productcoupon.c_price}" pattern="#,###원" var="formattedPrice" />
+						<fmt:formatNumber value="${productcoupon.c_discount_price}" pattern="#,###원" var="formattedDiscount" />									
+						<div class="coupondiscount">${formattedPrice} 구매 시 ${formattedDiscount} 할인</div>
+					</div>
+					<div style="width: 10%;">
+						<img src="/resources/img/icon/다운로드.png" style="width:30px"/>
+					</div>
+				</div>
+			</c:if>
 	        <c:choose>
 		    	<c:when test="${productoptionlist.size() > 0}">
 			        <select class="infodivselect" onchange="clickoption(this)">
@@ -187,15 +199,16 @@
 		</div>
 	</div>
     <!-- 맨위로 버튼 -->
-    <a id="btn_gotop" href="#">
+<!--     <a id="btn_gotop" href="#">
         <img src="resources/img/icon/up-arrow-angle.png" id="up">
-    </a>
+    </a> -->
 </body>
 <script>
     // JSON.parse로 전달된 값을 안전하게 파싱
     const QnAAnswer = JSON.parse('${QnAAnswer}');
     console.log(QnAAnswer);  // 값이 제대로 전달되었는지 확인
 </script>
+<script src="/resources/js/user/ShopDetail.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 </html>
