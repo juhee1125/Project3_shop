@@ -436,7 +436,7 @@ $(document).ready(function() {
 			optionnprice = Array.from(optionpricelabel).map(element => element.textContent.trim().replace(/\D/g, ""));
 			console.log(optionnprice)
 		}
-		
+		console.log("option: "+option+"optionnprice"+optionnprice)
 		if(optionGroup || (totalquantity.length > 0)){
   			$.ajax({
 	            type: 'POST',
