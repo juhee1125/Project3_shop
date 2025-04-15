@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.travel.seoul.mapper.LikeMapper">
+  	<select id="likelist" resultType="com.travel.seoul.vo.LikeVO">
+ 		select * from likedb	
+ 	</select>
+ 	<insert id="likeInsert" parameterType="com.travel.seoul.vo.LikeVO">
+ 		insert into likedb(p_num, m_num) values
+ 		(#{p_num}, #{m_num})
+ 	</insert>
+ 	<delete id="likeDelete" parameterType="com.travel.seoul.vo.LikeVO">
+	    delete from likedb where l_num = #{l_num}
+	</delete>
+	<delete id="likepnumDelete" parameterType="com.travel.seoul.vo.LikeVO">
+		delete from likedb where p_num = #{p_num}
+	</delete>
+	<select id="getLikeByNum" resultType="com.travel.seoul.vo.LikeVO">
+   		select * from likedb where l_num = #{l_num}
+    </select>
+	<select id="findLikeByLNum" resultType="Long">
+   		select l_num from likedb where m_num = #{m_num}
+    </select>
+	<select id="findLikeByPNum" resultType="Long">
+   		select l_num from likedb where p_num = #{p_num}
+    </select>
+</mapper>

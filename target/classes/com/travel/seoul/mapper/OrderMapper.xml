@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.travel.seoul.mapper.OrderMapper">
+  	<select id="orderlist" resultType="com.travel.seoul.vo.OrderVO">
+ 		select * from orderdb	
+ 	</select>
+ 	<insert id="orderInsert" parameterType="com.travel.seoul.vo.OrderVO">
+ 		insert into orderdb(m_num, p_num, c_num, o_quantity, o_price, o_paymentstatus, o_deliverystatus, o_reviewstatus, o_totalprice, o_option, o_optiondetail, o_optionprice, o_date, o_image, o_number) values
+ 		(#{m_num}, #{p_num}, null, #{o_quantity}, #{o_price}, #{o_paymentstatus}, null, null, #{o_totalprice}, #{o_option}, #{o_optiondetail}, #{o_optionprice}, now(), #{o_image}, null)
+ 	</insert>
+  	<update id="orderoptionUpdate" parameterType="com.travel.seoul.vo.OrderVO">
+	    update orderdb set 
+	    o_option=#{o_option}, o_optiondetail=#{o_optiondetail}, o_optionprice=#{o_optionprice}, o_quantity=#{o_quantity}
+	    where o_num=#{o_num}
+	</update>
+  	<update id="paymentstatusUpdate" parameterType="com.travel.seoul.vo.OrderVO">
+	    update orderdb set 
+	    o_paymentstatus=#{o_paymentstatus}, o_deliverystatus=#{o_deliverystatus}, o_reviewstatus=#{o_reviewstatus}, o_date=now(), o_number=#{o_number}, c_num=#{c_num}
+	    where o_num=#{o_num}
+	</update>
+ 	<delete id="orderDelete" parameterType="com.travel.seoul.vo.OrderVO">
+	    delete from orderdb where o_num = #{o_num}
+	</delete>
+ 	<delete id="orderpnumDelete" parameterType="com.travel.seoul.vo.OrderVO">
+	    delete from orderdb where p_num = #{p_num}
+	</delete>
+ 	<select id="getOrderByNum" resultType="com.travel.seoul.vo.OrderVO">
+    	select * from orderdb where o_num = #{o_num}
+    </select>
+    <select id="getOrderByONum" resultType="com.travel.seoul.vo.OrderVO">
+    	select * from orderdb where m_num = #{m_num}
+    </select>
+    <select id="datesearch" parameterType="map" resultType="com.travel.seoul.vo.OrderVO">
+    	select * from orderdb where o_date between #{startDate} and #{endDate}
+    </select>
+    <select id="onumbersearch" resultType="com.travel.seoul.vo.OrderVO">
+    	select * from orderdb where o_number=#{o_number}
+    </select>
+</mapper>

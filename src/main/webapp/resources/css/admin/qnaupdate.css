@@ -1,0 +1,128 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+
+body{
+	font-family:noto-reg;
+	background-color:#F0F0F0;
+	color: #171717;
+	height: 220vh;
+}
+div:where(.swal2-container) .swal2-html-container {
+	font-family:noto;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+	    font-family: noto;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.memberlist {
+    margin: 100px 25px 25px 355px;
+}
+
+.memberlist h2 {
+    margin-bottom: 30px;
+    background-image: url('/resources/img/member_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px;
+    opacity: 0;
+    border-radius: 5px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+.frame {
+    background-color: white;
+    width: 85em;
+    min-height: 31em;
+    padding: 2em;
+    box-sizing: border-box;
+    position: relative;
+    top: 4em;
+    margin-top: 25px;
+}
+.productuploadlabel {
+	font-family: 'noto';
+    font-size: 30px;
+    position: absolute;
+}
+
+.namediv {
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.productname {
+	font-family: 'noto';
+    font-size: 17px;
+    margin-right: 15px;
+}
+
+.contentdiv {
+	display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.qcontent{
+	display: block;
+    margin-right: 20px;
+    white-space: pre-line;
+}
+
+.answerdiv{
+	margin-top: 15px;
+}
+.textbox {
+	resize: none;
+	width: 100%;
+    height: 15em;
+    font-family: 'noto-reg';
+    font-size: 16px;
+    margin-top: 5px;
+}
+
+.productbutton {
+	position: relative;
+    top: 6em;
+    left: 61.9em;
+    font-size: 20px;
+    font-family: 'noto';
+    border: solid 3px #F8CFBD;
+    padding: 10px 40px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.productbutton:hover {
+	background-color: white;
+}
+
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+	font-family: 'noto-reg';
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+	font-family: 'noto-reg';
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 500px white inset;
+}

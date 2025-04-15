@@ -1,9 +1,0 @@
-@media (max-width: 1000px) {
-    .board_wrap {
-        width: 100%;
-        min-width: 320px;
-        padding: 0 30px;
-        box-sizing: border-box;
-    }
-
-}
