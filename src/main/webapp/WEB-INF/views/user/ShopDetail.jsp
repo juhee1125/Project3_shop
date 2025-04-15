@@ -59,8 +59,15 @@
 					<div style="width: 100%;">
 						<label class="couponnamelabel">${productcoupon.c_name}</label>
 						<fmt:formatNumber value="${productcoupon.c_price}" pattern="#,###원" var="formattedPrice" />
-						<fmt:formatNumber value="${productcoupon.c_discount_price}" pattern="#,###원" var="formattedDiscount" />									
-						<div class="coupondiscount">${formattedPrice} 구매 시 ${formattedDiscount} 할인</div>
+						<fmt:formatNumber value="${productcoupon.c_discount_price}" pattern="#,###원" var="formattedDiscount" />					
+						<c:choose>
+		    				<c:when test="${empty productcoupon.c_price}">				
+		    					<div class="coupondiscount">${productcoupon.c_discount}% 할인</div>
+							</c:when>
+							<c:otherwise>
+								<div class="coupondiscount">${formattedPrice} 구매 시 ${formattedDiscount} 할인</div>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div style="width: 10%;">
 						<img src="/resources/img/icon/다운로드.png" style="width:30px"/>

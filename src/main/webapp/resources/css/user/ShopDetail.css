@@ -74,9 +74,6 @@ div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
 .infodivprice{
 	margin-top: 20px;
 }
-.pricediv {
-    margin-bottom: 26px;
-}
 .discounted-price {
     font-size: 18px;
     font-family: 'noto-reg';

@@ -43,6 +43,7 @@ function clickoption(select) {
 		// 수량,가격 div 생성
 		var newDiv2 = document.createElement('div');
         newDiv2.classList.add('option-detailgroup');
+		newDiv2.dataset.index = option.length;
 		newDiv2.style.display = "flex";
 		newDiv2.style.alignItems = "center";
 		newDiv2.style.justifyContent = "space-between";
@@ -75,8 +76,13 @@ function clickoption(select) {
 		cancelbutton.onclick = function() {
 	        var parentDiv = this.closest('.option-group');
 		    document.getElementById('options-container').removeChild(parentDiv);
-
+			var index = parseInt(parentDiv.dataset.index);
+			console.log("index: "+index)
 		    delete optionQuantities[selectoption];
+			// 배열에서 해당 옵션 제거
+		    if (!isNaN(index)) {
+		        option.splice(index, 1);
+		    }
 			
 			// 총액
 			var parentdetailDiv = this.closest('.option-detailgroup');
