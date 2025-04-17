@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+.nameclick {
+	display: contents;
+}
+#adminlabel {
+	position: absolute;
+    right: 7.2em;
+}
+.under {
+	height: 25px;
+    right: 5.5em;
+    position: absolute;
+}
+.my {
+	height: 20px;
+    right: 3.3em;
+    position: absolute;
+    opacity: 80%;
+}
+.nav2 {
+	font-family: 'noto';
+	font-size: 17px;
+	height: 30px;
+    width: 100%;
+    background-color:#F8CFBD;
+    padding: 25px 0px 25px 0px;
+    z-index: 9999;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+}
+.nav2 a {
+	color: #171717;
+    text-decoration-line: none;
+    font-size: 18px;
+    position: absolute;
+}
+.logo {
+	height: 50px;
+    position: absolute;
+    left: 4em;
+}
+#logout {
+	display: none;
+	position: absolute;
+    right: 5.6em;
+    top: 6em;
+    font-family: noto-reg;
+    text-decoration-line: none;
+    color: #171717;
+    background-color: white;
+    padding: 40px 30px;
+    font-size: 16px;
+}
+
+ul {
+    background-color: white;
+    width: 10em;
+    position: fixed;
+    height: 100%;
+}
+.productList {
+	font-family: noto-reg;
+    padding: 0px 20px 20px 34px;
+}
+.productupload {
+	font-family: noto-reg;
+    padding: 0px 20px 20px 34px;
+}
+li a {
+	font-family: 'noto';
+    text-decoration: none;
+    display: block;
+    color: #171717;
+    font-size: 17px;
+    padding: 30px 20px 20px 35px;
+}

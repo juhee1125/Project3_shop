@@ -1,0 +1,389 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+
+body{
+	font-family:noto-reg;
+	background-color:#F0F0F0;
+	color: #171717;
+	height: 220vh;
+}
+div:where(.swal2-container) .swal2-html-container {
+	font-family:noto;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+    font-family: noto;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.memberlist {
+    margin: 100px 25px 25px 355px;
+}
+
+.memberlist h2 {
+    margin-bottom: 30px;
+    background-image: url('/resources/img/member_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px;
+    opacity: 0;
+    border-radius: 5px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+.frame {
+    background-color: white;
+    width: 85em;
+    min-height: 31em;
+    padding: 2em;
+    box-sizing: border-box;
+    position: relative;
+    top: 4em;
+    margin-top: 25px;
+}
+.productuploadlabel {
+	font-family: 'noto';
+    font-size: 30px;
+    position: absolute;
+}
+
+.line1 {
+	width: 72em;
+    border: solid 1px;
+    position: absolute;
+    top: 2.5em;
+    left: 9em;
+}
+.productinformation {
+	font-size: 20px;
+    font-family: 'noto';
+    position: absolute;
+    left: 2em;
+    top: 1.3em;
+}
+.productname {
+	font-family: 'noto';
+	position: absolute;
+    top: 4.3em;
+    left: 10.8em;
+    font-size: 17px;
+}
+.nameinput {
+    top: 4em;
+    position: absolute;
+    left: 15em;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    width: 40em;
+    height: 2em;
+    border: solid 1px;
+    border-color: #8d8d8d;
+    outline: none;
+}
+.productprice {
+	font-family: 'noto';
+    position: absolute;
+    top: 7.3em;
+    left: 11.7em;
+    font-size: 17px;
+}
+.priceinput {
+    top: 7em;
+    position: absolute;
+    right: 44.9em;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    width: 20em;
+    height: 2em;
+    border: solid 1px;
+    border-color: #8d8d8d;
+    outline: none;
+}
+.productquantity {
+	font-family: 'noto';
+    position: absolute;
+    top: 7.3em;
+    left: 40em;
+    font-size: 17px;
+}
+.quantityinput {
+    top: 7em;
+    position: absolute;
+    right: 24.9em;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    width: 10em;
+    height: 2em;
+    border: solid 1px;
+    border-color: #8d8d8d;
+    outline: none;
+}
+.line2 {
+	width: 72em;
+    border: solid 1px;
+    position: absolute;
+    top: 13.4em;
+    left: 9em;
+}
+.productdiscount {
+	font-size: 20px;
+    font-family: 'noto';
+    position: absolute;
+    left: 3.9em;
+    top: 10em;
+}
+.discountpercent {
+	font-family: 'noto';
+    position: absolute;
+    top: 14.5em;
+    left: 10.8em;
+    font-size: 17px;
+}
+.percentinput {
+    top: 14.3em;
+    position: absolute;
+    left: 15em;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    width: 10em;
+    height: 2em;
+    border: solid 1px;
+    border-color: #8d8d8d;
+    outline: none;
+}
+.percent {
+	position: absolute;
+    top: 14.5em;
+    font-family: 'noto';
+    left: 26em;
+    font-size: 17px;
+}
+.discountdate {
+	font-family: 'noto';
+    position: absolute;
+    top: 14.5em;
+    left: 33em;
+    font-size: 17px;
+}
+#dateinputstart {
+    position: absolute;
+    top: 14.3em;
+    left: 38em;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    height: 2em;
+    width: 10em;
+}
+.from {
+	position: absolute;
+    top: 14.5em;
+    font-family: 'noto';
+    left: 50.2em;
+    font-size: 17px;
+}
+#dateinputend {
+    position: absolute;
+    top: 14.3em;
+    left: 53em;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    height: 2em;
+    width: 10em;
+}
+
+.line3 {
+	width: 72em;
+    border: solid 1px;
+    position: absolute;
+    top: 21em;
+    left: 9em;
+}
+.productoption {
+	font-size: 20px;
+    font-family: 'noto';
+    position: absolute;
+    left: 3.9em;
+    top: 16em;
+}
+.option-group {
+    position: relative;
+    left: 13.9em;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    margin-top: 1em;
+}
+.optioninput {
+    font-size: 17px;
+    font-family: 'noto-reg';
+    height: 2em;
+    border: solid 1px;
+    border-color: #8d8d8d;
+    outline: none;
+    width: 20%;
+}
+.optiondetailinput {
+    font-size: 17px;
+    font-family: 'noto-reg';
+    height: 2em;
+    border: solid 1px;
+    border-color: #8d8d8d;
+    outline: none;
+    width: 60%;
+    margin: 0 1em;
+}
+.plus {
+    height: 2.25em;
+    background-color: #F8CFBD;
+    cursor: pointer;
+}
+
+.category {
+	font-family: 'noto';
+    position: relative;
+    top: 2em;
+    left: 8em;
+    font-size: 17px;
+}
+.category-group {
+	position: relative;
+    top: 0.5em;
+    left: 12em;
+    font-size: 17px;
+    width: 70%;
+}
+.categoryradio {
+	margin: 0px 20px;
+}
+.categorylabel {
+	margin-right: 35px;
+}
+
+.mainimage {
+	font-size: 20px;
+    font-family: 'noto';
+    position: absolute;
+    left: 2em;
+    top: 1.3em;
+}
+.mainimagelabel {
+	font-size: 17px;
+    position: absolute;
+    left: 9em;
+    top: 1.9em;
+}
+
+#imageFile {
+	position: absolute;
+    top: 30em;
+}
+#previewImg {
+	position: absolute;
+    top: 8em;
+    left: 2em;
+}
+.mainimagestyle {
+	width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: -20px;
+    margin-left: 60px;
+}
+.close-button {
+	background: none;
+    border: none;
+}
+.closeimage {
+	height: 40px;
+    position: absolute;
+    bottom: 13.5em;
+}
+#imageFilelabel {
+	position: absolute;
+    left: 69.2em;
+    cursor: pointer;
+    font-family: 'noto';
+    font-size: 17px;
+    background-color: #F8CFBD;
+    padding: 10px;
+    width: 100px;
+    display: block;
+    top: 1.5em;
+}
+.close-detailbutton {
+	background: none;
+    border: none;
+    position: absolute;
+    top: 8em;
+    right: 3em;
+}
+.closedetailimage {
+	height: 40px;
+}
+.frame input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.upload-group {
+	margin-bottom: 6em;
+}
+#imagedetailFile {
+	position: absolute;
+    top: 30em;
+}
+#previewdetailImg {
+    width: 1238px;
+    object-fit: cover;
+    position: relative;
+    left: 1.6em;
+    margin-bottom: 2em;
+}
+.productbutton {
+	position: relative;
+    top: 6em;
+    left: 61.9em;
+    font-size: 20px;
+    font-family: 'noto';
+    border: solid 3px #F8CFBD;
+    padding: 10px 40px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+.productbutton:hover {
+	background-color: white;
+}
+
+
+div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm {
+	font-family: 'noto-reg';
+}
+div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
+	font-family: 'noto-reg';
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 500px white inset;
+}

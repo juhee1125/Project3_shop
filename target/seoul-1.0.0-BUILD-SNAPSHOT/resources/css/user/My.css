@@ -1,0 +1,326 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+ul {
+    width: 12em;
+    height: 100%;
+    list-style-type: none;
+    padding-left: 0px;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    margin-top: 30px;
+}
+ul li:first-child a {
+	font-family: 'noto';
+    font-size: 17px;
+}
+li a {
+	font-family: 'noto-reg';
+    text-decoration: none;
+    display: flex;
+    color: #171717;
+    font-size: 15px;
+    justify-content: center;
+    padding: 15px 0px 15px 0px;
+}
+
+.wrap {
+    display: flex;
+    width: 90%;
+    margin: 0 auto;
+}
+.frame {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px 0px;
+}
+
+.paymentlabel {
+    font-size: 25px;
+    font-family: noto;
+}
+.div1{
+	display: flex;
+	justify-content: space-evenly;
+    align-items: center;
+    background-color: #f3f3f3;;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+
+.paymentdiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.paymentwaitcount {
+    font-family: 'noto';
+    font-size: 45px;
+}
+.payment {
+    font-size: 17px;
+}
+
+.paymentimg {
+    width: 40px;
+    height: 40px;
+    opacity: 50%;
+}
+
+.div2group {
+    overflow: hidden;
+    width: 50%;
+    margin-right: 10px;
+}
+.div2_my {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#plusatag {
+   	border-bottom: 1px solid;
+    font-size: 15px;
+    color: #6a6a6a;
+}
+.product-set {
+    text-align: center;
+}
+.pathimage{
+    width: 12em;
+    height: 12em;
+    object-fit: cover;
+    display: block;
+    padding-right: 18px;
+    cursor: pointer;
+}
+.productlabel {
+    display: block;
+    width: 195px;
+    font-family: 'noto';
+    cursor: pointer;
+}
+.pricediv {
+    margin-bottom: 26px;
+}
+.discounted-price {
+    font-family: 'noto-reg';
+    color: gray;
+    text-decoration: line-through;
+}
+.discount{
+    font-family: 'noto';
+    color: #e13232;
+    padding-right: 15px;
+}
+.price {
+    font-family: 'noto';
+}
+
+.contentdiv {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+.qnalistdiv {
+	border-bottom: 2px solid #e7e7e7;
+	padding-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.qnastatus_answered {
+    border-radius: 20px;
+    border: 1px solid transparent;
+    background-color: #F8CFBD;
+    text-align: center;
+    padding: 7px 12px;
+    font-size: 14px;
+    font-family: 'noto';
+}
+.qnastatus {
+	border-radius: 20px;
+    border: 1px solid transparent;
+    background-color: #F3F3F3;
+    text-align: center;
+    padding: 7px 12px;
+    font-size: 14px;
+    font-family: 'noto';
+}
+
+/* delivery.jsp */
+.div2 {
+	margin-top: 40px;
+    padding: 20px 10px;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
+    display: flex;
+}
+.dateinquirybutton {
+	padding: 5px 15px;
+    font-size: 15px;
+    font-family: 'noto-reg';
+    border: none;
+    background-color: #f3f3f3;
+    color: #171717;
+    border-radius: 7px;
+}
+.dateinquirybutton.active {
+	background-color: #F8CFBD;
+}
+#dateinput {
+    font-size: 15px;
+    font-family: 'noto-reg';
+    height: 2em;
+    width: 10em;
+}
+.inquirybutton {
+    padding: 7px 30px;
+    font-size: 15px;
+    font-family: 'noto';
+    border: none;
+    background-color: #F8CFBD;
+    color: #171717;
+    border-radius: 7px;
+    margin-left: 20px;
+}
+.mtitle {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #999;
+    text-align: center;
+    font-family: noto;
+   
+}
+.mpage:last-child {
+    border-bottom: 2px solid;
+}
+.orderdetail, .mpage {
+    padding: 15px 0;
+}
+.info, .odatetitle, .odate {
+   	width: 25%;
+	text-align: center;
+}
+.oimage {
+	width: 100px;
+    padding: 0px 15px;
+}
+.oproductinfo, .odproducttitle, .order, .mtitlediv {
+    width: 100%;
+}
+.oproductinfo, .orderdetail, .mpage, .mtitlediv {
+    display: flex;
+    align-items: center;
+}
+.oquantity, .oquantitytitle {
+	width: 15%;
+   	text-align: center;
+}
+.oprice, .opricetitle, .odeliverystatus, .ostatustitle {
+    width: 20%;
+}
+.oprice, .odeliverystatus {
+	text-align: center;
+}
+.onumber {
+    color: #F8CFBD;
+    font-family: noto;
+    cursor: pointer;
+}
+
+/* QnA.jsp */
+.qcontent, .qcontenttitle {
+	width: 100%;
+	text-align: center;
+}
+.qanswerstatus, .qanswerstatustitle {
+	width: 20%;
+	text-align: center;
+}
+
+/* Review.jsp */
+.reviewBdiv {
+    width: 20%;
+    text-align: center;
+}
+.reviewbutton {
+	padding: 10px;
+    font-size: 15px;
+    font-family: 'noto';
+    border: none;
+    background-color: #F8CFBD;
+    color: #171717;
+    width: 100px;
+    cursor: pointer;
+}
+.Reviewpopup{
+ 	display: none;
+	z-index : 998;
+	background-color : rgba(0, 0, 0, 0.5);
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.starimg {
+    width: 30px;
+    margin-right: 10px;
+}
+
+/* coupon.jsp */
+.couponname, .couponbenefit, .coupondate{
+	width: 100%;
+}
+
+/* Deliverydetail.jsp */
+.totalpricediv{
+    background-color: #ebebeb;
+    padding: 15px;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+.totalpricesubdiv {
+   	width: 70%;
+    display: grid;
+    justify-items: center;
+    align-content: baseline;
+}
+.totalpricesubdiv:first-child {
+    border-right: 1px solid #c5c5c5;
+}
+.pricedivtitle {
+	font-family: noto;
+    font-size: 20px;
+}
+.pricedetaildiv {
+	display: flex;
+	color: #959595;
+	width: 50%;
+    justify-content: space-between;
+}
+.pricesubdiv {
+	font-size: 20px;
+    margin-bottom: 15px;
+}
+.totalpricediv2 {
+    text-align: right;
+    font-size: 20px;
+    font-family: noto;
+}

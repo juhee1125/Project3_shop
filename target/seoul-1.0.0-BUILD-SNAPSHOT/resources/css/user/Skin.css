@@ -1,0 +1,136 @@
+@charset "EUC-KR";
+
+body{
+    margin: 0px;
+    
+}
+
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+
+.wrap {
+    transition: 1s;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+}
+.container {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+#img1{
+    width: 85em;
+}
+
+.frame {
+	display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 72.8%;
+    position: absolute;
+    left: 16.8em;
+    top: 55em;
+}
+.mainimg{
+	width: 20em;
+    height: 20em;
+    object-fit: cover;
+    display: block;
+}
+.product-set {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    flex: 0 0 calc(25% - 20px);
+    max-width: calc(25% - 20px);
+}
+.namediv {
+	font-family: 'noto';
+	line-height: 25px;
+    text-align: center;
+    font-size: 17px;
+    margin: 10px 0 25px 0;
+}
+.productlabel {
+	cursor: pointer;
+}
+.pricediv {
+    margin-bottom: 26px;
+}
+.discounted-price {
+    font-size: 15px;
+    font-family: 'noto-reg';
+    color: gray;
+    text-decoration: line-through;
+}
+.discountdiv{
+	margin-top: 10px;
+}
+.discount{
+	font-size: 19px;
+    font-family: 'noto';
+    color: #e13232;
+    padding-right: 15px;
+}
+.price {
+	font-size: 20px;
+    font-family: 'noto';
+}
+
+.pathdiv {
+    margin: 10px 0;
+}
+
+.imgdiv {
+	margin-top: 2em;
+}
+.heartimg {
+	width: 30px;
+	margin-right: 100px;
+}
+.cartimg {
+	width: 30px;
+	margin-left: 100px;
+	
+}
+
+@keyframes scrlDwnIndc {
+  0%    {bottom: 50px;}
+  20%   {bottom: 54px;}
+  40%   {bottom: 58px;}
+  60%   {bottom: 62px;}
+  80%   {bottom: 64px;}
+  100%  {bottom: 54px;}
+}
+/* 맨위로 버튼 */
+#btn_gotop {
+	display:none;
+	position:fixed;
+	bottom:30px;
+	right:30px;
+	z-index:999;
+	outline:none;
+	background-color:white;
+	cursor:pointer;
+	padding:20px 20px;
+	border-radius:100%;
+	
+}
+#up{
+    width: 15px;
+    height: 15px;
+    color:#555;
+}
+
+
+div:where(.swal2-container) .swal2-html-container {
+	font-family: 'noto';
+}

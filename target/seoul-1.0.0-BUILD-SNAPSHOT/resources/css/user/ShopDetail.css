@@ -1,0 +1,422 @@
+@media all and (max-width: 1024px) {
+	#img1 {
+		background-image: url(/resources/img/메인이미지2.jpg);
+		width: 140%;
+	}
+}
+@media all and (max-width: 600px) {
+	#img1 {
+		background-image: url(/resources/img/메인이미지2모바일.jpg);
+		width: 100%;
+	}
+	.shopbutton {
+	    top: 18em;
+	}
+}
+body{
+    margin: 0px;
+}
+div:where(.swal2-container) .swal2-html-container {
+	font-family:noto;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm),
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-cancel) {
+	font-family: 'noto';
+}
+
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+@font-face {
+    font-family: 'Leiko';
+    src: url(/resources/font/Leiko-Regular.otf)
+}
+.container{
+	width: 1084px;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 5em;
+    justify-content: center;
+}
+.mainimage{
+	max-width: 510px;
+    max-height: 510px;
+    object-fit: cover;
+    display: block;
+    margin-bottom: 10px;
+}
+.subimage{
+	max-width: 124px;
+    max-height: 124px;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.infodiv{
+	padding: 20px;
+	width: 100%;
+	display: flex;
+    flex-direction: column;
+    color: #171717;
+}
+.infodivlabel{
+	font-size: 22px;
+    font-family: 'noto';
+    line-height: 35px;
+}
+
+.infodivprice{
+	margin-top: 20px;
+}
+.discounted-price {
+    font-size: 18px;
+    font-family: 'noto-reg';
+    color: gray;
+    text-decoration: line-through;
+    margin-right: 20px;
+}
+.discount{
+	font-size: 19px;
+    font-family: 'noto';
+    color: #e13232;
+    padding-right: 15px;
+}
+.price {
+	font-size: 22px;
+    font-family: 'noto';
+}
+
+.coupondiv{
+    border: 2px solid #efefef;
+    padding: 12px 0px;
+    margin-top: 20px;
+    color: #757575;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px #efefef;
+    display: flex;
+    align-items: center;
+}
+.couponnamelabel {
+	font-family: 'noto';
+    font-size: 18px;
+}
+.coupondiscount {
+	margin-top: 10px;
+}
+
+.infodivselect{
+    position: relative;
+    font-size: 17px;
+    font-family: 'noto';
+    height: 3em;
+    background-color: #F7F8F7;
+    border: none;
+    color: #757575;
+    width: 100%;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.option-group{
+	width: 100%;
+    background-color: #F7F8F7;
+    margin-top: 20px;
+    font-family: 'noto';
+    font-size: 17px;
+}
+
+.totalquantity {
+	width: 100%;
+    background-color: #F7F8F7;
+    margin-top: 30px;
+    font-family: 'noto';
+    font-size: 17px;
+}
+.buttonDiv {
+	margin-top: 20px;
+    max-width: 138px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    display: flex;
+}
+.minusBtn, .plusBtn{
+	width: 29px;
+    height: 35px;
+    border: 0;
+    background-size: 80%;
+    background-position: center;
+    cursor: pointer;
+}
+.minusBtn{
+	background-image: url(/resources/img/icon/마이너스2.png);
+}
+.plusBtn{
+	background-image: url(/resources/img/icon/플러스.png);
+}
+.quantityinput{
+	width: 60px;
+    height: 35px;
+    padding: 0 10px;
+    border: 0;
+    text-align: center;
+    color: #171717;
+    font-size: 17px;
+    font-family: noto;
+}
+
+.totalprice{
+	margin-top: auto;	
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #e12121;
+    padding-bottom: 10px;
+}
+.totallabel{
+	font-size: 20px;
+    font-family: 'noto';
+    color: #e12121;
+}
+.totalpricelabel{
+	font-size: 24px;
+    font-family: 'noto';
+    color: #e12121;
+}
+
+.imgdiv{
+	margin-top: 20px;
+	display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: auto;
+}
+.imgdivbutton {
+    padding: 10px 80px;
+    font-size: 20px;
+    font-family: 'noto';
+    border: none;
+    background-color: #F8CFBD;
+    color: #171717;
+    cursor: pointer;
+}
+.heartimg {
+	width: 30px;
+	cursor: pointer;
+}
+
+.tabcontainer{
+	width: 1084px;
+	margin: 0 auto;
+}
+ul.tabs{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    padding-left: 0px;
+}
+ul.tabs li{
+	background: none;
+	display: inline-block;
+	padding: 15px;
+	cursor: pointer;
+	width: 33%;
+	text-align: center;
+	font-family: 'noto';
+	font-size: 18px;
+	border-bottom: 3px solid #ededed;
+}
+ul.tabs li.current{
+	background: #ededed;
+}
+.tab-content{
+	display: none;
+	padding: 15px 0px;
+}
+.tab-content.current{
+	display: block;
+}
+.firsttabdiv {
+	display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.tab-content-img {
+	width:100%;
+}
+.tabbutton {
+	padding: 10px 45px;
+    font-size: 16px;
+    font-family: 'noto';
+    border: none;
+    background-color: #F8CFBD;
+    cursor: pointer;
+}
+.tablabel{
+	display: flex;
+    align-items: center;
+    color: #787878;
+}
+.QnApopup{
+ 	display: none;
+	z-index : 998;
+	background-color : rgba(0, 0, 0, 0.5);
+	width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.qnalistlabel {
+	color: #171717;	
+}
+.qnalistdiv {
+	color: #171717;
+    display: grid;
+    grid-template-columns: 0.4fr 2fr 0.4fr auto;
+    align-items: center;
+    padding: 20px 0px;
+    border-top: 2px solid #ededed;
+}
+.qnaq_content{
+	cursor: pointer;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+ .contentclick {
+	display:none;
+} 
+.qnastatus{
+	border-radius: 20px;
+    border: 1px solid transparent;
+    background-color: #ededed;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-family: 'noto';
+    margin-right: 25px;
+}
+.qnastatus_answered {
+	border-radius: 20px;
+    border: 1px solid transparent;
+    background-color: #F8CFBD;;
+    text-align: center;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-family: 'noto';
+    margin-right: 25px;
+}
+
+.answerlistdiv {
+	color: #171717;
+    padding: 20px 0px;
+    border-top: 2px solid #ededed;
+    display: none;
+}
+
+.secondtabdiv {
+    display: flex;
+    flex-direction: column;
+}
+.reviewdiv {
+	display: flex;
+	margin-bottom: 20px;
+}
+.userdiv {
+    width: 20%;
+}
+.stars {
+	margin-bottom: 10px;
+}
+.optionlabel {
+    margin-bottom: 20px;
+    color: gray;
+}
+.reviewdetaildiv{
+	width: 100%;
+}
+.optioncontentdiv{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+.reviewimg {
+	width: 100px;
+	margin-right: 10px;
+}
+
+@keyframes scrlDwnIndc {
+  0%    {bottom: 50px;}
+  20%   {bottom: 54px;}
+  40%   {bottom: 58px;}
+  60%   {bottom: 62px;}
+  80%   {bottom: 64px;}
+  100%  {bottom: 54px;}
+}
+/* 맨위로 버튼 */
+#btn_gotop {
+	display:none;
+	position:fixed;
+	bottom:30px;
+	right:30px;
+	z-index:999;
+	outline:none;
+	background-color:white;
+	cursor:pointer;
+	padding:20px 20px;
+	border-radius:100%;
+	
+}
+#up{
+    width: 15px;
+    height: 15px;
+    color:#555;
+}
+
+
+
+/* html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+   margin: 0;
+   padding: 0;
+   border: 0;
+   font-size: 100%;
+   font: inherit;
+   vertical-align: baseline;
+} */
+
+body {
+   line-height: 1;
+}
+ol, ul {
+   list-style: none;
+}
+blockquote, q {
+   quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+   content: '';
+   content: none;
+}
+table {
+   border-collapse: collapse;
+   border-spacing: 0;
+}

@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+body {
+    min-height: 100vh;
+    margin: 0 auto;
+    color: #171717;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+	    font-family: noto;
+}
+
+.loginP {
+	display: flex;
+    justify-content: center;
+}
+.title {
+    font-family: noto;
+    font-size: 30px;
+    position: absolute;
+    top: 200px;
+}
+.userID {
+    top: 17em;
+    position: absolute;
+    left: 44em;
+    font-size: 17px;
+    font-family: 'noto';
+    width: 25em;
+    height: 3em;
+    background-color: #F7F8F7;
+    border: none;
+}
+.userPW {
+    top: 21em;
+    position: absolute;
+    left: 44em;
+    font-size: 17px;
+    font-family: 'noto';
+    width: 25em;
+    height: 3em;
+    background-color: #F7F8F7;
+    border: none;
+}
+#remember-check {
+	margin-right: 10px;
+}
+.loginB {
+    top: 25em;
+    position: absolute;
+    padding: 10px 186px;
+    font-size: 20px;
+    font-family: 'noto';
+    border: none;
+    background-color: #F8CFBD;
+    color: #171717;
+    left: 37.4em;
+}
+.register {
+	top: 585px;
+    position: absolute;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    left: 44em;
+    text-decoration-line: none;
+    color: #171717;
+    padding-right: 45px;
+    border-right: solid 1px;
+}
+.register:active {
+	color: #171717;
+}
+.IDfind {
+	top: 585px;
+    position: absolute;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    right: 52em;
+    text-decoration-line: none;
+    color: #171717;
+    border-right: 1px solid;
+    padding-right: 45px;
+}
+.PWfind {
+	top: 585px;
+    position: absolute;
+    font-size: 17px;
+    font-family: 'noto-reg';
+    right: 44em;
+    text-decoration-line: none;
+    color: #171717;
+}
+.find:active {
+	color: #171717;
+}
+
+#swal2-html-container {
+	font-family: 'noto';
+}

@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+body {
+    min-height: 130vh;
+    margin: 0 auto;
+    color: #171717;
+}
+input:focus {
+	outline: 2px solid #82a5d9;
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 500px whitesmoke inset;
+}
+div:where(.swal2-container) button:where(.swal2-styled):where(.swal2-confirm) {
+	    font-family: noto;
+}
+
+.title {
+    font-family: noto;
+    font-size: 30px;
+    position: absolute;
+    top: 200px;
+    left: 29em;
+}
+.userPW {
+    top: 17em;
+    position: absolute;
+    left: 44em;
+    font-size: 17px;
+    font-family: 'noto';
+    width: 25em;
+    height: 3em;
+    background-color: #F7F8F7;
+    border: none;
+}
+.noPW {
+	position: absolute;
+    height: 4.5%;
+    left: 70em;
+    top: 18.4em;
+}
+.passwordcheck {
+    top: 21em;
+    position: absolute;
+    left: 44em;
+    font-size: 17px;
+    font-family: 'noto';
+    width: 25em;
+    height: 3em;
+    background-color: #F7F8F7;
+    border: none;
+}
+#passwordLabel {
+	font-family: 'noto';
+    position: absolute;
+    top: 28em;
+    left: 50em;
+    font-size: 15px;
+    color: #757575;
+}
+.changePWB {
+    top: 25em;
+    position: absolute;
+    padding: 10px 150px;
+    font-size: 20px;
+    font-family: 'noto';
+    border: none;
+    background-color: #F8CFBD;
+    color: #171717;
+    left: 37.4em;
+}
+
+#swal2-html-container {
+	font-family: 'noto';
+}

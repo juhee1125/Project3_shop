@@ -1,0 +1,336 @@
+@font-face {
+    font-family: 'noto';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Bold.ttf)
+}
+@font-face {
+    font-family: 'noto-reg';
+    src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
+}
+body{
+	font-family:noto-reg;
+	color: #171717;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul, li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.memberlist {
+    width: 85em;
+    margin: 100px auto;
+    text-align: center;
+}
+
+.memberlist h2 {
+    margin-bottom: 30px;
+    background-image: url('/resources/img/member_bg.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    padding: 100px;
+    opacity: 0;
+    border-radius: 5px;
+    animation: fadeIn 1.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.actiondiv {
+    align-items: center;
+    position: absolute;
+    top: 11em;
+}
+.adminAction, .couponselect {
+    font-family: 'noto-reg';
+    padding: 9px;
+    border: 1px solid;
+    margin-right: 1em;
+}
+.AdminActionB {
+	font-family: 'noto';
+    background-color: #F8CFBD;
+    border: 1px solid #F8CFBD;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.mlist {
+	border-top: 2px solid #000000;
+	background-color: white;
+	margin-bottom: 30px;
+}
+ 
+.mlist > div.top {
+    border-color: #999;
+}
+
+.mlist > div:first-child{
+	border-bottom: 1px solid #999;
+}
+.mlist > div:last-child {
+    border-bottom: 1px solid #000;
+}
+.mlist > div:last-child:after {
+    border-bottom: 1px solid #000;
+}
+
+.mlist > div > div {
+    padding: 15px 0;
+    text-align: center;
+}
+
+.mlist > div.top > div {
+    font-weight: 600;
+}
+.memberlistlabel {
+	font-family: 'noto';
+    font-size: 30px;
+    position: absolute;
+}
+.mlist .listcheckbox {
+	width: 5%;
+}
+.mlist .pinfo {
+    width: 70%;
+} 
+.pinfodiv{
+    align-items: center;
+    width: 70%;
+}
+.pinfoimage{
+	width: 100px;
+}
+.pnamediv{
+	cursor: pointer;
+	margin-left: 10px;
+	text-align: left;
+}
+
+.optiondiv{
+	display: flex;
+	align-items: center;
+	color: #626262;
+}
+.optionchange{
+	margin-left: 10px;
+    font-size: 14px;
+    border-bottom: 1px solid;
+}
+.mlist .mpage .name {
+    cursor: pointer;
+}
+.mlist .quantity {
+    width: 20%;
+}
+.mlist .price {
+	width:40%;
+}
+.buttonDiv {
+    max-width: 111px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+    display: flex;
+}
+.minusBtn, .plusBtn{
+    width: 27px;
+    height: 31px;
+    border: 0;
+    background-size: 80%;
+    background-position: center;
+    cursor: pointer;
+}
+.minusBtn{
+	background-image: url(/resources/img/icon/마이너스2.png);
+}
+.plusBtn{
+	background-image: url(/resources/img/icon/플러스.png);
+}
+.quantityinput{
+    width: 57px;
+    height: 29px;
+    border: 0;
+    text-align: center;
+    color: #171717;
+    font-size: 15px;
+    font-family: noto;
+}
+.mlist .buyprice {
+	width:40%;
+}
+
+.mlist .top .title {
+    text-align: center;
+}
+
+.mlist .top:hover {
+    background-color: initial;
+}
+
+.mlist .top .num {
+    background-color: initial;
+}
+
+.mlist .pw {
+    width: 10%;
+}
+.mlist .shippingfee {
+	width: 25%;
+}
+.mtitle {
+	font-family:noto;
+	display: flex;
+    align-items: center; /* Align items vertically */
+}
+.mtitle > div {
+    width: 100%; /* Each child div takes up 100% width of its parent */
+}
+.mpage {
+	display: flex;
+    align-items: center; /* Align items vertically */
+}
+.cancelbutton {
+	background-image: url(/resources/img/icon/엑스버튼.png);
+    width: 65px;
+    height: 40px;
+    background-size: 80%;
+    background-position: center;
+    border: 0;
+    cursor: pointer;
+    background-color: white;
+}
+
+.priceplusdiv {
+	display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ebebeb;
+    margin-top: 30px;
+    padding: 10px;
+}
+.plusimg{
+    width: 55px;
+    height: 55px;
+    margin: auto 50px;
+}
+
+.couponlabel{
+    font-family: noto;
+}
+.totalshippingfeetitle, .ordertotalpricetitle{
+	font-size: 20px;
+}
+.totalshippingfee, .ordertotalprice, .totalprice, .totalpricetitle  {
+    font-size: 23px;
+    font-family: noto;
+}
+
+.totalpricediv {
+    background-color: #ebebeb;
+    padding: 15px 25px 15px 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+.imgdivbutton {
+    padding: 10px 80px;
+    margin-top: 45px;
+    font-size: 20px;
+    font-family: 'noto';
+    border: none;
+    background-color: #F8CFBD;
+    color: #171717;
+    cursor: pointer;
+}
+
+.optionlistselect{
+    position: relative;
+    font-size: 17px;
+    font-family: 'noto';
+    height: 3em;
+    background-color: #F7F8F7;
+    border: none;
+    color: #757575;
+    width: 100%;
+    margin-top: 40px;
+    cursor: pointer;
+}
+.shoppinglabel {
+	display: flex;
+    font-size: 14px;
+    color: gray;
+}
+
+
+@media (max-width: 1000px) {
+    .memberlist {
+        width: 100%;
+        min-width: 320px;
+        padding: 0 30px;
+        box-sizing: border-box;
+    }
+
+    .mlist .num,
+    .mlist .id,
+    .mlist .pw,
+    .mlist .name,
+    .mlist .sex,
+    .mlist .age,
+    .mlist .area1,
+    .mlist .area2,
+    .mlist .area3,
+    .mlist .role
+    .mlist .kang {
+        display: none;
+    }
+
+    .mlist .mtitle {
+        text-indent: 10px;
+        font-family:noto;
+    }
+
+    .mpage div {
+        text-indent: 0;
+    }
+
+    .mpage button {
+        width: 26px;
+        height: 26px;
+        padding-top: 7px;
+    }
+
+    .mpage button.num {
+        padding-top: 6px;
+    }
+
+    .mlist form {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .mlist form input[type="hidden"] {
+        width: 100%;
+    }
+}
+
+
+
+div:where(.swal2-container) .swal2-html-container {
+	font-family: 'noto';
+}
