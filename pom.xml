@@ -230,7 +230,7 @@
 		      </includes>
 		    </resource>
 	  	</resources>
-    	<finalName>Root</finalName>
+    	<finalName>ROOT</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-eclipse-plugin</artifactId>
