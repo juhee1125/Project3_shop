@@ -62,7 +62,7 @@ public class MainController {
 		} else {
 			System.out.println("일반회원로그인");
 			System.out.println("로그인 되었어요"+user);
-			return "forward:/recommend";
+			return "/user/Main";
 		}
 	}
 	
