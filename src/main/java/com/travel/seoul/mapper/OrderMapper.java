@@ -3,8 +3,11 @@ package com.travel.seoul.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.travel.seoul.vo.OrderVO;
 
+@Mapper
 public interface OrderMapper {
 	public List<OrderVO> orderlist();
 	public void orderInsert(OrderVO order);

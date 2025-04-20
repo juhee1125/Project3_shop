@@ -2,8 +2,11 @@ package com.travel.seoul.mapper;
  
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.travel.seoul.vo.AdminVO;
 
+@Mapper
 public interface AdminMapper {
 	public List<AdminVO> adminlist(); 
 	public void adminInsert(AdminVO admin);

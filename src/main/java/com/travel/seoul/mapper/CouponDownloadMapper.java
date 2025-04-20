@@ -2,8 +2,11 @@ package com.travel.seoul.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.travel.seoul.vo.CouponDownloadVO;
 
+@Mapper
 public interface CouponDownloadMapper {
 	public List<CouponDownloadVO> coupondownloadlist();
 	public void coupondownloadInsert(CouponDownloadVO coupondownload);

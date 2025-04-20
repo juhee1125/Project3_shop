@@ -2,8 +2,11 @@ package com.travel.seoul.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.travel.seoul.vo.LikeVO;
 
+@Mapper
 public interface LikeMapper {
 	public List<LikeVO> likelist();
 	public void likeInsert(LikeVO like);

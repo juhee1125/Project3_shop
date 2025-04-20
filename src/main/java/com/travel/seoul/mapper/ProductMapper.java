@@ -2,8 +2,11 @@ package com.travel.seoul.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.travel.seoul.vo.ProductVO;
 
+@Mapper
 public interface ProductMapper {
 	public List<ProductVO> productlist();
 	public void productInsert(ProductVO product);

@@ -3,8 +3,11 @@ package com.travel.seoul.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.travel.seoul.vo.QnAVO;
 
+@Mapper
 public interface QnAMapper {
 	public List<QnAVO> qnalist();
 	public void qnaInsert(QnAVO qna);

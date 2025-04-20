@@ -2,10 +2,12 @@ package com.travel.seoul.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.travel.seoul.vo.ProductOptionVO;
 
+@Mapper
 public interface ProductOptionMapper {
 	public List<ProductOptionVO> optionlist();
 	public void optionInsert(ProductOptionVO option);

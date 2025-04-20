@@ -2,9 +2,12 @@ package com.travel.seoul.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.travel.seoul.vo.ProductPathVO;
 import com.travel.seoul.vo.ProductVO;
 
+@Mapper
 public interface ProductPathMapper {
 	public List<ProductPathVO> pathlist();
 	public void pathInsert(ProductPathVO path);
