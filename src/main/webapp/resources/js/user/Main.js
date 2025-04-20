@@ -16,15 +16,15 @@ window.addEventListener('load', updateImageSrc);
 
 
 /*슬라이드*/
-$(document).ready(function () {
+/*$(document).ready(function () {
   let slides = $('.slides');
   let slideImg = $('.slides div');
   let currentIdx = 0;
   let slideCount = slideImg.length;
   let slideWidth = 300;
   let slideMargin = 50;
-  let moveWidth = slideWidth + slideMargin; /* 슬라이드 하나당 이동해야 하는 거리 */
-  let visibleSlides = 3; // 화면에 보이는 상품의 개수
+  let moveWidth = slideWidth + slideMargin;
+  let visibleSlides = 3; 
 
   function moveSlide(num) {
     slides.css('transform', 'translateX(' + (-moveWidth * num) + 'px)');
@@ -32,7 +32,7 @@ $(document).ready(function () {
   }
 
   $('.next').click(function () {
-    if (currentIdx < slideCount - visibleSlides) { // 세 개의 상품이 보이므로 -3
+    if (currentIdx < slideCount - visibleSlides) {
       moveSlide(currentIdx + 1);
     } else {
       moveSlide(0);
@@ -43,8 +43,8 @@ $(document).ready(function () {
     if (currentIdx > 0) {
       moveSlide(currentIdx - 1);
     } else {
-      moveSlide(slideCount - visibleSlides); // 세 개의 상품이 보이므로 -3
+      moveSlide(slideCount - visibleSlides);
     }
   });
-});
+});*/
 

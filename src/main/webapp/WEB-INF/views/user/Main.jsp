@@ -45,7 +45,7 @@
 			<span class="prev">&lang;</span> 
 			<span class="next">&rang;</span>
 	    </div>
-        <div id="slideShow">
+        <%-- <div id="slideShow">
     		<div class="slides">
 		        <c:forEach var="product" items="${productPathMap}" varStatus="status">
 		            <div class="product-set" data-product-num="${pnumlist[status.index]}">
@@ -84,7 +84,7 @@
     	</div>
         <div class="container">
 	        <label class="recommendtitle">카테고리 랭킹</label>
-        </div>
+        </div> --%>
     </div>   
 </form>
     <!-- 맨위로 버튼 -->
