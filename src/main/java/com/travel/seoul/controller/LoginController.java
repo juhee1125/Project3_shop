@@ -112,6 +112,7 @@ public class LoginController {
 		        return ResponseEntity.ok("로그인 성공");
 		      }
 	    }
+	    System.out.println("로그인 실패 :"+userID+","+userPW);
 	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디 또는 비번이 일치하지 않습니다");  
 	}
     //로그아웃
