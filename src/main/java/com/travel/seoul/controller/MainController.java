@@ -33,7 +33,8 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String main() {		
-		return "forward:/recommend";
+//		return "forward:/recommend";
+		return "/user/Main";
 	}	
 	@GetMapping("/main")
 	public String mainprocess(HttpSession session, UserVO vo) {
