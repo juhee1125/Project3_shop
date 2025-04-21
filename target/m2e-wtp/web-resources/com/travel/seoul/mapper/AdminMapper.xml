@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.travel.seoul.mapper.AdminMapper">
+	<select id="adminlist" resultType="com.travel.seoul.vo.AdminVO">
+		select * from admindb
+	</select>
+	<insert id="adminInsert" parameterType="com.travel.seoul.vo.AdminVO">
+		insert into admindb(m_num) values(#{m_num})
+	</insert>
+	<update id="adminUpdate" parameterType="com.travel.seoul.vo.AdminVO">
+		update admindb set
+		m_num=#{m_num} where a_num=#{a_num}
+	</update>
+	<delete id="adminDelete" parameterType="com.travel.seoul.vo.AdminVO">
+		delete from admindb where a_num = #{a_num}
+	</delete>
+	<select id="getAdminByNum" resultType="com.travel.seoul.vo.AdminVO">
+		select * from admindb where a_num = #{a_num}
+	</select>
+	<select id="findAdminByANum" resultType="Long">
+		select a_num from admindb where m_num = #{m_num}
+	</select>
+</mapper>
+

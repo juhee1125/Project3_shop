@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.travel.seoul.mapper.ProductOptionMapper">
+  	<select id="optionlist" resultType="com.travel.seoul.vo.ProductOptionVO">
+ 		select * from prouctoptiondb	
+ 	</select>
+ 	<insert id="optionInsert" parameterType="com.travel.seoul.vo.ProductOptionVO">
+ 		insert into prouctoptiondb(p_num, po_option, po_optiondetail) values
+ 		(#{p_num}, #{po_option}, #{po_optiondetail})
+ 	</insert>
+ 	<update id="optionUpdate" parameterType="com.travel.seoul.vo.ProductOptionVO">
+	    update prouctoptiondb set 
+	    p_num=#{p_num}, po_option=#{po_option}, po_optiondetail=#{po_optiondetail} where po_num=#{po_num}
+	</update>
+	<delete id="optionDelete" parameterType="com.travel.seoul.vo.ProductOptionVO">
+	    delete from prouctoptiondb where po_num = #{po_num}
+	</delete>
+	<delete id="optionpnumDelete" parameterType="com.travel.seoul.vo.ProductOptionVO">
+	    delete from prouctoptiondb where p_num = #{p_num}
+	</delete>
+	<select id="getOptionByNum" resultType="com.travel.seoul.vo.ProductOptionVO">
+   		select * from prouctoptiondb where po_num = #{po_num}
+    </select>
+    <select id="findOptionByPONum" resultType="long">
+		select po_num from prouctoptiondb where p_num = #{p_num}
+	</select>
+    <select id="findOptionAndDetail" resultType="long">
+		select po_num from prouctoptiondb where p_num = #{p_num} and po_option = #{po_option} and po_optiondetail = #{po_optiondetail}
+	</select>
+
+</mapper>

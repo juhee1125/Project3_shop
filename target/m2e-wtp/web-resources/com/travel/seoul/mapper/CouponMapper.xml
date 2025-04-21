@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="com.travel.seoul.mapper.CouponMapper">
+  	<select id="couponlist" resultType="com.travel.seoul.vo.CouponVO">
+ 		select * from coupondb where c_useYN = 1
+ 	</select>
+ 	<insert id="couponInsert" parameterType="com.travel.seoul.vo.CouponVO">
+ 		insert into coupondb(p_num, c_name, c_type, c_count, c_discount_setting, c_discount, c_price, c_discount_price, c_discount_start, c_discount_end, c_date) values
+ 		(#{p_num}, #{c_name}, #{c_type}, #{c_count}, #{c_discount_setting}, #{c_discount}, #{c_price}, #{c_discount_price}, #{c_discount_start}, #{c_discount_end}, now())
+ 	</insert>
+ 	<update id="couponuseYNUpdate" parameterType="java.lang.Long">
+	    update coupondb set 
+	    c_useYN = 0
+	    where c_num = #{c_num}
+	</update>
+	<delete id="couponDelete" parameterType="com.travel.seoul.vo.CouponVO">
+		delete from coupondb where c_num = #{c_num}
+	</delete>
+	<select id="coupontypeUserlist" resultType="com.travel.seoul.vo.CouponVO">
+ 		select * from coupondb where c_type="고객"
+ 	</select>
+	<select id="getCouponByNum" resultType="com.travel.seoul.vo.CouponVO">
+		select * from coupondb	where c_num = #{c_num}
+ 	</select>
+	<select id="findCNumByPNum" resultType="long">
+		select c_num from coupondb where p_num = #{p_num}
+	</select>
+ 	<!-- 
+ 	<select id="findQnAByQNum" resultType="long">
+		select q_num from qnadb where q_title = #{q_title}
+	</select>
+   <select id="datesearch" parameterType="map" resultType="com.travel.seoul.vo.QnAVO">
+    	select * from qnadb where q_date between #{startDate} and #{endDate}
+    </select> -->
+</mapper>
