@@ -27,6 +27,7 @@
 			<li><a href="/coupon/coupon">쿠폰</a></li>
 			<li><a href="/qna/qnainquiry">문의</a></li>
 			<li><a href="/review/review">리뷰</a></li>
+			<li><a href="/refund/refund">환불</a></li>
 		</ul>
         <div class="frame">
         	<div style="width: 80%;">

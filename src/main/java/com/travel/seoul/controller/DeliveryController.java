@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.travel.seoul.mapper.ProductMapper;
 import com.travel.seoul.mapper.OrderMapper;
 import com.travel.seoul.mapper.CouponMapper;
+import com.travel.seoul.mapper.CouponUseMapper;
 import com.travel.seoul.service.DeliveryService;
+import com.travel.seoul.vo.CouponUseVO;
 import com.travel.seoul.vo.CouponVO;
 import com.travel.seoul.vo.OrderVO;
 import com.travel.seoul.vo.ProductVO;
@@ -39,6 +41,8 @@ public class DeliveryController {
     private ProductMapper ProductMapper;
 	@Autowired
 	private CouponMapper CouponMapper;
+	@Autowired
+	private CouponUseMapper CouponUseMapper;
 	@Autowired
 	private DeliveryService DeliveryService;
 
@@ -113,14 +117,16 @@ public class DeliveryController {
 		List<String> productnamelist = new ArrayList<>();
 		int o_shippingfee=0;
 		int totalprice=0;
-		Long cnum=null;
+		Long cunum=null;
 		
 		for(OrderVO order:orderlist) {
 			productnamelist.add(ProductMapper.getProductByNum(order.getP_num()).getP_name());			
 			model.addAttribute("orderDate",order.getO_date());
 			totalprice += Long.parseLong(order.getO_totalprice());
 			
-			cnum = order.getC_num();
+			cunum = order.getCu_num();
+			
+			model.addAttribute("orderDstatus",order.getO_paymentstatus());
 		}
 		model.addAttribute("totalprice",totalprice);
 		
@@ -133,11 +139,19 @@ public class DeliveryController {
 		model.addAttribute("productnamelist",productnamelist);
 		model.addAttribute("o_shippingfee",o_shippingfee);
 		
-		if(cnum != null) {
-			CouponVO coupon = CouponMapper.getCouponByNum(cnum);
+		if (cunum !=null) {
+			CouponUseVO couponuse = CouponUseMapper.particularcouponlist(cunum);
+			CouponVO coupon = CouponMapper.getCouponByNum(couponuse.getC_num());
+			
+			String customerpname ="";
+			if(coupon.getC_type().equals("상품")) {
+				customerpname = ProductMapper.getProductByNum(coupon.getP_num()).getP_name();
+			}
+			
 			model.addAttribute("coupon",coupon);
-		}	
-	
+			model.addAttribute("couponuse",couponuse);
+			model.addAttribute("customerpname",customerpname);
+		}
 		return "/user/Deliverydetail";
 	}
 }

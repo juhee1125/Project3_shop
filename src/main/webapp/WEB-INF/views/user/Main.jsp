@@ -30,7 +30,7 @@
             <img id="img1">
             <button class="shopbutton">Shop</button>
         </div>  
-        <div class="container">
+        <%-- <div class="container">
 	        <c:choose>
 		        <c:when test="${loginMember != null}">
 			        <label class="recommendtitle">${loginMember.m_name}님을 위한 추천상품</label>
@@ -39,12 +39,12 @@
 			    	<label class="recommendtitle">고객님을 위한 추천상품</label>
 	    		</c:otherwise>
 	    	</c:choose>
-        </div>
-        <div class="controller">
-			<!-- &lang: 왼쪽 방향 화살표 &rang: 오른쪽 방향 화살표 --> 
+        </div> --%>
+        <!-- <div class="controller">
+			&lang: 왼쪽 방향 화살표 &rang: 오른쪽 방향 화살표 
 			<span class="prev">&lang;</span> 
 			<span class="next">&rang;</span>
-	    </div>
+	    </div> -->
         <%-- <div id="slideShow">
     		<div class="slides">
 		        <c:forEach var="product" items="${productPathMap}" varStatus="status">

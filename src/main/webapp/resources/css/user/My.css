@@ -6,6 +6,9 @@
     font-family: 'noto-reg';
     src: url(/resources/font/Noto_Sans_KR/NotoSansKR-Regular.ttf)
 }
+:root {
+    --swal2-width: 50em;
+}
 
 body {
     margin: 0;

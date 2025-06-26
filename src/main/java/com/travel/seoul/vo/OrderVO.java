@@ -9,11 +9,10 @@ public class OrderVO {
 	public long o_num;
 	public long m_num;
 	public long p_num;
-	public Long c_num;
+	public Long cu_num;
 	public long o_quantity;
 	public String o_price;
 	public String o_paymentstatus;
-	public String o_deliverystatus;
 	public String o_reviewstatus;
 	public String o_totalprice;
 	public String o_option;

@@ -28,6 +28,7 @@ function clickoption(select) {
         // 새로운 옵션 div 생성
         var newDiv = document.createElement('div');
         newDiv.classList.add('option-group');
+		newDiv.dataset.index = option.length;
         
         // 옵션명
         var optionlabel = document.createElement('label');
@@ -75,12 +76,14 @@ function clickoption(select) {
 		
 		cancelbutton.onclick = function() {
 	        var parentDiv = this.closest('.option-group');
+			var index = parentDiv.dataset.index;
+			console.log("index: "+index);
 		    document.getElementById('options-container').removeChild(parentDiv);
-			var index = parseInt(parentDiv.dataset.index);
-			console.log("index: "+index)
+			
 		    delete optionQuantities[selectoption];
 			// 배열에서 해당 옵션 제거
 		    if (!isNaN(index)) {
+				console.log(option);
 		        option.splice(index, 1);
 		    }
 			

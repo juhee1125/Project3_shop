@@ -31,8 +31,7 @@
     <div id="searchForm">
         <select id="searchTopic" name="searchTopic" class="searchFormselect">
         	<option value="all">전체</option>
-            <option value="paymentstatus">결제상태</option>
-            <option value="deliverystatus">배송상태</option>
+            <option value="paymentstatus">주문상태</option>
             <option value="name">회원명</option>
             <option value="productname">상품명</option>
         </select>
@@ -46,8 +45,7 @@
 			<div class="name">회원명</div>
 			<div class="productname">상품명</div>
 			<div class="quantity">수량</div>
-			<div class="paymentstatus">결제상태</div>
-			<div class="deliverystatus">베송상태</div>
+			<div class="paymentstatus">주문상태</div>
 			<div class="date">주문일</div>
 		</div>
 		<!-- 검색했을 때 결과출력 -->
@@ -61,7 +59,6 @@
 						<div class="productname">${pnamelist[status.index]}</div>
 						<div class="quantity">${vo.o_quantity}</div>
 						<div class="paymentstatus">${vo.o_paymentstatus}</div>
-						<div class="deliverystatus">${vo.o_deliverystatus}</div>
 						<div class="date">${vo.o_date}</div>
 					</div>
 				</c:forEach>
@@ -75,7 +72,6 @@
 						<div class="productname">${pnamelist[status.index]}</div>
 						<div class="quantity">${vo.o_quantity}</div>
 						<div class="paymentstatus">${vo.o_paymentstatus}</div>
-						<div class="deliverystatus">${vo.o_deliverystatus}</div>
 						<div class="date">${vo.o_date}</div>
 					</div>
  				</c:forEach>

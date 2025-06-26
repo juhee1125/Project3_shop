@@ -69,7 +69,6 @@ public class AdminDeliveryController {
 			
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
 			paymentupdate.setO_paymentstatus("결제대기");
-			paymentupdate.setO_deliverystatus(null);
 			OrderMapper.paymentstatusUpdate(paymentupdate);
 		    
 		    System.out.println("num :"+num);
@@ -84,7 +83,6 @@ public class AdminDeliveryController {
 			
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
 			paymentupdate.setO_paymentstatus("결제완료");
-			paymentupdate.setO_deliverystatus("배송준비중");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
 			
 			System.out.println("num :"+num);
@@ -98,8 +96,7 @@ public class AdminDeliveryController {
 			long num = Long.parseLong(userlist.get("num"));
 			
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
-			paymentupdate.setO_paymentstatus(paymentupdate.getO_paymentstatus());
-			paymentupdate.setO_deliverystatus("배송준비중");
+			paymentupdate.setO_paymentstatus("배송준비중");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
 			
 			System.out.println("num :"+num);
@@ -113,8 +110,7 @@ public class AdminDeliveryController {
 			long num = Long.parseLong(userlist.get("num"));
 			
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
-			paymentupdate.setO_paymentstatus(paymentupdate.getO_paymentstatus());
-			paymentupdate.setO_deliverystatus("배송중");
+			paymentupdate.setO_paymentstatus("배송중");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
 			
 			System.out.println("num :"+num);
@@ -128,8 +124,7 @@ public class AdminDeliveryController {
 			long num = Long.parseLong(userlist.get("num"));
 			
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
-			paymentupdate.setO_paymentstatus(paymentupdate.getO_paymentstatus());
-			paymentupdate.setO_deliverystatus("배송완료");
+			paymentupdate.setO_paymentstatus("배송완료");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
 			
 			System.out.println("num :"+num);
@@ -155,11 +150,6 @@ public class AdminDeliveryController {
 	                	searchList.add(user);
 	                }
 	                break;
-				case "deliverystatus":
-					if (keyword.equals(user.getO_deliverystatus())) {
-						searchList.add(user);
-					}
-					break;
 				 case "name":
 					if (keyword.equals(UserMapper.getByNum(user.getM_num()).getM_name())) {
 						searchList.add(user);

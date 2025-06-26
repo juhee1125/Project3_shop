@@ -27,6 +27,7 @@
 			<li><a href="/coupon/coupon">쿠폰</a></li>
 			<li><a href="/qna/qnainquiry">문의</a></li>
 			<li><a href="/review/review">리뷰</a></li>
+			<li><a href="/refund/refund">환불</a></li>
 		</ul>
         <div class="frame">
         	<div style="width: 80%;">
@@ -36,16 +37,14 @@
 	        		<div style="padding: 0 10px;">${orderDate}</div>
 	        		<div style="font-family: noto;">상품번호</div>
 	        		<div style="padding: 0 10px;">${orderNumber}</div>
-	        		<c:forEach var="order" items="${orderlist}" varStatus="status">
-		        		<c:choose>
-							<c:when test="${order.o_deliverystatus == '배송완료'}">
-								<button class="reviewbutton" onclick="Reviewpopupopen()">반품신청</button>
-							</c:when>
-							<c:otherwise>
-								<button class="reviewbutton" onclick="Reviewpopupopen()">결제취소</button>
-							</c:otherwise>
-						</c:choose>
-					</c:forEach>
+	        		<c:choose>
+						<c:when test="${orderDstatus == '배송완료'}">
+							<button class="reviewbutton" onclick="Returnpopupopen()">반품신청</button>
+						</c:when>
+						<c:otherwise>
+							<button class="reviewbutton" onclick="Cancelpopupopen()">결제취소</button>
+						</c:otherwise>
+					</c:choose>
 	        	</div>
 	        	<div class="mtitle">
 					<div class="odproducttitle">상품정보</div>
@@ -55,7 +54,7 @@
 				</div>
 				<div id="orderContainer">
 					<c:forEach var="order" items="${orderlist}" varStatus="status">
-						<div class="mpage">
+						<div class="mpage" data-product-num="${order.p_num}">
 							<div style="display: flex; align-items: center; width: 100%;">
 								<img src="${order.o_image}" class="oimage"/>
 								<c:choose>
@@ -79,8 +78,7 @@
 							<fmt:formatNumber value="${order.o_price * order.o_quantity}" pattern="#,###원" var="formattedPrice" />
 							<div class="oprice">${formattedPrice}</div>
 							<div class="odeliverystatus">
-								<div>${order.o_deliverystatus}</div>
-								
+								<div>${order.o_paymentstatus}</div>
 							</div>
 						</div>
 					</c:forEach>
@@ -113,9 +111,9 @@
 			 				<c:when test="${not empty coupon}">
 			 					<c:choose>
 									<c:when test="${coupon.c_discount_setting == '정률할인'}">
-										<div class="pricesubdiv">
-											<fmt:formatNumber value="${(totalprice + o_shippingfee) * (coupon.c_discount / 100)}" pattern="-#,###원" var="couponPersentConversion" />
-											${couponPersentConversion}
+										<div class="pricesubdiv" id="${customerpname}">
+											<fmt:formatNumber value="${couponuse.cu_apply_price}" pattern="-#,##0원" var="couponapply" />
+											${couponapply}
 										</div>
 							 			<div class="pricedetaildiv">
 							 				<div >${coupon.c_name}</div>
@@ -125,9 +123,9 @@
 										<div class="pricedetaildiv"></div>		
 									</c:when>
 									<c:otherwise>
-										<div class="pricesubdiv">
-											<fmt:formatNumber value="${coupon.c_discount_price}" pattern="-#,###원" var="couponPrice" />
-											${couponPrice}
+										<div class="pricesubdiv" id="${customerpname}">
+											<fmt:formatNumber value="${couponuse.cu_apply_price}" pattern="-#,##0원" var="couponapply" />
+											${couponapply}
 										</div>
 										<div class="pricedetaildiv">
 							 				<div>${coupon.c_name}</div>
@@ -138,21 +136,21 @@
 								</c:choose>
 							</c:when>
 							<c:otherwise>
-								<div>0원</div>
+								<div  class="pricesubdiv">0원</div>
 							</c:otherwise>
 						</c:choose>
 					</div>
 		 		</div>
 		 		<div class="totalpricediv2">
 		 			<div>총 결제금액</div>
-			 		<c:choose>
-			 			<c:when test="${coupon.c_discount_setting == '정률할인'}">
-					 		<fmt:formatNumber value="${(totalprice + o_shippingfee) * (1-coupon.c_discount / 100)}" pattern="#,###원" var="totalprice" />
-					 		<div>${totalprice} </div>
+ 			 		<c:choose>
+			 			<c:when test="${not empty coupon}">
+ 				 			<fmt:formatNumber value="${(totalprice + o_shippingfee) - couponuse.cu_apply_price}" pattern="#,###원" var="totalprice" />
+			 				<div>${totalprice} </div>
 					 	</c:when>
 					 	<c:otherwise>
-					 		<fmt:formatNumber value="${(totalprice + o_shippingfee) - (coupon.c_discount_price)}" pattern="#,###원" var="totalprice" />
-					 		<div>${totalprice} </div>
+					 		<fmt:formatNumber value="${(totalprice + o_shippingfee)}" pattern="#,###원" var="totalprice" />
+			 				<div>${totalprice} </div>
 					 	</c:otherwise>
 			 		</c:choose>
 			 	</div>

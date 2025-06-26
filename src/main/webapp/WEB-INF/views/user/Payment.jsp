@@ -29,7 +29,7 @@
 				<div class="buyprice">구매가</div>
 			</div>
 			<c:forEach items="${paymentlist}" var="vo" varStatus="status">
-				<div class="mpage" data-order-num="${vo.o_num}">
+				<div class="mpage" data-order-num="${vo.o_num}" data-product-num="${vo.p_num}">
 					<c:choose>
 						<c:when test="${empty vo.o_option}">
 							<div class="pinfodiv" style="display: flex; justify-content: flex-start;">
@@ -66,8 +66,9 @@
 				<c:choose>
 					<c:when test="${not empty availablecouponlist}">
 						<select class="couponselect">
-					        <c:forEach items="${availablecouponlist}" var="vo" varStatus="status">
-			        			<option value="${vo.c_num}" data-coupon-discount="${vo.c_discount}" data-coupon-price="${vo.c_discount_price}">${vo.c_name}</option>
+					        <c:forEach items="${availablecouponlist}" var="vo" varStatus="status">			        	
+			        			<option value="${vo.c_num}" data-coupon-discount="${vo.c_discount}" data-coupon-price="${vo.c_discount_price}"
+			        			data-coupon-type="${vo.c_type}" data-coupon-pnum="${vo.p_num}" data-coupon-setting="${vo.c_discount_setting}">${vo.c_name}</option>
 					        </c:forEach>
 					        <option value="couponnone">쿠폰선택 안함</option>
 					    </select>

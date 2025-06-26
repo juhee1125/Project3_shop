@@ -60,13 +60,13 @@ public class MypageController {
     		if (order.getO_paymentstatus().equals("결제완료")) {
     			paymentcompletcount += 1;
     			
-    			if (order.getO_deliverystatus().equals("배송준비중")) {
+    			if (order.getO_paymentstatus().equals("배송준비중")) {
     				preparedeliverycount += 1;
         		}
-    			if (order.getO_deliverystatus().equals("배송중")) {
+    			if (order.getO_paymentstatus().equals("배송중")) {
     				deliverycount += 1;
     			}
-    			if (order.getO_deliverystatus().equals("배송완료")) {
+    			if (order.getO_paymentstatus().equals("배송완료")) {
     				deliverycompletcount += 1;
     			}
     		}

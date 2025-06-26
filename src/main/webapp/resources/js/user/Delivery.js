@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
 					
 					    const statusDiv = document.createElement('div');
 					    statusDiv.classList.add('odeliverystatus');
-					    statusDiv.textContent = vo.o_deliverystatus;
+					    statusDiv.textContent = vo.o_paymentstatus;
 					
 					    const quantityDiv = document.createElement('div');
 					    quantityDiv.classList.add('oquantity');
@@ -287,7 +287,7 @@ $(document).ready(function() {
 					
 					    const statusDiv = document.createElement('div');
 					    statusDiv.classList.add('odeliverystatus');
-					    statusDiv.textContent = vo.o_deliverystatus;
+					    statusDiv.textContent = vo.o_paymentstatus;
 					
 					    const quantityDiv = document.createElement('div');
 					    quantityDiv.classList.add('oquantity');
@@ -311,3 +311,121 @@ $(document).ready(function() {
 	    });
     });
 });
+
+
+/* 결제취소 */
+function Cancelpopupopen(){
+	const mpageElements = document.querySelectorAll(".mpage");
+	const totalpricesubdiv = document.querySelectorAll(".totalpricesubdiv")[1];
+	
+	let checkboxHTML = "";
+	let totalprice =0;
+	let customerpnames;
+	let customerpname=0;
+	let productName;
+	
+	mpageElements.forEach((mpage, index) => {
+	  productName = mpage.querySelector(".productnamelabel").textContent;
+	  const quantity = mpage.querySelector(".oquantity").textContent;
+	  const price = mpage.querySelector(".oprice").textContent;
+	  const option = mpage.querySelector(".productoptionlabel");
+	  const optiondetail = mpage.querySelector(".productdetaillabel");
+	  let optionlabel ="";
+	  let optiondetaillabel="";
+	  if(option!=null){
+		optionlabel = option.textContent;
+		optiondetaillabel = optiondetail.textContent;
+	  }
+	  const pnum = mpage.getAttribute("data-product-num"); // 데이터 속성 있으면
+
+	  customerpnames = totalpricesubdiv.querySelector(".pricesubdiv");
+	  customerpname = parseInt(customerpnames.textContent.replace(/[^\d]/g, ''), 10);
+	  totalprice += parseInt(price.replace(/[^\d]/g, ''), 10);
+	  console.log(totalprice)
+	  if(customerpnames.id == productName){
+		checkboxHTML += `
+		    <div style="text-align: left;display: flex;margin-bottom: 30px;">
+				<input type="checkbox" class="refund-checkbox" value="${index}" data-pnum="${pnum}" style="margin-right: 25px;" checked>
+				<div>
+					<label>
+						<strong>${productName}</strong> ${optionlabel} ${optiondetaillabel} </br> 수량 ${quantity} 금액 ${price}
+					</label>						
+					<div style="color: #b3b3b3;">
+						<label>할인금액</label>
+						<label>${customerpname.toLocaleString('ko-KR')}원</label>								
+					</div>
+				</div>
+		    </div>
+		`;
+	  }
+	  else{
+		checkboxHTML += `
+		    <div style="margin-bottom: 30px;text-align: left;display: flex;">
+				<input type="checkbox" class="refund-checkbox" value="${index}" data-pnum="${pnum}" style="margin-right: 25px;" checked>
+				<label>
+					<strong>${productName}</strong> ${optionlabel} ${optiondetaillabel} </br> 수량 ${quantity} 금액 ${price}
+				</label>
+		    </div>
+		`;
+	  }
+	});
+	if(customerpnames.id == productName){
+		checkboxHTML += `
+			<div style="font-size: 20px;">
+				<strong>총 결제금액 ${(totalprice-customerpname).toLocaleString('ko-KR')}원</strong>
+			</div>
+		`;
+	} else{
+		checkboxHTML += `
+			<div style="font-size: 20px;">
+				<strong>총 결제금액 ${totalprice.toLocaleString('ko-KR')}원</strong>
+			</div>
+		`;
+	}
+	
+	Swal.fire({
+	  title: '환불할 상품 선택',
+	  html: checkboxHTML,
+	  showCancelButton: true,
+	  confirmButtonText: '환불 요청',
+	  cancelButtonText: '취소',
+	  preConfirm: () => {
+	    const selected = Array.from(document.querySelectorAll('.refund-checkbox:checked'))
+	      .map(cb => ({
+	        index: cb.value,
+	        pnum: cb.dataset.pnum
+	      }));
+	    
+	    if (selected.length === 0) {
+	      Swal.showValidationMessage("최소 한 개의 상품을 선택해주세요.");
+	    }
+	    return selected;
+	  }
+	}).then(result => {
+	  if (result.isConfirmed) {
+		//객체를 배열로 변환
+		console.log("result.value:", result.value);
+		const selectedItems = result.value.map(item => item.pnum);
+	    console.log("환불 요청 상품 목록:", selectedItems);
+
+		
+		$.ajax({
+			type: 'Post',
+	        url: "/refund/refundprocess",
+	        data: JSON.stringify(selectedItems),
+		    contentType: "application/json",
+	        success: function (data) {
+				console.log("성공")
+				refundsuccess("환불처리가 완료되었습니다.")
+	        }
+	    });
+	  }
+	});
+}
+function refundsuccess(message) {	
+    Swal.fire({
+        text: message,
+        icon: 'success',
+        confirmButtonText: 'OK'
+    })
+};

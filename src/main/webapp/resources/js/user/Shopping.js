@@ -244,8 +244,8 @@ $(document).ready(function () {
 			}
 			quantity--;
 			quantityInput.value = quantity;
-			buyprice = (parseInt(price) * quantity).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
-			
+			buyprice = parseInt(price) * quantity;
+			console.log(buyprice)
 			$.ajax({
 		        type: 'Post',
 		        url: '/order/quantitymodify',
@@ -277,8 +277,8 @@ $(document).ready(function () {
 
 			quantity++;
 			quantityInput.value = quantity;
-			buyprice = (parseInt(price) * quantity).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
-			
+			buyprice = parseInt(price) * quantity;
+			console.log("buyprice:",buyprice)
 			$.ajax({
 		        type: 'Post',
 		        url: '/order/quantitymodify',
