@@ -46,7 +46,6 @@ public class ShopController {
     @GetMapping("/skin")
     public String skin(Model model, HttpSession session) {
     	List<ProductVO> skincategorylist = ProductMapper.findByCategory("skin");
-    	System.out.println("skincategorylist: "+skincategorylist);
     	List<String> skinpathlist = new ArrayList<>();
     	for (ProductVO list : skincategorylist) {
     		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
@@ -54,7 +53,6 @@ public class ShopController {
     		ProductPathVO path = ProductPathMapper.getPathByNum(firstpath);
     		skinpathlist.add(path.getPp_path());
     	}
-    	System.out.println("skinpathlist: "+skinpathlist);
     	model.addAttribute("skincategorylist", skincategorylist);
     	model.addAttribute("skinpathlist", skinpathlist);
     	
@@ -80,7 +78,6 @@ public class ShopController {
     @GetMapping("/sun")
     public String sun(Model model, HttpSession session) {
     	List<ProductVO> suncategorylist = ProductMapper.findByCategory("sun");
-    	System.out.println("suncategorylist: "+suncategorylist);
     	List<String> sunpathlist = new ArrayList<>();
     	for (ProductVO list : suncategorylist) {
     		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
@@ -88,7 +85,6 @@ public class ShopController {
     		ProductPathVO path = ProductPathMapper.getPathByNum(firstpath);
     		sunpathlist.add(path.getPp_path());
     	}
-    	System.out.println("sunpathlist: "+sunpathlist);
     	model.addAttribute("suncategorylist", suncategorylist);
     	model.addAttribute("sunpathlist", sunpathlist);
     	
@@ -114,7 +110,6 @@ public class ShopController {
     @GetMapping("/base")
     public String base(Model model, HttpSession session) {
     	List<ProductVO> basecategorylist = ProductMapper.findByCategory("base");
-    	System.out.println("basecategorylist: "+basecategorylist);
     	List<String> basepathlist = new ArrayList<>();
     	for (ProductVO list : basecategorylist) {
     		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
@@ -122,7 +117,6 @@ public class ShopController {
     		ProductPathVO path = ProductPathMapper.getPathByNum(firstpath);
     		basepathlist.add(path.getPp_path());
     	}
-    	System.out.println("basepathlist: "+basepathlist);
     	model.addAttribute("basecategorylist", basecategorylist);
     	model.addAttribute("basepathlist", basepathlist);
     	
@@ -148,7 +142,6 @@ public class ShopController {
     @GetMapping("/eye")
     public String eye(Model model, HttpSession session) {
     	List<ProductVO> eyecategorylist = ProductMapper.findByCategory("eye");
-    	System.out.println("eyecategorylist: "+eyecategorylist);
     	List<String> eyepathlist = new ArrayList<>();
     	for (ProductVO list : eyecategorylist) {
     		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
@@ -156,7 +149,6 @@ public class ShopController {
     		ProductPathVO path = ProductPathMapper.getPathByNum(firstpath);
     		eyepathlist.add(path.getPp_path());
     	}
-    	System.out.println("eyepathlist: "+eyepathlist);
     	model.addAttribute("eyecategorylist", eyecategorylist);
     	model.addAttribute("eyepathlist", eyepathlist);
     	
@@ -182,7 +174,6 @@ public class ShopController {
     @GetMapping("/lip")
     public String lip(Model model, HttpSession session) {
     	List<ProductVO> lipcategorylist = ProductMapper.findByCategory("lip");
-    	System.out.println("lipcategorylist: "+lipcategorylist);
     	List<String> lippathlist = new ArrayList<>();
     	for (ProductVO list : lipcategorylist) {
     		List<Long> pp_num_list = ProductPathMapper.findPathByPPNum(list.getP_num());
@@ -190,7 +181,6 @@ public class ShopController {
     		ProductPathVO path = ProductPathMapper.getPathByNum(firstpath);
     		lippathlist.add(path.getPp_path());
     	}
-    	System.out.println("lippathlist: "+lippathlist);
     	model.addAttribute("lipcategorylist", lipcategorylist);
     	model.addAttribute("lippathlist", lippathlist);
     	
@@ -216,7 +206,6 @@ public class ShopController {
     //상세페이지
     @GetMapping("/detail")
     public String detail(@RequestParam(value="productname", required = false) String productname) {
-    	System.out.println("productname: "+productname);
     	return "user/ShopDetail";
     }
     

@@ -46,7 +46,7 @@ public class DeliveryController {
 	@Autowired
 	private DeliveryService DeliveryService;
 
-	
+	//마이페이지(배송정보)
 	@GetMapping("/inquiry")
 	public String inquiry() {
 		
@@ -60,7 +60,6 @@ public class DeliveryController {
 		
 		LocalDate now = LocalDate.now();
 		String[] array = date.split("개월");
-		System.out.println("date: "+date);
 		
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, -Integer.parseInt(array[0]));
@@ -111,6 +110,7 @@ public class DeliveryController {
 		return ResponseEntity.ok(newdatesearchlist);
 	}
 	
+	//주문번호 클릭 시 상품상세정보
 	@GetMapping("/deliverydetail")
 	public String deliverydetail(@RequestParam("orderNumber") String orderNumber, Model model ) {
 		List<OrderVO> orderlist = OrderMapper.onumbersearch(orderNumber);

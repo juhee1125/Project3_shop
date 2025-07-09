@@ -64,6 +64,7 @@ public class OrderController {
     	List<String> pnamelist = new ArrayList<>();
     	List<OrderVO> filteredOrderList = new ArrayList<>();
     	int totalPrice = 0;
+    	//특정배송상태만 장바구니에 보여지도록
     	for (OrderVO order : orderlist) {
     		if ("장바구니".equals(order.getO_paymentstatus()) || "결제대기".equals(order.getO_paymentstatus())) { 
 	            String productname = ProductMapper.getProductByNum(order.getP_num()).getP_name();
@@ -74,11 +75,11 @@ public class OrderController {
 	        }
     	}
     	
+    	//배송비 적용
     	int o_shippingfee=0;
     	if (totalPrice<30000) {
     		o_shippingfee =5000;
     	} 	
-    	System.out.println("o_shippingfee: "+o_shippingfee);
     	model.addAttribute("orderlist",filteredOrderList);
     	session.setAttribute("o_shippingfee",o_shippingfee);
     	session.setAttribute("pnamelist",pnamelist);
@@ -95,7 +96,6 @@ public class OrderController {
         List<String> optionquantity = (List<String>) userData.get("optionquantity");
         List<String> optionnpricelist = (List<String>) userData.get("optionnprice");
  
-        System.out.println("producttotalprice: "+producttotalprice);
         UserVO user = (UserVO) session.getAttribute("loginMember");
         Map<String, String> response = new HashMap<>();
     	if(user==null) {
@@ -105,7 +105,8 @@ public class OrderController {
     	
     	OrderVO order = new OrderVO();
     	Long p_num = ProductMapper.findByName(productname);
-
+    	
+    	//결제할 상품이 옵션이 없는 단일상품일 때
     	if (option.isEmpty() || option == null) {
     		order.setM_num(user.m_num);
     		order.setP_num(p_num);
@@ -120,7 +121,6 @@ public class OrderController {
     		OrderMapper.orderInsert(order);
     	}
     	else {
-            System.out.println("option.size(): "+option.size());
     		for (int i = 0; i < option.size(); i++) {
                 Map<String, String> optionMap = option.get(i);
                 String o_option = optionMap.get("po_option");
@@ -144,6 +144,7 @@ public class OrderController {
     	}
     	
     	response.put("message", "장바구니에 담겼습니다");
+    	
         return ResponseEntity.ok(response);
     }
     
@@ -156,6 +157,7 @@ public class OrderController {
   		    //관리자 DB에 값 삭제
   			OrderMapper.orderDelete(ordernum);
   		}
+  		
   	    return ResponseEntity.ok("상품이 삭제되었습니다");
   	}
   	
@@ -171,6 +173,7 @@ public class OrderController {
 		    optionDetails.put("optiondetail", ProductOptionMapper.getOptionByNum(ponum).getPo_optiondetail());
 		    optionsList.add(optionDetails);
 		}
+		
 		return ResponseEntity.ok(optionsList);
   	}
   	@PostMapping(value = "/optionupdate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -187,23 +190,21 @@ public class OrderController {
     	orderupdate.setO_optionprice(ordertotalprice);
     	orderupdate.setO_quantity(quantityinput);
     	OrderMapper.orderoptionUpdate(orderupdate);
+    	
     	return "/user/Shopping";
     }
   	
   	//수량변경
   	@PostMapping(value = "/quantitymodify", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public String quantitymodify(@RequestBody Map<String, String> userData) {
-  		System.out.println("수량변경");
   		Long ordernum = Long.parseLong(userData.get("ordernum"));
   		Long quantity = Long.parseLong(userData.get("quantity"));
     	String buyprice = userData.get("buyprice");
-    	System.out.println("buyprice: "+buyprice);
     	OrderVO orderupdate = OrderMapper.getOrderByNum(ordernum);
-    	System.out.println("orderupdate: "+orderupdate);
     	orderupdate.setO_option(orderupdate.getO_option());
     	orderupdate.setO_optiondetail(orderupdate.getO_optiondetail());
+    	
     	if(orderupdate.getO_option()==null) {
-    		System.out.println("옵션없는상품");
     		orderupdate.setO_totalprice(buyprice);
     	}
     	else {
@@ -211,6 +212,7 @@ public class OrderController {
     	}
     	orderupdate.setO_quantity(quantity);
     	OrderMapper.orderoptionUpdate(orderupdate);
+    	
     	return "/user/Shopping";
     }
   	
@@ -249,7 +251,7 @@ public class OrderController {
   	    List<Long> onumlist = (List<Long>) session.getAttribute("onumlist"); 
   	    List<OrderVO> paymentlist = new ArrayList<>();
 
-  	    // totalprice를 스트림으로 계산하여 effectively final 유지
+  	    //totalprice를 스트림으로 계산하여 effectively final 유지
   	    int totalprice = onumlist.stream()
   	        .mapToInt(onum -> {
   	            OrderVO payment = OrderMapper.getOrderByNum(onum);
@@ -267,10 +269,10 @@ public class OrderController {
   	    model.addAttribute("paymentlist", paymentlist);
   	    model.addAttribute("totalprice", totalprice+o_shippingfee);
 
-  	    // 보유 쿠폰 리스트
+  	    //보유 쿠폰 리스트
   	    List<CouponVO> usercouponlist = CouponService.PossessionCoupon(user.getM_num());
   	    List<CouponVO> availablecouponlist = new ArrayList<>();
-		    
+		
   	    for(CouponVO usercoupon : usercouponlist) {
   	    	String discountType = usercoupon.getC_discount_setting();
     		String couponType = usercoupon.getC_type();   
@@ -289,7 +291,8 @@ public class OrderController {
     				
     				for(Long onum : onumlist) {
     					OrderVO order = OrderMapper.getOrderByNum(onum);
-    					if(order.getP_num()==couponPnum) {  // 해당 쿠폰의 상품과 일치할 때만 합산
+    					//해당 쿠폰의 상품과 일치할 때만 합산
+    					if(order.getP_num()==couponPnum) {  
     	                    int o_price = Integer.parseInt(order.getO_price());
     	                    productprice += o_price * order.getO_quantity();
     	                }
@@ -303,66 +306,7 @@ public class OrderController {
     			}
     		}
   	    }
-  	    	
-//  	// 보유 쿠폰 리스트
-//  	    List<CouponVO> usercouponlist = CouponService.PossessionCoupon(user.getM_num());
-//  	    List<CouponVO> availablecouponlist = usercouponlist.stream()
-//  	        .filter(coupon -> {
-//  	            if ("정률할인".equals(coupon.getC_discount_setting())) {
-//  	                return "상품".equals(coupon.getC_type())
-//  	                    ? pnamelist.contains(ProductMapper.getProductByNum(coupon.getP_num()).getP_name())
-//  	                    : true;
-//  	            }
-//  	            if ("정액할인".equals(coupon.getC_discount_setting()) && Integer.parseInt(coupon.getC_price()) <= totalprice) {
-//  	                return "상품".equals(coupon.getC_type())
-//  	                    ? pnamelist.contains(ProductMapper.getProductByNum(coupon.getP_num()).getP_name())
-//  	                    : true;
-//  	            }
-//  	            return false;
-//  	        })
-//  	        .map(coupon -> CouponMapper.getCouponByNum(coupon.getC_num()))
-//  	        .collect(Collectors.toList());
-//  	    for (CouponVO coupon : usercouponlist) {
-//  	    	String discountType = coupon.getC_discount_setting();  // 정률할인 or 정액할인
-//  	    	String couponType = coupon.getC_type();                // 전체 or 상품
-//  	    	String couponProductName = ProductMapper.getProductByNum(coupon.getP_num()).getP_name();
-//	
-//  	    	// 정률할인
-//  	    	if ("정률할인".equals(discountType)) {
-//  	    		if ("상품".equals(couponType)) {
-//  	    	    	int couponPrice = Integer.parseInt(coupon.getC_price());
-//  	    			if (pnamelist.contains(couponProductName)) {
-//  	    				availablecouponlist.add(CouponMapper.getCouponByNum(coupon.getC_num()));
-//  	    			}
-//  	    		} else {
-//  	    			availablecouponlist.add(CouponMapper.getCouponByNum(coupon.getC_num()));
-//  	    		}
-//  	    	}
-//	
-//  	    	// 정액할인
-//  	    	else if ("정액할인".equals(discountType)) {
-//  	    		if ("상품".equals(couponType)) {
-//  	    	    	int couponPrice = Integer.parseInt(coupon.getC_price());
-//  	    			int productTotalPrice = 0;
-//  	    			Long couponPnum = coupon.getP_num();
-//	
-//  	    			for (Long orderNum : onumlist) {
-//  	    				OrderVO order = OrderMapper.getOrderByNum(orderNum);
-//  	    				if (order.getP_num() == couponPnum) {
-//  	    					int o_price = Integer.parseInt(order.getO_price());
-//  	    					productTotalPrice += o_price * order.getO_quantity();
-//  	    				}
-//  	    			}
-//	
-//  	    			if (productTotalPrice >= couponPrice) {
-//  	    				availablecouponlist.add(CouponMapper.getCouponByNum(coupon.getC_num()));
-//  	    			}
-//	
-//  	    		} else {
-//    				availablecouponlist.add(CouponMapper.getCouponByNum(coupon.getC_num()));
-//  	    		}
-//  	    	}
-//  	  	}
+ 
   	    model.addAttribute("availablecouponlist", availablecouponlist);
 
   	    return "/user/Payment";
@@ -371,11 +315,10 @@ public class OrderController {
   	public ResponseEntity<String> PaymentCompleted(@RequestBody Map<String, Object> userData) {
   		String cnum = (String) userData.get("cnum");
   		String couponapply = (String)userData.get("couponapply");
-  	    List<String> onumlist = (List<String>) userData.get("onumlist");
-  	    
+  	    List<String> onumlist = (List<String>) userData.get("onumlist"); 	    
  	    String ordernumber = UUID.randomUUID().toString().replace("-", "").substring(0, 12).toUpperCase();
-  	    System.out.println("ordernumber: "+ordernumber);
   	   
+ 	    //쿠폰적용 안했을 때
  	    if(!cnum.equals("couponnone")) {
  	  	    CouponUseVO couponuse = new CouponUseVO();
  	  	    couponuse.setC_num(Long.parseLong(cnum));

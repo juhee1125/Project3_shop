@@ -90,13 +90,11 @@ public class AdminProductController {
 	@RequestParam("percentinput") String percentinput, @RequestParam("dateinputstart") String dateinputstart,
 	@RequestParam("dateinputend") String dateinputend, @RequestParam("optioninput") String optioninput,
 	@RequestParam("optiondetailinput") String optiondetailinput, @RequestParam("categoryradio") String categoryradio) {
-		System.out.println("등록 controller");
 		List<ProductVO> productList = ProductMapper.productlist();
 		Map<String, String> response = new HashMap<>();
 	    
         for (ProductVO product : productList) {
             if (nameinput.equals(product.getP_name())) {
-            	System.out.println("이미 등록");
                 response.put("message", "이미 등록된 상품명입니다");
 
         	    return ResponseEntity.ok(response);
@@ -109,12 +107,13 @@ public class AdminProductController {
             Long quantityint = Long.parseLong(quantityinput);
             product.setP_quantity(quantityint);
 
+            //상품금액 할인
             if (percentinput.isEmpty()) {
                 product.setP_discount(null);
             } else {
                 product.setP_discount(percentinput);
             }
-
+            //상품할인기간
             if (dateinputstart.isEmpty() && dateinputend.isEmpty()) {
                 product.setP_discount_start(null);
                 product.setP_discount_end(null);
@@ -131,6 +130,7 @@ public class AdminProductController {
 
             product.setP_category(categoryradio);
             
+            //상품메인이미지
             String uniqueFileName = UUID.randomUUID().toString() + "-" + detailImageFile.getOriginalFilename();
             Path uploadPath = Paths.get(UPLOAD_DIR);
             Path filePath = uploadPath.resolve(uniqueFileName);
@@ -139,9 +139,9 @@ public class AdminProductController {
             
             ProductMapper.productInsert(product);
             
-            
             long p_num = ProductMapper.findByName(nameinput);
             
+            //상품옵션
             ProductOptionVO productoption = new ProductOptionVO();
             if (optioninput != null && optiondetailinput != null) {
             	List<String> optioninputList = new ObjectMapper().readValue(optioninput, new TypeReference<List<String>>() {});
@@ -161,6 +161,7 @@ public class AdminProductController {
             	ProductOptionMapper.optionInsert(productoption);
             }
             
+            //상품상세이미지
             ProductPathVO productpath = new ProductPathVO();
             for (MultipartFile file : imageFiles) {
                 String uniqueFilesName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
@@ -170,10 +171,8 @@ public class AdminProductController {
 
                 productpath.setP_num(p_num);
                 productpath.setPp_path("/display/"+uniqueFilesName);
-                ProductPathMapper.pathInsert(productpath);
-                System.out.println("정상처리");  
+                ProductPathMapper.pathInsert(productpath); 
             }
-            System.out.println("정상처리");
         } catch (IOException | ParseException e) {
         	response.put("message", "상품 등록 실패: " + e.getMessage());
             return ResponseEntity.badRequest().body(response);
@@ -186,7 +185,6 @@ public class AdminProductController {
 	@GetMapping("/display/{fileName:.+}")
     @ResponseBody
     public ResponseEntity<Resource> displayImage(@PathVariable String fileName) {
-		System.out.println("display함수 들어옴");
         File file = new File(UPLOAD_DIR + "/" + fileName);
 
         if (!file.exists()) {
@@ -212,7 +210,6 @@ public class AdminProductController {
 		for (Map<String, String> userlist : userData) {
 			long productnum = Long.parseLong(userlist.get("productnum"));
 			
-			System.out.println("productnum: "+productnum);
 		    //관리자 DB에 값 삭제
 			ProductOptionMapper.optionpnumDelete(productnum);
 			ProductPathMapper.pathpnumDelete(productnum);
@@ -227,23 +224,18 @@ public class AdminProductController {
 	//상품수정
 	@GetMapping("/productupdate")
 	public String productupdate(@RequestParam("num") String numStr, Model model, HttpSession session) {    
-		System.out.println("수정 controller");
-		
 		long num = Long.parseLong(numStr);
-
+		
 		model.addAttribute("productupdatelist", ProductMapper.getProductByNum(num));
 		session.setAttribute("clickproductlistnum", num);
 		String path = ProductMapper.getProductByNum(num).getP_detailpath();
 		model.addAttribute("productdetailpath", path);
 		
 		List<Long> po_num_list = ProductOptionMapper.findOptionByPONum(num);
-		System.out.println("num: "+num);
-		System.out.println("po_num_list: "+po_num_list);
 		List<String> optionlist = new ArrayList<>();
 		List<String> optiondetaillist = new ArrayList<>();
 		List<ProductOptionVO> clickproductoption = new ArrayList<>();
 		for (Long po_num : po_num_list ) {
-			System.out.println("po_num: "+po_num);
 			clickproductoption.add(ProductOptionMapper.getOptionByNum(po_num));
 		    optionlist.add(ProductOptionMapper.getOptionByNum(po_num).getPo_option());
 		    optiondetaillist.add(ProductOptionMapper.getOptionByNum(po_num).getPo_optiondetail());
@@ -272,8 +264,6 @@ public class AdminProductController {
 	@RequestParam("percentinput") String percentinput, @RequestParam("dateinputstart") String dateinputstart,
 	@RequestParam("dateinputend") String dateinputend, @RequestParam("optioninput") String optioninput,
 	@RequestParam("optiondetailinput") String optiondetailinput, @RequestParam("categoryradio") String categoryradio, HttpSession session) {
-		System.out.println("수정프로세스 controller");
-	    
 	    List<ProductVO> productList = ProductMapper.productlist();
 	    Long clickproductlistnum = (Long) session.getAttribute("clickproductlistnum");
 	    //수정할 상품 리스트
@@ -284,7 +274,6 @@ public class AdminProductController {
 		//수정한 상품명이 상품리스트에 존재할 경우
 		for (ProductVO productlist : productList) {
 	        if (productlist.getP_name().equals(nameinput) && !product.getP_name().equals(nameinput)) {
-	            System.out.println("이미 등록");
 	            response.put("message", "이미 등록된 상품명입니다");
 	            return ResponseEntity.ok(response);  
 	        }
@@ -296,7 +285,6 @@ public class AdminProductController {
 
 		    List<String> optioninputList = new ObjectMapper().readValue(optioninput, new TypeReference<List<String>>() {});
 		    List<String> optiondetailinputList = new ObjectMapper().readValue(optiondetailinput, new TypeReference<List<String>>() {});
-		    System.out.println("optiondetailinputList: "+optiondetailinputList);
 		    
 		    if(!clickproductoption.isEmpty()) {
 		    	if(clickproductoption.size()==optioninputList.size()) {
@@ -329,9 +317,7 @@ public class AdminProductController {
 	    			int clickProductOptionSize = clickproductoption.size();
 		    		for (int i = 0; i < clickProductOptionSize; i++) {
 		    			ProductOptionVO productOption = clickproductoption.get(i);
-		    			System.out.println("productOption: "+productOption);
 		    			String optiondetail = productOption.getPo_optiondetail();
-		    			System.out.println("optiondetail: "+optiondetail);
 		    			if(!optiondetailinputList.contains(optiondetail)) {
 		    				ProductOptionMapper.optionDelete(productOption.getPo_num());
 		    			}
@@ -348,7 +334,6 @@ public class AdminProductController {
 	                }
 	            }
 		    }
-		    System.out.println("옵션수정 완료");
 		    
 		    //메인이미지 수정
 		    List<ProductPathVO> clickproductpath = (List<ProductPathVO>) session.getAttribute("clickproductpath");
@@ -391,7 +376,6 @@ public class AdminProductController {
 	            	}
 				}
 			}
-		    System.out.println("이미지수정 완료");
 		    
 		    //상품 수정
         	product.setP_name(nameinput);
@@ -411,14 +395,12 @@ public class AdminProductController {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 java.util.Date startDate = sdf.parse(dateinputstart);
 	            java.util.Date endDate = sdf.parse(dateinputend);
-	            // java.util.Date를 java.sql.Date로 변환
 	            Date sqlStartDate = new Date(startDate.getTime());
 	            Date sqlEndDate = new Date(endDate.getTime());
 	            product.setP_discount_start(sqlStartDate);
 	            product.setP_discount_end(sqlEndDate);
             }
             product.setP_category(categoryradio);    
-            System.out.println("detailImageFile: "+detailImageFile);
             if (detailImageFile!=null) {
             	String uniqueFileName = UUID.randomUUID().toString() + "-" + detailImageFile.getOriginalFilename();
                 Path uploadPath = Paths.get(UPLOAD_DIR);
@@ -427,11 +409,9 @@ public class AdminProductController {
                 product.setP_detailpath("/display/"+uniqueFileName);
             }
             else {
-            	System.out.println("stringdetailImageFile: "+stringdetailImageFile);
             	product.setP_detailpath(stringdetailImageFile);
             }   
             ProductMapper.productUpdate(product);
-            System.out.println("ProductMapper 수정");
         } catch (Exception e) {
         	response.put("message", "상품 수정 실패: " + e.getMessage());
             return ResponseEntity.badRequest().body(response);
@@ -445,13 +425,9 @@ public class AdminProductController {
 	//검색
 	@GetMapping("/productsearch")
 	public String productsearch(@RequestParam("topic") String topic, @RequestParam("keyword") String keyword, HttpSession session) {
-		System.out.println(topic);
-		System.out.println(keyword);
-		
 		List<ProductVO> list = ProductMapper.productlist();
 		List<ProductVO> searchList = new ArrayList<>();
 		
-		//키워드가 해당 주제에 포함되어있으면 List에 추가
 		for (ProductVO product:list) {
 			switch (topic) {
 				case "name":

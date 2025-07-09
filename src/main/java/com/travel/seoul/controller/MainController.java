@@ -33,7 +33,6 @@ public class MainController {
 	
 	@GetMapping("/")
 	public String main() {		
-//		return "forward:/recommend";
 		return "/user/Main";
 	}	
 	@GetMapping("/main")
@@ -52,7 +51,7 @@ public class MainController {
 				break;
 			}
 		}		
-		// user와 admindbID가 null이 아니고 userID와 adminID가 동일할 때 adminID 세션에 저장
+		//user와 admindbID가 null이 아니고 userID와 adminID가 동일할 때 adminID 세션에 저장
 		if (AdminID !=null) {
 			System.out.println("관리자로그인");
 	        session.setAttribute("AdminID", AdminID);
@@ -69,7 +68,6 @@ public class MainController {
 	//좋아요 기능
     @PostMapping(value = "/likes", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> likes(HttpSession session, @RequestBody Map<String, String> userData) {
-    	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
 
     	return ProductLikeService.ProductLike(user, userData);

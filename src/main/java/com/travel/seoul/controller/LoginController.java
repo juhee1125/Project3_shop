@@ -35,8 +35,6 @@ public class LoginController {
 	}
 	@PostMapping(value = "/registerprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> registerprocess(@RequestBody Map<String, String> userData) {
-	    System.out.println("회원가입 controller");
-	    //Ajax로 데이터를 받을 때 String로 변환하여 받아야 함
 	    String userName = userData.get("userName");
 		String userID = userData.get("userID");
 	    String userPW = userData.get("userPW");
@@ -51,7 +49,7 @@ public class LoginController {
 	    //필수입력 항목 확인
 	    if (userName.isEmpty() || userID.isEmpty() || userPW.isEmpty() || userPhone.isEmpty() || userAddress.isEmpty() 
 	    		|| Postalcode.isEmpty() || userdetailAddress.isEmpty()) {
-	    	System.out.println("회원가입 실패");   
+
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("필수항목을 입력해주세요");
 	    }
 	    //DB에 회원정보 저장
@@ -70,7 +68,7 @@ public class LoginController {
 	        }
 	        user.setM_Rating(null);
 	        service.Insert(user);
-	    	System.out.println("회원가입 성공");
+	        
 	        return ResponseEntity.ok("회원가입을 완료했습니다");
 	    }
 	}
@@ -91,7 +89,6 @@ public class LoginController {
 		}
 	}
 	
-	
 	//로그인
 	@GetMapping("/login")
 	public String login() {
@@ -99,7 +96,6 @@ public class LoginController {
 	}
 	@PostMapping("/loginprocess")
 	public ResponseEntity<String> loginprocess(@RequestBody Map<String, String> userData, HttpSession session) {
-	    System.out.println("로그인 controller");
 		String userID = userData.get("userID");
 	    String userPW = userData.get("userPW");
 	    
@@ -107,12 +103,11 @@ public class LoginController {
 
 	    for (UserVO user : list) {
 	    	if (user.getM_id().equals(userID) && user.getM_pw().equals(userPW)) {
-		        session.setAttribute("loginMember", user);
-		        System.out.println(" 로그인 성공 :" +userID+","+userPW);
+		        session.setAttribute("loginMember", user);  
 		        return ResponseEntity.ok("로그인 성공");
 		      }
 	    }
-	    System.out.println("로그인 실패 :"+userID+","+userPW);
+	    
 	    return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("아이디 또는 비번이 일치하지 않습니다");  
 	}
     //로그아웃
@@ -120,10 +115,9 @@ public class LoginController {
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         session.invalidate();
-    	System.out.println("로그아웃");
+        
         return "redirect:/"; 
     }  
-    
     
     //아이디 찾기
     @GetMapping("/findID")
@@ -134,8 +128,7 @@ public class LoginController {
   	public ResponseEntity<String> findIDprocess(@RequestBody Map<String, String> userData) {
   		String userName = userData.get("userName");
   		String userPhone = userData.get("userPhone");
-  		
-  		System.out.println("아이디 찾기 controller");
+
   		List<UserVO> list = service.list(); 
   		for (UserVO user : list) {
 			if (user.getM_name().equals(userName) && user.getM_phone().equals(userPhone)) {
@@ -151,18 +144,13 @@ public class LoginController {
   	}
   	@PostMapping(value = "/findPWprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   	public ResponseEntity<String> findPWprocess(@RequestBody Map<String, String> userData, HttpSession session) {
-  		System.out.println(userData);
   		String userID = userData.get("userID");
   		String userName = userData.get("userName");
   		String userPhone = userData.get("userPhone");
   		
   		session.setAttribute("PWchangeID", userID);
   		
-  		System.out.println("비밀번호 찾기 controller");
-  		System.out.println("userID"+ userID+"userName"+userName+"userPhone"+userPhone);
-  		
   		if (service.selectID(userID)!=null) {		
-  			System.out.println(service.selectID(userID));
   			if (service.selectID(userID).getM_name().equals(userName) && service.selectID(userID).getM_phone().equals(userPhone)) {
   				return ResponseEntity.ok("ok");
   			}
@@ -182,9 +170,8 @@ public class LoginController {
   	}
   	@PostMapping(value = "/PWchangeprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
   	public ResponseEntity<String> PWchangeprocess(@RequestBody Map<String, String> userData, HttpSession session) {
-  		System.out.println("비밀번호 변경완료");
-  		//바꿀 비밀번호
   		String userPW = userData.get("userPW");
+  		//바꿀 비밀번호
   		String PWchangeID = (String) session.getAttribute("PWchangeID");
   		
   		List<UserVO> list = service.list(); 

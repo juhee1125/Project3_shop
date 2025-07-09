@@ -37,10 +37,9 @@ public class MypageController {
 	@Autowired
 	private QnAMapper QnAMapper;
 	
+	//마이페이지
     @GetMapping("/my")
     public String my(HttpSession session, Model model) {
-    	System.out.println("마이페이지 controller");
-    	
     	UserVO user = (UserVO) session.getAttribute("loginMember");
     	if(user==null) {
     		return "/user/loginfirst";

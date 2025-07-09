@@ -65,18 +65,20 @@ public class ShopDetailController {
 	@Autowired
 	private CouponDownloadMapper CouponDownloadMapper;
 	
+	//좋아요한 상품 판별
 	@PostMapping("/saveHeartImg")
 	public ResponseEntity<?> saveHeartImg(HttpSession session, @RequestParam("heartImgSrc") String heartImgSrc) {
 	    session.setAttribute("heartImgSrc", heartImgSrc);
 	    return ResponseEntity.ok().build();
 	}
+	//상품상세페이지
     @GetMapping("/detail")
     public String detail(Model model, HttpSession session, @RequestParam("num") String numStr) {
     	long num = Long.parseLong(numStr);
     	session.setAttribute("shopdetailPnum", num);
     	
+    	//좋아요한 상품 표시
     	String heartImgSrc = (String) session.getAttribute("heartImgSrc");
-    	System.out.println("heartImgSrc: "+heartImgSrc);
     	if(heartImgSrc == null) {
     		session.setAttribute("heartImgSrc", "/resources/img/icon/채운찜.png/");
     	}else {
@@ -88,6 +90,7 @@ public class ShopDetailController {
     	
     	model.addAttribute("productdetailpath", productlist.getP_detailpath());
 
+    	//상품옵션
     	List<Long> po_num_list = ProductOptionMapper.findOptionByPONum(num);
     	List<ProductOptionVO> productoptionlist = new ArrayList<>();
     	for (Long po_num : po_num_list) {
@@ -95,9 +98,11 @@ public class ShopDetailController {
     	}
     	model.addAttribute("productoptionlist", productoptionlist);
     	
+    	//문의
     	List<QnAVO> QnAlist = QnAMapper.qnalist();
     	model.addAttribute("QnAlist", QnAlist);
     	
+    	//상품정보
     	String p_name = ProductMapper.getProductByNum(num).getP_name();
     	List<Long> q_num_list = QnAMapper.findQnAByQNum(p_name);
     	List<QnAVO> QnAlistdetail = new ArrayList<>();
@@ -112,13 +117,14 @@ public class ShopDetailController {
     	}
     	model.addAttribute("QnAlistdetail", QnAlistdetail);
     	model.addAttribute("QnAUser", QnAUser);
+    	
     	ObjectMapper objectMapper = new ObjectMapper();
     	String QnAAnswerJson = null;
     	try {
-    	    // QnAAnswer 리스트를 JSON 문자열로 변환
+    	    //QnAAnswer 리스트를 JSON 문자열로 변환
     	    QnAAnswerJson = objectMapper.writeValueAsString(QnAAnswer);
     	} catch (JsonProcessingException e) {
-    	    e.printStackTrace();  // 예외 처리 로직, 필요 시 로그나 다른 방식으로 처리
+    	    e.printStackTrace();
     	}
     	model.addAttribute("QnAAnswer", QnAAnswerJson);
 
@@ -134,7 +140,7 @@ public class ShopDetailController {
     	}
     	session.setAttribute("productpathlist", productpathlist);
     	
-    	// 리뷰
+    	//리뷰
     	List<ReviewVO> reviewlist = ReviewMapper.findReviewByNum(num);
     	List<String> usernamelist = new ArrayList<>();
     	List<String> optionlist = new ArrayList<>();
@@ -165,11 +171,9 @@ public class ShopDetailController {
     	model.addAttribute("reviewlist", reviewlist);
     	model.addAttribute("newreviewpathlist", newreviewpathlist);
     	
-    	// 쿠폰
+    	//쿠폰
     	List<CouponVO> couponlist = CouponMapper.couponlist();
     	for(CouponVO coupon : couponlist) {
-    	   	System.out.println("coupon.getP_num(): "+coupon.getP_num());
-    	   	System.out.println("num: "+num);
     		if (coupon.getP_num()!=null && coupon.getP_num()==num) {
     			long cnum = CouponMapper.findCNumByPNum(num);
     			CouponVO productcoupon = CouponMapper.getCouponByNum(cnum);
@@ -180,7 +184,6 @@ public class ShopDetailController {
     	
         return "/user/ShopDetail";
     }
-
     
     //상품문의 로그인 여부
     @PostMapping(value = "/ProductQnA", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -208,7 +211,6 @@ public class ShopDetailController {
     	qna.setQ_title(infodivlabel);
     	qna.setQ_content(QnAcontentBox);
     	QnAMapper.qnaInsert(qna);
-    	System.out.println("QnAcontentBox:"+QnAcontentBox);
     	return "/user/ShopDetail";
     }
     

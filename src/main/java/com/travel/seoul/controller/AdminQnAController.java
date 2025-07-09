@@ -35,7 +35,7 @@ public class AdminQnAController {
 	@Autowired
     private QnAMapper QnAMapper;
 
-	
+	//상품문의
 	@GetMapping("/QnA")
 	public String QnA(Model model) {
 		List<QnAVO> qnalist = QnAMapper.qnalist();
@@ -99,7 +99,6 @@ public class AdminQnAController {
 		List<QnAVO> qnalist = QnAMapper.qnalist();
 		List<QnAVO> searchList = new ArrayList<>();
 		
-		//키워드가 해당 주제에 포함되어있으면 List에 추가
 		for (QnAVO qna:qnalist) {
 			switch (topic) {
 				case "title":

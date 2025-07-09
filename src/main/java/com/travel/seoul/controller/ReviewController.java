@@ -49,7 +49,7 @@ public class ReviewController {
 	@Autowired
 	private ProductOptionMapper ProductOptionMapper;
 
-	
+	//리뷰
 	@GetMapping("/review")
 	public String delivery(HttpSession session, Model model) {
 	    UserVO user = (UserVO) session.getAttribute("loginMember");
@@ -78,7 +78,8 @@ public class ReviewController {
 			@RequestParam("productnamelabel") String productnamelabel, @RequestParam(value="productoption", required = false) String productoption, @RequestParam(value="productdetail", required = false) String productdetail, HttpSession session) {
 		UserVO user = (UserVO) session.getAttribute("loginMember");
 		Long pnum = ProductMapper.findByName(productnamelabel);
-
+		
+		//리뷰내용
 		ReviewVO review = new ReviewVO();
 		review.setM_num(user.getM_num());
 		review.setP_num(pnum);
@@ -97,10 +98,10 @@ public class ReviewController {
 		orderupdate.setO_reviewstatus("리뷰작성");
 		OrderMapper.paymentstatusUpdate(orderupdate);
 		
+		//리뷰이미지
 		try {
 			ReviewPathVO reviewpath = new ReviewPathVO();
 			Long rnum = review.getR_num();
-			System.out.println("rnum"+rnum);
 			for (MultipartFile file : files) {
 				String uniqueFileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
 		        Path uploadPath = Paths.get(UPLOAD_DIR);

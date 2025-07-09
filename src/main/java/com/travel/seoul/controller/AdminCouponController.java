@@ -41,7 +41,7 @@ public class AdminCouponController {
 	@Autowired
 	private CouponMapper CouponMapper;
 
-	
+	//쿠폰관리
 	@GetMapping("/couponList")
 	public String couponList(Model model) {
 		List<CouponVO> couponlist = CouponMapper.couponlist();
@@ -65,15 +65,18 @@ public class AdminCouponController {
 		try {
 			List<String> newdiscountlist = new ObjectMapper().readValue(discountlist, new TypeReference<List<String>>() {});
 			CouponVO coupon = new CouponVO();
+			//쿠폰적용대상(상품)
 			if (productname!=null) {
 				Long pnum = ProductMapper.findByName(productname);
 				coupon.setP_num(pnum);
 			}
+			//쿠폰적용대상(고객)
 			else {
 				coupon.setP_num(null);
 			}
 			coupon.setC_name(nameinput);
 			coupon.setC_type(productlabel);
+			//쿠폰발행수
 			if (!numberinput.isEmpty()) {
 				Long newnumberinput = Long.parseLong(numberinput);
 				coupon.setC_count(newnumberinput);
@@ -82,16 +85,19 @@ public class AdminCouponController {
 				coupon.setC_count(null);
 			}
 			coupon.setC_discount_setting(discountlabel);
+			//쿠폰할인방식(정률)
 			if (newdiscountlist.size()==1) {
 				coupon.setC_discount(newdiscountlist.get(0));
 				coupon.setC_price(null);
 				coupon.setC_discount_price(null);
 			}
+			//쿠폰할인방식(정액)
 			else {
 				coupon.setC_discount(null);
 				coupon.setC_price(newdiscountlist.get(0));
 				coupon.setC_discount_price(newdiscountlist.get(1));
 			}
+			//쿠폰적용기간
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	        java.util.Date startDate = sdf.parse(dateinputstart);
 	        java.util.Date endDate = sdf.parse(dateinputend);
@@ -129,7 +135,6 @@ public class AdminCouponController {
 		List<CouponVO> couponlist = CouponMapper.couponlist();
 		List<CouponVO> searchList = new ArrayList<>();
 		
-		//키워드가 해당 주제에 포함되어있으면 List에 추가
 		for (CouponVO coupon:couponlist) {
 			switch (topic) {
 				case "name":
@@ -148,7 +153,6 @@ public class AdminCouponController {
 			}
 		}
 		session.setAttribute("coupon_searchList", searchList);
-		System.out.println("User List Size: " + searchList.size());
 		
 		return "admin/couponList";
 	}

@@ -34,15 +34,13 @@ public class AdminController {
 	@Autowired
     private AdminMapper adminMapper;
 
-	
+	//회원관리
 	@GetMapping("/memberList")
 	public String memberList(Model model) {
 		List<UserVO> list = service.list();
-		// 덮어씌워지는 것을 방지하기 위해 list에 값 저장
+		//덮어씌워지는 것을 방지하기 위해 list에 값 저장
 		List<String> roles = new ArrayList<>();
-		for (UserVO user : list) {
-			System.out.println("UserID: "+user.m_num);
-			
+		for (UserVO user : list) {		
 			Long a_num = adminMapper.findAdminByANum(user.m_num);
 			AdminVO role = null;
     
@@ -50,22 +48,18 @@ public class AdminController {
 			    role = adminMapper.getAdminByNum(a_num);
 			}
 			
-			// 관리자 DB에 userID가 없을 경우 일반회원, 있을 경우 관리자
+			//관리자 DB에 userID가 없을 경우 일반회원, 있을 경우 관리자
 			if (role != null && role.m_num == user.m_num) {
-				System.out.println("role.m_num: "+role.m_num+ "user.m_num: "+user.m_num);
 				roles.add("관리자");
-				System.out.println("roles관리자: "+roles);
 			}
 			else {
 				roles.add("일반회원");
-				System.out.println("roles일반회원: "+roles);
 			}
 		}
 		model.addAttribute("roles", roles);
 		model.addAttribute("list", list);
 		return "/admin/memberList";
-	}
-	
+	}	
 	//관리자 권한 부여
 	@PostMapping(value = "/adminupdate", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> adminupdate(@RequestBody List<Map<String, String>> userData) {
@@ -77,12 +71,9 @@ public class AdminController {
 		    
 		    //관리자 DB에 값 추가
 		    adminMapper.adminInsert(admin);
-		    
-		    System.out.println("관리자로 승급하였습니다");
 		}
 	    return ResponseEntity.ok("관리자로 승급하였습니다");
-	}
-	
+	}	
 	//관리자 권한 제거
 	@PostMapping(value = "/admindelete", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> admindelete(@RequestBody List<Map<String, String>> userData) {
@@ -91,7 +82,6 @@ public class AdminController {
 			
 			//관리자 DB에 값 삭제 
 			adminMapper.adminDelete(adminMapper.findAdminByANum(num));
-		    System.out.println("일반회원이 되었습니다");
 		}
 	    return ResponseEntity.ok("일반회원이 되었습니다");
 	}
@@ -102,7 +92,7 @@ public class AdminController {
 		for (Map<String, String> userlist : userData) {
 			long num = Long.parseLong(userlist.get("num"));
 			
-			// 회원 DB와 연결된 데이터 모두 삭제
+			//회원 DB와 연결된 데이터 모두 삭제
 			if (adminMapper.findAdminByANum(num)!=null) {
 				adminMapper.adminDelete(adminMapper.findAdminByANum(num));
 				service.Delete(num);
@@ -110,8 +100,6 @@ public class AdminController {
 			else{
 				service.Delete(num);
 			}
-			
-		    System.out.println("회원탈퇴완료");
 		}
 		return ResponseEntity.ok("회원탈퇴되었습니다");
 	}
@@ -119,9 +107,6 @@ public class AdminController {
 	//검색
 	@GetMapping("/search")
 	public String search(@RequestParam("topic") String topic, @RequestParam("keyword") String keyword, HttpSession session) {
-		System.out.println(topic);
-		System.out.println(keyword);
-		
 		List<UserVO> list = service.list();
 		List<UserVO> searchList = new ArrayList<>();
 		
@@ -149,7 +134,6 @@ public class AdminController {
 			}
 		}
 		session.setAttribute("user_searchList", searchList);
-		System.out.println("User List Size: " + searchList.size());
 		
 		return "admin/memberList";
 	}

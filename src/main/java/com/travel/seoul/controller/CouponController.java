@@ -29,7 +29,7 @@ public class CouponController {
 	@Autowired
 	private ProductMapper ProductMapper;
 
-	
+	//마이페이지(쿠폰)
 	@GetMapping("/coupon")
 	public String delivery(HttpSession session, Model model) {
 		UserVO user = (UserVO) session.getAttribute("loginMember");

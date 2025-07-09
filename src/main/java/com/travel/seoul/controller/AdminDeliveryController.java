@@ -38,7 +38,7 @@ public class AdminDeliveryController {
 	@Autowired
     private ProductMapper ProductMapper;
 
-	
+	//배송관리
 	@GetMapping("/delivery")
 	public String delivery(Model model) {
 		List<OrderVO> orderlist = OrderMapper.orderlist();
@@ -70,8 +70,6 @@ public class AdminDeliveryController {
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
 			paymentupdate.setO_paymentstatus("결제대기");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
-		    
-		    System.out.println("num :"+num);
 		}
 	    return ResponseEntity.ok("상품 결제대기");
 	}
@@ -84,8 +82,6 @@ public class AdminDeliveryController {
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
 			paymentupdate.setO_paymentstatus("결제완료");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
-			
-			System.out.println("num :"+num);
 		}
 		return ResponseEntity.ok("상품 결제완료");
 	}
@@ -98,8 +94,6 @@ public class AdminDeliveryController {
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
 			paymentupdate.setO_paymentstatus("배송준비중");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
-			
-			System.out.println("num :"+num);
 		}
 		return ResponseEntity.ok("상품 배송준비중");
 	}
@@ -112,8 +106,6 @@ public class AdminDeliveryController {
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
 			paymentupdate.setO_paymentstatus("배송중");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
-			
-			System.out.println("num :"+num);
 		}
 		return ResponseEntity.ok("상품 배송중");
 	}
@@ -126,8 +118,6 @@ public class AdminDeliveryController {
 			OrderVO paymentupdate = OrderMapper.getOrderByNum(num);
 			paymentupdate.setO_paymentstatus("배송완료");
 			OrderMapper.paymentstatusUpdate(paymentupdate);
-			
-			System.out.println("num :"+num);
 		}
 		return ResponseEntity.ok("상품 배송완료");
 	}
@@ -136,13 +126,9 @@ public class AdminDeliveryController {
 	//검색
 	@GetMapping("/deliverysearch")
 	public String search(@RequestParam("topic") String topic, @RequestParam("keyword") String keyword, HttpSession session) {
-		System.out.println(topic);
-		System.out.println(keyword);
-		
 		List<OrderVO> orderlist = OrderMapper.orderlist();
 		List<OrderVO> searchList = new ArrayList<>();
 		
-		//키워드가 해당 주제에 포함되어있으면 List에 추가
 		for (OrderVO user:orderlist) {
 			switch (topic) {
 				case "paymentstatus":

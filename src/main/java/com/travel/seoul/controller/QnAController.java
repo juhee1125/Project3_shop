@@ -42,7 +42,7 @@ public class QnAController {
 	@Autowired
 	private DeliveryService DeliveryService;
 
-	
+	//마이페이지(상품문의내역)
 	@GetMapping("/qnainquiry")
 	public String delivery() {
 		
@@ -56,7 +56,6 @@ public class QnAController {
 		
 		LocalDate now = LocalDate.now();
 		String[] array = date.split("개월");
-		System.out.println("date: "+date);
 		
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MONTH, -Integer.parseInt(array[0]));

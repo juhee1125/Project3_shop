@@ -42,21 +42,13 @@ public class LikeController {
 	//좋아요
     @GetMapping("/like")
     public String like(Model model, HttpSession session) {
-    	System.out.println("좋아요 controller");
-
     	UserVO user = (UserVO) session.getAttribute("loginMember");
+    	//로그인 안되었을 때
     	if(user==null) {
     		return "/user/loginfirst";
     	}
     	else {
     		List<LikeVO> likelist = LikeMapper.likelist();
-    		
-    		boolean hasNoLikes = likelist.stream()
-    			    .noneMatch(like -> like.getM_num() == user.getM_num());
-
-			if (hasNoLikes) {
-			    System.out.println("좋아요한 상품이 없습니다");
-			}
 			
         	List<ProductVO> productlist = new ArrayList<>();
         	List<String> likepathlist = new ArrayList<>();
@@ -69,14 +61,12 @@ public class LikeController {
         	model.addAttribute("productlist", productlist);
         	session.setAttribute("productlist", productlist);
         	model.addAttribute("likepathlist", likepathlist);
-			System.out.println("likepathlist: "+likepathlist);
         	
         	return "/user/Like";
     	}
     }
     @PostMapping(value = "/likeprocess", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 	public ResponseEntity<String> likeprocess(@RequestBody Map<String, String> userData) {
-    	System.out.println("좋아요 해제");
 		String productname = userData.get("productName");
 		
 		long p_num = ProductMapper.findByName(productname);
@@ -91,8 +81,6 @@ public class LikeController {
     //좋아요 페이지 카테고리
     @GetMapping("/likeselect")
 	public String likeselect(@RequestParam("job") String job, HttpSession session) {
-		System.out.println("카테고리선택 controller");
-		
 		List<ProductVO> selectList = new ArrayList<>();
 		List<String> likecategorypathlist = new ArrayList<>();
 		
@@ -154,9 +142,6 @@ public class LikeController {
                     }
                 }
 				break;
-			 default:
-	                System.out.println("전체좋아요리스트");
-	            break;
 		}
 		session.setAttribute("like_selectList", selectList);
 		session.setAttribute("like_categorypathList", likecategorypathlist);
